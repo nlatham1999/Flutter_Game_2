@@ -17,7 +17,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
   bool _gameOver = false;
-  GameController _gameController = GameController(cellHeight: 12, cellWidth: 12, offsetX: 20, offsetY: 100);
+  GameController _gameController = GameController(offsetY: 100, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
 
   @override
   void initState() {
@@ -54,35 +54,25 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void jump(){
-    setState(() {
-      _gameController.jumpTrigger = true;
-    });
+    _gameController.jumpTrigger = true;
   }
 
   void moveRight(){
-    setState(() {
-      _gameController.rightTrigger = true;
-      _gameController.rightPressed = true;
-    });
+    _gameController.rightTrigger = true;
+    _gameController.rightPressed = true;
   }
 
   void moveRightReleased(){
-    setState(() {
-      _gameController.rightPressed = false;
-    });
+    _gameController.rightPressed = false;
   }
 
   void moveLeft(){
-    setState(() {
-      _gameController.leftTrigger = true;
-      _gameController.leftPressed = true;
-    });
+    _gameController.leftTrigger = true;
+    _gameController.leftPressed = true;
   }
 
   void moveLeftReleased(){
-    setState(() {
-      _gameController.leftPressed = false;
-    });
+    _gameController.leftPressed = false;
   }
 
   void restartGame(){

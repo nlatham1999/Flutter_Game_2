@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 import '../models/basicmap.dart';
 import '../models/map.dart';
@@ -26,20 +27,23 @@ class GameController  extends ChangeNotifier{
 
   late List<List<String>> mapTemp = [];
 
-  double cellWidth;
-  double cellHeight;
+  late double cellWidth;
+  late double cellHeight;
 
-  double offsetX;
+  late double offsetX;
   double offsetY;
 
   GameController({
-    required this.cellHeight,
-    required this.cellWidth,
-    required this.offsetX,
     required this.offsetY,
+    required Size screenSize,
   }){
-    cellHeight = cellHeight;
-    cellWidth = cellWidth;
+    double minDimension = screenSize.shortestSide;
+    double cellSize = (minDimension/18) - ((minDimension/18) % 4);
+    cellHeight = cellSize;
+    cellWidth = cellSize;
+  
+    offsetX = (screenSize.width - (cellSize * 16)) / 2;
+
     reset();
   }
 

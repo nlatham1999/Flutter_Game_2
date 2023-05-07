@@ -9,19 +9,6 @@ import 'other_page.dart';
 void main() {
 
   WidgetsFlutterBinding.ensureInitialized();
-  // Get the screen size
-  final size = MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size;
-  // Get the smaller dimension (width or height)
-  final minDimension = size.shortestSide;
-
-  // Create a GameController instance with the minDimension passed as a parameter
-
-  final cellSize = (minDimension/18) - ((minDimension/18) % 4);
-  print(cellSize);
-  
-  final offsetX = (size.width - (cellSize * 16)) / 2;
-
-  final gameController = GameController(cellHeight: cellSize, cellWidth: cellSize, offsetX: offsetX, offsetY: 100);
 
   runApp(const MyApp());
 }
