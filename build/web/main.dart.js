@@ -48905,7 +48905,7 @@ s.b=!1
 s.c=0
 s.w=s.r=s.f=s.e=s.d=!1
 s.x=0
-s.z=s.y=15
+s.y=15
 s.Q=!1},
 SL(){var s,r,q,p,o,n,m,l=this
 l.as=A.a([],t.tZ)
@@ -49066,15 +49066,18 @@ T(a){return new A.oQ(B.x1,"Flutter Demo",A.a6l(null,B.po,null),null)}}
 A.Id.prototype={}
 A.MG.prototype={}
 A.of.prototype={
-aI(){var s,r,q,p
+aI(){var s,r,q,p,o
 $.aX.toString
 s=A.a5m($.bq()).a
-r=new A.x0(100,$.bT())
-q=s.a
-s=Math.min(Math.abs(q),Math.abs(s.b))/18
-p=s-B.d.ew(s,4)
-r.at=r.ax=p
-r.ay=(q-p*16)/2
+r=new A.x0(50,$.bT())
+q=r.z=12
+p=s.b
+s=s.a
+if(p<s)q=16
+p=Math.min(Math.abs(s),Math.abs(p))/q
+o=p-B.d.ew(p,4)
+r.at=r.ax=o
+r.ay=(s-o*13)/2
 r.cN(0)
 return new A.CQ(r,B.n)}}
 A.CQ.prototype={
