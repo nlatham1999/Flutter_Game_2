@@ -17,6 +17,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
   bool _gameOver = false;
+  GameController _gameController = GameController(cellHeight: 12, cellWidth: 12, offsetX: 20, offsetY: 100);
 
   @override
   void initState() {
@@ -32,9 +33,10 @@ class _GameScreenState extends State<GameScreen> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      var gameController= context.read<GameController>();
-      if(!gameController.gameOver){
-        gameController.setNextState();
+      if(!_gameController.gameOver){
+        setState(() {
+          _gameController.setNextState();
+        });
       }else{
         if(!_gameOver){
           setState(() {
@@ -52,42 +54,45 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void jump(){
-    var gameController= context.read<GameController>();
-    gameController.jumpTrigger = true;
+    setState(() {
+      _gameController.jumpTrigger = true;
+    });
   }
 
   void moveRight(){
-    var gameController= context.read<GameController>();
-    gameController.rightTrigger = true;
-    gameController.rightPressed = true;
+    setState(() {
+      _gameController.rightTrigger = true;
+      _gameController.rightPressed = true;
+    });
   }
 
   void moveRightReleased(){
-    var gameController= context.read<GameController>();
-    gameController.rightPressed = false;
+    setState(() {
+      _gameController.rightPressed = false;
+    });
   }
 
   void moveLeft(){
-    var gameController= context.read<GameController>();
-    gameController.leftTrigger = true;
-    gameController.leftPressed = true;
+    setState(() {
+      _gameController.leftTrigger = true;
+      _gameController.leftPressed = true;
+    });
   }
 
   void moveLeftReleased(){
-    var gameController= context.read<GameController>();
-    gameController.leftPressed = false;
+    setState(() {
+      _gameController.leftPressed = false;
+    });
   }
 
   void restartGame(){
-    var gameController = context.read<GameController>();
-    gameController.reset();
     setState(() {
+      _gameController.reset();
       _gameOver = false;
     });
   }
 
   bool isGameOver(){
-    print(_gameOver);
     return true;
   }
 
@@ -133,13 +138,9 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ],
           ),
-          Consumer<GameController>(builder: (context, gameController, child){
-            return (
-              Stack(
-                children: ViewUtils.getMapScreen(gameController.gameMap.map, gameController.cellWidth, gameController.cellHeight, gameController.offsetX, gameController.offsetY, gameController.viewMapLeft, gameController.viewMapRight),
-              )
-            );
-          }),
+          Stack(
+            children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
+          ),
           Visibility (
             visible: _gameOver,
             child:Center(

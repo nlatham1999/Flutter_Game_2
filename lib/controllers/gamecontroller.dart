@@ -94,8 +94,6 @@ class GameController  extends ChangeNotifier{
     updateSprites();
 
     updateViewMap();
-    
-    notifyListeners();
 
   }
 
@@ -336,8 +334,6 @@ class GameController  extends ChangeNotifier{
       default:
         break;
     }
-    
-    notifyListeners();
   }
 
   void moveLeft(){
@@ -360,8 +356,6 @@ class GameController  extends ChangeNotifier{
       default:
         break;
     }
-    
-    notifyListeners();
   }
 
   void jump(){
@@ -388,8 +382,6 @@ class GameController  extends ChangeNotifier{
         break;
       default:
     }
-     
-    notifyListeners();
   }
 
   void updateJump(){

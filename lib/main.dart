@@ -23,12 +23,7 @@ void main() {
 
   final gameController = GameController(cellHeight: cellSize, cellWidth: cellSize, offsetX: offsetX, offsetY: 100);
 
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => gameController,
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
