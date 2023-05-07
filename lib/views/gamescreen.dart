@@ -17,7 +17,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
   bool _gameOver = false;
-  GameController _gameController = GameController(offsetY: 100, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
+  GameController _gameController = GameController(offsetY: 50, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
 
   @override
   void initState() {

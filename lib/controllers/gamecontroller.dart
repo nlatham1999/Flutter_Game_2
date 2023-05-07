@@ -33,16 +33,27 @@ class GameController  extends ChangeNotifier{
   late double offsetX;
   double offsetY;
 
+  
+  int cellsPerView = 15;
+
   GameController({
     required this.offsetY,
     required Size screenSize,
   }){
+
+    viewMapWidth = 12;
+
+    int divisor = viewMapWidth;
+    if(screenSize.height < screenSize.width){
+      divisor = 16;
+    }
+
     double minDimension = screenSize.shortestSide;
-    double cellSize = (minDimension/18) - ((minDimension/18) % 4);
+    double cellSize = (minDimension/divisor) - ((minDimension/divisor) % 4);
     cellHeight = cellSize;
     cellWidth = cellSize;
   
-    offsetX = (screenSize.width - (cellSize * 16)) / 2;
+    offsetX = (screenSize.width - (cellSize * (viewMapWidth+1))) / 2;
 
     reset();
   }
@@ -61,7 +72,6 @@ class GameController  extends ChangeNotifier{
 
     viewMapLeft = 0;
     viewMapRight = 15;
-    viewMapWidth = 15;
 
     gameOver = false;
   }
