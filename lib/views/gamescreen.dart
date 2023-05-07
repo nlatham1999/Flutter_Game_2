@@ -16,6 +16,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
+  bool _gameOver = false;
 
   @override
   void initState() {
@@ -34,6 +35,12 @@ class _GameScreenState extends State<GameScreen> {
       var gameController= context.read<GameController>();
       if(!gameController.gameOver){
         gameController.setNextState();
+      }else{
+        if(!_gameOver){
+          setState(() {
+            _gameOver = true;
+          });
+        }
       }
     });
   }
@@ -52,58 +59,106 @@ class _GameScreenState extends State<GameScreen> {
   void moveRight(){
     var gameController= context.read<GameController>();
     gameController.rightTrigger = true;
+    gameController.rightPressed = true;
+  }
+
+  void moveRightReleased(){
+    var gameController= context.read<GameController>();
+    gameController.rightPressed = false;
   }
 
   void moveLeft(){
     var gameController= context.read<GameController>();
     gameController.leftTrigger = true;
+    gameController.leftPressed = true;
+  }
+
+  void moveLeftReleased(){
+    var gameController= context.read<GameController>();
+    gameController.leftPressed = false;
   }
 
   void restartGame(){
     var gameController = context.read<GameController>();
     gameController.reset();
+    setState(() {
+      _gameOver = false;
+    });
+  }
+
+  bool isGameOver(){
+    print(_gameOver);
+    return true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onHorizontalDragUpdate: (details) {
-          if (details.delta.dx > 0) {
-            setState(() {
-              // _xPosition += details.delta.dx;
-            });
-          }
-        },
-        child: Stack(
-          children: [
-            Row(
-              children: [
-                Flexible(
-                  child: MaterialButton(onPressed: (){jump();}, child: const Text("Jump")),
+  return Builder(
+    builder: (BuildContext context) {
+      return Stack(
+        children: [
+          Row(
+            children: [
+              Flexible(
+                child: MaterialButton(
+                  onPressed: (){jump();},
+                  child: const Text("Jump"),
                 ),
-                Flexible(
-                  child: MaterialButton(onPressed: (){moveLeft();}, child: const Text("Move Left")),
+              ),
+              Flexible(
+                child: MaterialButton(
+                  onPressed: (){}, 
+                  onHighlightChanged: (isHighlighted) {
+                    if (!isHighlighted) {
+                      moveLeftReleased();
+                    }else{
+                      moveLeft();
+                    }
+                  },
+                  child: const Text("Move Left"),
                 ),
-                Flexible(
-                  child: MaterialButton(onPressed: (){moveRight();}, child: const Text("Move Right")),
+              ),
+              Flexible(
+                child: MaterialButton(
+                  onPressed: (){}, 
+                  onHighlightChanged: (isHighlighted) {
+                    if (!isHighlighted) {
+                      moveRightReleased();
+                    }else{
+                      moveRight();
+                    }
+                  },
+                  child: const Text("Move Right"),
                 ),
-                Flexible(
-                  child: MaterialButton(onPressed: (){restartGame();}, child: const Text("Restart Game")),
-                ),
-              ],
+              ),
+            ],
+          ),
+          Consumer<GameController>(builder: (context, gameController, child){
+            return (
+              Stack(
+                children: ViewUtils.getMapScreen(gameController.gameMap.map, gameController.cellWidth, gameController.cellHeight, gameController.offsetX, gameController.offsetY, gameController.viewMapLeft, gameController.viewMapRight),
+              )
+            );
+          }),
+          Visibility (
+            visible: _gameOver,
+            child:Center(
+              child: AlertDialog(
+                content: Text("test"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      restartGame();
+                    },
+                    child: const Text("Restart Game"),
+                  ),
+                ],
+              )
             ),
-            Consumer<GameController>(builder: (context, gameController, child){
-              return (
-                Stack(
-                  children: ViewUtils.getMapScreen(gameController.gameMap.map, gameController.cellWidth, gameController.cellHeight, gameController.offsetX, gameController.offsetY, gameController.viewMapLeft, gameController.viewMapRight),
-                )
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
+          ),
+        ],
+      );
+    },
+  );
+}
 }

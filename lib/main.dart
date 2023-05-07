@@ -14,9 +14,14 @@ void main() {
   // Get the smaller dimension (width or height)
   final minDimension = size.shortestSide;
 
-  final offsetX = (size.width - ((minDimension / 20) * 16)) / 2;
   // Create a GameController instance with the minDimension passed as a parameter
-  final gameController = GameController(cellHeight: minDimension/20, cellWidth: minDimension/20, offsetX: offsetX, offsetY: 100);
+
+  final cellSize = (minDimension/18) - ((minDimension/18) % 4);
+  print(cellSize);
+  
+  final offsetX = (size.width - (cellSize * 16)) / 2;
+
+  final gameController = GameController(cellHeight: cellSize, cellWidth: cellSize, offsetX: offsetX, offsetY: 100);
 
   runApp(
     ChangeNotifierProvider(

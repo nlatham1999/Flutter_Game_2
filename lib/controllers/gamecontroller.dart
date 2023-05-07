@@ -15,6 +15,9 @@ class GameController  extends ChangeNotifier{
   late bool leftTrigger;
   late bool rightTrigger;
 
+  late bool leftPressed;
+  late bool rightPressed;
+
   late int viewMapLeft;
   late int viewMapRight;
   late int viewMapWidth;
@@ -49,6 +52,9 @@ class GameController  extends ChangeNotifier{
     leftTrigger = false;
     rightTrigger = false;
 
+    leftPressed = false;
+    rightPressed = false;
+
     viewMapLeft = 0;
     viewMapRight = 15;
     viewMapWidth = 15;
@@ -65,12 +71,16 @@ class GameController  extends ChangeNotifier{
 
     if(leftTrigger){
       moveLeft();
-      leftTrigger = false;
+      if(!leftPressed){
+        leftTrigger = false;
+      }
     }
 
     if(rightTrigger){
       moveRight();
-      rightTrigger = false;
+      if(!rightPressed){
+        rightTrigger = false;
+      }
     }
 
     if(!jumpState && !isOnSolidGround()){
@@ -246,21 +256,22 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteJumperUp(int x, int y){
-    switch (getSpriteType(gameMap.map[y+1][x])) {
-      case "p":
-        gameOver = true;
-        return;
-      default:
+
+    num amount = getSpriteAmount(gameMap.map[y][x]);
+    if(amount < 4){
+      amount++;
+      mapTemp[y][x] = "j" + amount.toString();
+      return;
     }
 
     switch (gameMap.map[y+1][x]) {
       case "g":
         mapTemp[y][x] = "a";
-        mapTemp[y-1][x] = "j";
+        mapTemp[y-1][x] = "j0";
         break;
       case "a":
         mapTemp[y][x] = "a";
-        mapTemp[y-1][x] = "J";
+        mapTemp[y-1][x] = "J0";
         break;
       default:
     }
@@ -275,10 +286,10 @@ class GameController  extends ChangeNotifier{
     }
 
     mapTemp[y][x] = "a";
-    mapTemp[y+1][x] = "J";
+    mapTemp[y+1][x] = "J0";
     switch (gameMap.map[y+2][x]) {
       case "g":
-        mapTemp[y+1][x] = "j";
+        mapTemp[y+1][x] = "j0";
         break;
       case "a":
         break;

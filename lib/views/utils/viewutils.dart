@@ -4,20 +4,46 @@ import '../../util/util.dart';
 
 class ViewUtils {
 
-  static List<Positioned> getMapScreen(List<List<String>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight){
-    List<Positioned> positions = [];
+  static List<Widget> getMapScreen(List<List<String>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight){
+    List<Widget> positions = [
+      Positioned(
+        left: offsetX,
+        top: offsetY,
+        child: Container(
+          width: width * 16,
+          height: height * map.length,
+          color: Colors.blue,
+        ),
+      )
+    ];
+
 
     for(int i = 0; i < map.length; i++){
       for(int j = viewMapLeft; j <= viewMapRight; j++){
-        positions.add(Positioned(
-          left: width * (j- viewMapLeft) + offsetX ,
-          top: height * i + offsetY,
-          child: Container(
-            width: width,
-            height: height,
-            decoration: getCell(map[i][j])
-          ),
-        ));
+        switch (getSpriteType(map[i][j])) {
+          case "j":
+          case "J":
+            positions.add(Positioned(
+              left: width * (j- viewMapLeft) + offsetX ,
+              top: height * i + offsetY - ((height / 4) * getSpriteAmount(map[i][j])),
+              child: Container(
+                width: width,
+                height: height,
+                decoration: getCell(map[i][j])
+              ),
+            ));
+            break;
+          default:
+            positions.add(Positioned(
+              left: width * (j- viewMapLeft) + offsetX ,
+              top: height * i + offsetY,
+              child: Container(
+                width: width,
+                height: height,
+                decoration: getCell(map[i][j])
+              ),
+            ));
+        }
       }
     }
 
