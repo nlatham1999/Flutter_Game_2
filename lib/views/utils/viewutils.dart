@@ -135,10 +135,14 @@ class ViewUtils {
         ),
       );
      case "b":
-     case "B":
       return const BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      );
+     case "B":
+      return BoxDecoration(
+        color: Colors.orange.shade900,
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       );
      case "e":
      case "E":
