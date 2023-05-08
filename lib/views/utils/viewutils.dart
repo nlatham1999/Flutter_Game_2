@@ -170,4 +170,6 @@ class ViewUtils {
    }
   }
 
+  static topAppBar(param0, BuildContext context) {}
+
 }

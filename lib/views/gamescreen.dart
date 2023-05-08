@@ -95,11 +95,21 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
   return Builder(
     builder: (BuildContext context) {
-      return Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: Colors.lightBlue[200],
-        child: Stack(
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Cube World"),
+          actions: [
+            MaterialButton(
+              highlightColor: Colors.transparent,
+              child: const Icon(Icons.info_outline, color: Colors.white), 
+              onPressed: () { setState(() {
+                _showAboutGame = true;
+              });},
+            ),
+          ],
+        ),
+        backgroundColor: Colors.lightBlue[200],
+        body: Stack(
           children: [
             Stack(
               children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
@@ -148,17 +158,6 @@ class _GameScreenState extends State<GameScreen> {
                   ),
                 ],
               )
-            ),
-            Positioned(
-              top: _gameController.offsetY + (_gameController.cellHeight / 2),
-              left: _gameController.offsetX + (_gameController.cellHeight * 10.5),
-              child: MaterialButton(
-                highlightColor: Colors.transparent,
-                child: const Icon(Icons.info_outline, color: Colors.white), 
-                onPressed: () { setState(() {
-                  _showAboutGame = true;
-                });},
-              ),
             ),
             Visibility (
               visible: _gameOver,
