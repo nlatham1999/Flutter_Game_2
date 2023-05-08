@@ -38,7 +38,7 @@ class GameController  extends ChangeNotifier{
 
   int cellsPerView = 15;
 
-  int distanceTraveled = 0;
+  late int distanceTraveled;
 
   GameController({
     required this.offsetY,
@@ -63,6 +63,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void reset(){
+    distanceTraveled = 0;
     gameMap = BasicMap();
     jumpState = false;
     jumpCount = 0;
