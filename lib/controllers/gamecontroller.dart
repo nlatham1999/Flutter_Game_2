@@ -575,10 +575,31 @@ class GameController  extends ChangeNotifier{
   }
 
   void fallDown(){
-    if(gameMap.playerY == gameMap.map.length - 1){
+    if(gameMap.playerY + 1 >= gameMap.map.length - 1){
       gameOver = true;
       gameOverText = "You fell off the map";
+      return;
     }
+
+    //look for monsters that are on the "edge"
+    if(gameMap.playerX+1 < gameMap.map[0].length-1){
+      switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX+1])){
+        case "m":
+          gameMap.map[gameMap.playerY+1][gameMap.playerX+1] = "d${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX+1])}";
+          gameMap.map[gameMap.playerY+1][gameMap.playerX] = "D${4 - getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX+1])}";
+          return;
+      }
+    }
+    if(gameMap.playerX-1 > 0){
+      switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX-1])){
+        case "M":
+          gameMap.map[gameMap.playerY+1][gameMap.playerX-1] = "D${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX-1])}";
+          gameMap.map[gameMap.playerY+1][gameMap.playerX] = "d${4 - getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX-1])}";
+          return;
+      }
+    }
+
+    // print(getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX]));
 
     switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX])) {
       case "a":
@@ -587,33 +608,22 @@ class GameController  extends ChangeNotifier{
         gameMap.map[gameMap.playerY][gameMap.playerX] = "p";
         break;
       case "m":
-        gameMap.map[gameMap.playerY+1][gameMap.playerX] = "d";
+        gameMap.map[gameMap.playerY+1][gameMap.playerX] = "d${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX])}";
+        if(gameMap.playerX - 1 > 0){
+          gameMap.map[gameMap.playerY+1][gameMap.playerX-1] = "D${4 - getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX])}";
+        }
         break;
       case "M":
-        print("Falling down");
-        gameMap.map[gameMap.playerY+1][gameMap.playerX] = "D";
+        gameMap.map[gameMap.playerY+1][gameMap.playerX] = "D${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX])}";
+        if(gameMap.playerX < gameMap.map[0].length){
+          gameMap.map[gameMap.playerY+1][gameMap.playerX+1] = "d${4 - getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX])}";
+        }
         break;
       case "j":
       case "J":
         jumpTrigger = true;
         break;
       default:
-    }
-
-    //look for monsters that are on the "edge"
-    if(gameMap.playerX+1 < gameMap.map[0].length-1){
-      switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX+1])){
-        case "m":
-          gameMap.map[gameMap.playerY+1][gameMap.playerX+1] = "d${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX+1])}";
-          break;
-      }
-    }
-    if(gameMap.playerX-1 > 0){
-      switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX-1])){
-        case "M":
-          gameMap.map[gameMap.playerY+1][gameMap.playerX-1] = "D${getSpriteAmount(gameMap.map[gameMap.playerY+1][gameMap.playerX-1])}";
-          break;
-      }
     }
   }
 
