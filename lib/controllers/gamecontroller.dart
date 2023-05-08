@@ -248,8 +248,9 @@ class GameController  extends ChangeNotifier{
             mapTemp[j][i] = "e";
             break;
           case "p":
+            mapTemp[j][i] = "e";
             gameOver = true;
-            gameOverText = "You 'sploded";
+            gameOverText = "You exploded";
             break;
           default:
         }
@@ -626,9 +627,5 @@ class GameController  extends ChangeNotifier{
         break;
       default:
     }
-  }
-
-  
-
-  
+  }  
 }

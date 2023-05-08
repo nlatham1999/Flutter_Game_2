@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart'; 
 
 import 'utils/viewutils.dart';
 
@@ -18,6 +21,7 @@ class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
   bool _gameOver = false;
   bool _initialLoad = true;
+  bool _showAboutGame = false;
   GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
 
   @override
@@ -111,7 +115,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Positioned(
-              top: _gameController.offsetY + (_gameController.cellHeight * 15),
+              top: _gameController.offsetY + (_gameController.cellHeight * 16),
               width: _gameController.screenSize.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -145,6 +149,17 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               )
             ),
+            Positioned(
+              top: _gameController.offsetY + (_gameController.cellHeight / 2),
+              left: _gameController.offsetX + (_gameController.cellHeight * 10.5),
+              child: MaterialButton(
+                highlightColor: Colors.transparent,
+                child: const Icon(Icons.info_outline, color: Colors.white), 
+                onPressed: () { setState(() {
+                  _showAboutGame = true;
+                });},
+              ),
+            ),
             Visibility (
               visible: _gameOver,
               child:Center(
@@ -166,8 +181,8 @@ class _GameScreenState extends State<GameScreen> {
               visible: _initialLoad,
               child:Center(
                 child: AlertDialog(
-                  title: Text("Welcome"),
-                  content: Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map. Now, you may be asking: why am I a cube? Why am I red? How did I become a red cube? Why must I go to the end of the map? That is not important. You are a red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey. Elements that you will have to discover yourself.",),
+                  title: const Text("Welcome"),
+                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map. Now, you may be asking: why am I a cube? Why am I red? How did I become a red cube? Why must I go to the end of the map? That is not important. You are a red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey. Elements that you will have to discover yourself.",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
@@ -176,6 +191,56 @@ class _GameScreenState extends State<GameScreen> {
                         });
                       },
                       child: const Text("Lets Play!"),
+                    ),
+                  ],
+                )
+              ),
+            ),
+            Visibility (
+              visible: _showAboutGame,
+              child:Center(
+                child: AlertDialog(
+                  title: const Text("About"),
+                  content: RichText(
+                  text: TextSpan(
+                    children: [
+                      const TextSpan(
+                        text: "Made by ",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Nick Latham",
+                        style: const TextStyle(
+                          color: Colors.blue,
+                          fontSize: 16,
+                          decoration: TextDecoration.underline,
+                        ),
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            launchUrl(Uri.parse('https://nicholaslatham.com'));
+                          },
+                      ),
+                      const TextSpan(
+                        text: "\n\nBuilt with flutter and hosted on netlify",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _showAboutGame = false;
+                        });
+                      },
+                      child: const Text("Ok"),
                     ),
                   ],
                 )

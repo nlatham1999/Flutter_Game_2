@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 String getSpriteType(String str) {
   return str.substring(0, 1);
 } 
