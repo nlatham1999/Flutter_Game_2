@@ -17,7 +17,8 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Timer _timer;
   bool _gameOver = false;
-  GameController _gameController = GameController(offsetY: 50, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
+  String formattedDuration = "";
+  GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
 
   @override
   void initState() {
@@ -32,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if(!_gameController.gameOver){
         setState(() {
           _gameController.setNextState();
@@ -92,16 +93,26 @@ class _GameScreenState extends State<GameScreen> {
     builder: (BuildContext context) {
       return Stack(
         children: [
-          Row(
-            children: [
-              Flexible(
-                child: MaterialButton(
-                  onPressed: (){jump();},
-                  child: const Text("Jump"),
-                ),
-              ),
-              Flexible(
-                child: MaterialButton(
+          Stack(
+            children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
+          ),
+          Positioned(
+            top: _gameController.offsetY + (_gameController.cellHeight / 2),
+            width: _gameController.screenSize.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Distance: ${_gameController.distanceTraveled}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+              ]
+            ),
+          ),
+          Positioned(
+            top: _gameController.offsetY + (_gameController.cellHeight * 15),
+            width: _gameController.screenSize.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(
                   onPressed: (){}, 
                   onHighlightChanged: (isHighlighted) {
                     if (!isHighlighted) {
@@ -110,11 +121,13 @@ class _GameScreenState extends State<GameScreen> {
                       moveLeft();
                     }
                   },
-                  child: const Text("Move Left"),
+                  child: const Icon(Icons.arrow_back),
+                ), 
+                MaterialButton(
+                onPressed: (){jump();},
+                  child: const Icon(Icons.arrow_upward_outlined),
                 ),
-              ),
-              Flexible(
-                child: MaterialButton(
+                MaterialButton(
                   onPressed: (){}, 
                   onHighlightChanged: (isHighlighted) {
                     if (!isHighlighted) {
@@ -123,19 +136,17 @@ class _GameScreenState extends State<GameScreen> {
                       moveRight();
                     }
                   },
-                  child: const Text("Move Right"),
+                  child: const Icon(Icons.arrow_forward),
                 ),
-              ),
-            ],
-          ),
-          Stack(
-            children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
+              ],
+            )
           ),
           Visibility (
             visible: _gameOver,
             child:Center(
               child: AlertDialog(
-                content: Text("test"),
+                title: const Text("Game Over"),
+                content: Text(" ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
                 actions: [
                   TextButton(
                     onPressed: () {
