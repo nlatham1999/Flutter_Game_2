@@ -181,7 +181,7 @@ class _GameScreenState extends State<GameScreen> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map. Now, you may be asking: why am I a cube? Why am I red? How did I become a red cube? Why must I go to the end of the map? That is not important. You are a red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey. Elements that you will have to discover yourself.",),
+                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey.",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
