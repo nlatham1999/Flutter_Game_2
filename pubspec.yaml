@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  flutter_native_splash: ^2.2.19
+
   flutter:
     sdk: flutter
 
@@ -52,6 +54,10 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+flutter_native_splash:
+  image: assets/splash.png
+  color: "00a2e8"
+  fill: true
 
 # The following section is specific to Flutter packages.
 flutter:
