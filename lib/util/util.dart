@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:my_app/models/unit.dart';
 
-String getSpriteType(String str) {
-  return str.substring(0, 1);
+String getSpriteType(Unit unit) {
+  return unit.type;
 } 
 
-num getSpriteAmount(String str) {
-  String substring = str.substring(1);
-  return num.parse(substring);
+num getSpriteAmount(Unit unit) {
+  return 0;
 }
