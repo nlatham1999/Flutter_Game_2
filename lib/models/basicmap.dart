@@ -9,12 +9,15 @@ class BasicMap extends GameMap {
   //a: air
   //b: bomb (inert)
   //B: bomb (about to go off)
+  //c: crate
+  //C: coin
   //d: dead monster
   //e: explosion
   //E: explosion 2
   //g: grass
   //j: jumper (going up)
   //J: jumper (going down)
+  //Ĵ: slightly faster jumper
   //m: monster (moving left)
   //M: monster (moving right)
   //p: main character
@@ -22,21 +25,21 @@ class BasicMap extends GameMap {
   //I: icicle (falling)
 
   List<String> mapTemplate = [
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaagaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag",
-    "aaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "ggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aapaaaaaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaagaaaaaaaaaaaaag",
-    "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaagaaaaaaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaagaaaaaaaaJaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag",
+    "aaaaaaaaaaaaJaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ggaaaaaaaaaJaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaJaaaJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aapaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaagaaaaaaaaaaaaag",
+    "ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
   ];
 
   @override
@@ -65,11 +68,29 @@ class BasicMap extends GameMap {
       for(int j = 0; j < mapTemplate[i].length; j++){
         List<Unit> cell = [];
         switch (mapTemplate[i][j]) {
-          case "a":
-            cell.add(Unit(type: "air", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+          case "c":
+            cell.add(Unit(type: "crate", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
+          case "C":
+            cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 1));
             break;
           case "g":
             cell.add(Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
+          case "j":
+            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            jumper.value_2 = 16;
+            cell.add(jumper);
+            break;
+          case "J":
+            Unit jumper = Unit(type: "jumper_falling", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            jumper.value_2 = 16;
+            cell.add(jumper);
+            break;
+          case "Ĵ":
+            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            jumper.value_2 = 12;
+            cell.add(jumper);
             break;
           case "m":
             cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
@@ -267,10 +288,10 @@ class BasicMap extends GameMap {
     return true;
   }
 
-  void changeUnitType(Unit unit, String newType, String newCollisionType){
+  void changeUnitType(Unit unit, String newType){
     for(int i = 0; i < unit.height; i++){
       for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = newCollisionType;
+        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = newType;
       }
     }
 

@@ -158,12 +158,12 @@ class GameController  extends ChangeNotifier{
             case "monster_right":
               spriteMonsterRight(unit);
               break;
-            // case "j":
-            //   spriteJumperUp(j, i);        
-            //   break;
-            // case "J":
-            //   spriteJumperDown(j, i);
-            //   break;
+            case "jumper_rising":
+              spriteJumperUp(unit);        
+              break;
+            case "jumper_falling":
+              spriteJumperDown(unit);
+              break;
             // case "m":
             //   spriteMonsterLeft(j, i);
             //   break;
@@ -326,54 +326,73 @@ class GameController  extends ChangeNotifier{
   }
 
 
-  // void spriteJumperUp(int x, int y){
+  void spriteJumperUp(Unit unit){
 
-  //   num amount = getSpriteAmount(gameMap.map[y][x]);
-  //   if(amount < 4){
-  //     amount++;
-  //     mapTemp[y][x] = "j" + amount.toString();
-  //     return;
-  //   }
+    if(unit.value_1 == 0){
+      unit.value_1 = 1;
+    }
 
-  //   //super jank to have it go two up
-  //   switch (gameMap.map[y+1][x]) {
-  //     case "g":
-  //       mapTemp[y][x] = "a";
-  //       mapTemp[y-1][x] = "j0";
-  //       break;
-  //     default:
-  //       switch (gameMap.map[y+2][x]){
-  //         case "g":
-  //           mapTemp[y][x] = "a";
-  //           mapTemp[y-1][x] = "j0";
-  //           break;
-  //         default:
-  //           mapTemp[y][x] = "a";
-  //           mapTemp[y-1][x] = "J0";
-  //       }
-  //   }
-  // }
+    if(unit.value_1 == unit.value_2){
+      gameMap.changeUnitType(unit, "jumper_falling");
+      unit.value_1 = 1;
+      return;
+    }
 
-  // void spriteJumperDown(int x, int y){
-  //   switch (getSpriteType(gameMap.map[y+1][x])) {
-  //     case "p":
-  //       gameOver = true;
-  //       gameOverText = "You got smushed";
-  //       break;
-  //     default:
-  //   }
+    // for(int i = 0; i < accelerationCalc(unit.value_1); i++){
+      String spriteAbove = gameMap.getPotentialCollision(unit, "UP");
+      switch (spriteAbove) {
+        case "":
+          gameMap.moveUnitUp(unit);
+          break;
+        default:
+          gameMap.changeUnitType(unit, "jumper_falling");
+          return;
+      }
+    // }
+    unit.value_1 ++;
+  }
 
-  //   mapTemp[y][x] = "a";
-  //   mapTemp[y+1][x] = "J0";
-  //   switch (gameMap.map[y+2][x]) {
-  //     case "g":
-  //       mapTemp[y+1][x] = "j0";
-  //       break;
-  //     case "a":
-  //       break;
-  //     default:
-  //   }
-  // }
+  int accelerationCalc(int v){
+    switch (v) {
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+      case 6:
+        return 2;
+      default:
+        return 1;
+    }
+  }
+
+  void spriteJumperDown(Unit unit){
+    if(unit.value_1 == 0){
+      unit.value_1 = 1;
+    }
+
+    if(unit.value_1 < 1){
+      unit.value_1 = 1;
+    }
+
+    for(int i = 0; i < accelerationCalc(unit.value_1); i++){
+      String spriteAbove = gameMap.getPotentialCollision(unit, "DOWN");
+      switch (spriteAbove) {
+        case "player":
+          gameOver = true;
+          gameOverText = "You got smushed";
+          return;
+        case "":
+          gameMap.moveUnitDown(unit);
+          break;
+        default:
+          gameMap.changeUnitType(unit, "jumper_rising");
+          unit.value_1 = 1;
+          return;
+      }
+    }
+    unit.value_1--;
+  }
 
   void updateViewMap(){
     if(viewMapRight - (gameMap.player.x * 4 + gameMap.player.offsetX) < 5 * 4){
@@ -523,7 +542,7 @@ class GameController  extends ChangeNotifier{
       for(int k = 0; k < gameMap.map[unit.y+1][unit.x-1+i].length; k++){
         Unit monster = gameMap.map[unit.y+1][unit.x-1+i][k];
         if((monster.type == "monster_left" || monster.type == "monster_right") && gameMap.isUnitOnUnit(unit, monster)){
-          gameMap.changeUnitType(monster, "monster_dead", "d");
+          gameMap.changeUnitType(monster, "monster_dead");
         }
       }
     }

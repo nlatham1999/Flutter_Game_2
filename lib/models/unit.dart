@@ -10,6 +10,9 @@ class Unit {
 
   int fall = 0;
 
+  int value_1 = 0;
+  int value_2 = 0;
+
   Unit({
     required this.type,
     required this.x,

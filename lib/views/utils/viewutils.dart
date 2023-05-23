@@ -84,8 +84,8 @@ class ViewUtils {
        return const BoxDecoration(
         color: Colors.green,
        );
-     case "j":
-     case "J":
+     case "jumper_rising":
+     case "jumper_falling":
       return const BoxDecoration(
         color: Colors.amber,
         borderRadius: BorderRadius.only(
@@ -123,9 +123,18 @@ class ViewUtils {
         color: Colors.orange,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       );
+    case "coin":
+      return const BoxDecoration(
+        color: Colors.yellow,
+        borderRadius: BorderRadius.all(Radius.circular(10.0)),
+      );
     case "monster_dead":
       return const BoxDecoration(
         color: Colors.purple,
+      );
+    case "crate":
+      return const BoxDecoration(
+        color: Colors.brown,
       );
     case "i":
     case "I":
