@@ -22,7 +22,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _gameOver = false;
   bool _initialLoad = true;
   bool _showAboutGame = false;
-  GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
+  final GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
 
   @override
   void initState() {

@@ -11,26 +11,38 @@ class ViewUtils {
         left: offsetX,
         top: offsetY,
         child: Container(
-          width: width * 13,
+          width: width * 12 + width / 4,
           height: height * map.length,
           color: Colors.blue,
         ),
       )
     ];
 
+    int vL = viewMapLeft ~/ 4;
+    // if(vL > 0){
+    //   vL --;
+      // print("minusing");
+    // }
+    int vLo = viewMapLeft % 4;
+    int vR  = viewMapRight ~/ 4 + 1;
+    int vRo = viewMapRight % 4;
+
     for(int i = 0; i < map.length; i++){
-      for(int j = viewMapLeft; j <= viewMapRight; j++){
+      for(int j = vL; j < vR; j++){
         for(int k = 0; k < map[i][j].length; k++){
           Unit unit = map[i][j][k];
           switch (getSpriteType(unit)) {
             case "air":
               break;
             default:
+              double left = width * (j- vL - (vLo/4)) + offsetX + (width * unit.offsetX / 4);
+              double top = height * i + offsetY + (height * unit.offsetY / 4);
+              double boxWidth = width * unit.width / 4;
               positions.add(Positioned(
-                left: width * (j- viewMapLeft) + offsetX + (width * unit.offsetX / 4),
-                top: height * i + offsetY + (height * unit.offsetY / 4),
+                left: left,
+                top: top,
                 child: Container(
-                  width:  width * unit.width / 4,
+                  width:  boxWidth,
                   height: height * unit.height / 4,
                   decoration: getCell(unit))
                 ),
@@ -39,6 +51,21 @@ class ViewUtils {
         }
       }
     }
+
+    positions.add(Positioned(
+        left: offsetX - width,
+        top: offsetY - width,
+        child: Container(
+          width: width * 14 + width / 4,
+          height: height * map.length + width * 2,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.blue,
+              width: width,
+            ),
+          ),
+        ),
+    ));
 
     return positions;
   }
@@ -96,7 +123,7 @@ class ViewUtils {
         color: Colors.orange,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       );
-    case "d":
+    case "monster_dead":
       return const BoxDecoration(
         color: Colors.purple,
       );
