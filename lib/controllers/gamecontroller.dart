@@ -164,30 +164,21 @@ class GameController  extends ChangeNotifier{
             case "jumper_falling":
               spriteJumperDown(unit);
               break;
-            // case "m":
-            //   spriteMonsterLeft(j, i);
-            //   break;
-            // case "M":
-            //   spriteMonsterRight(j, i);
-            //   break;
-            // case "b":
-            //   spriteBombInert(j, i);
-            //   break;
-            // case "B":
-            //   spriteBombCharged(j, i);
-            //   break;
-            // case "e":
-            //   spriteExplosion(j, i);
-            //   break;
-            // case "E":
-            //   spriteExplosion2(j, i);
-            //   break;
-            // case "i":
-            //   spriteIcicleCheck(j, i);
-            //   break;
-            // case "I":
-            //   spriteIcicleFallDown(j, i);
-            //   break;
+            case "bomb":
+              spriteBombInert(unit);
+              break;
+            case "bomb_charged":
+              spriteBombCharged(unit);
+              break;
+            case "explosion":
+              spriteExplosion(unit);
+              break;
+            case "icicle":
+              spriteIcicleCheck(unit);
+              break;
+            case "icicle_falling":
+              spriteIcicleFallDown(unit);
+              break;
             default:
           }
         }
@@ -201,72 +192,173 @@ class GameController  extends ChangeNotifier{
     // }
   }
 
-  // void spriteIcicleCheck(int x, int y){
-  //   if(gameMap.playerX == x && gameMap.playerY >= y){
-  //     mapTemp[y][x] = "I";
-  //   }
-  // }
+  void spriteIcicleCheck(Unit unit){
+    if(gameMap.isUnitBelowUnit(unit, gameMap.player)){
+      gameMap.changeUnitType(unit, "icicle_falling");
+    }
+  }
 
-  // void spriteIcicleFallDown(int x, int y){
+  void spriteIcicleFallDown(Unit unit){
 
-  //   String spriteBelow = getSpriteType(gameMap.map[y+1][x]);
+    String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
 
-  //   if(isOnSolidGroundFromPos(x, y)){
-  //     mapTemp[y][x] = "a";
-  //     return;
-  //   }
+    switch (spriteBelow) {
+      case "":
+        gameMap.moveUnitDown(unit);
+        break;
+      case "player":
+        gameOver = true;
+        gameOverText = "You got spiked :(";
+        return;
+      default:
+        gameMap.removeSprite(unit);
+    }
+  }
 
-  //   switch (spriteBelow) {
-  //     case "p":
-  //       gameOver = true;
-  //       gameOverText = "You got spiked";
-  //       break;
-  //     default:
-  //       mapTemp[y][x] = "a";
-  //       mapTemp[y+1][x] = "I";
-  //   }
-  // }
+  void spriteExplosion(Unit unit){
 
-  // void spriteExplosion2(x, y){
-  //   mapTemp[y][x] = "a";
-  // }
+    if(unit.value_1 > 3){
+      gameMap.removeSprite(unit);
+      return;
+    }
 
-  // void spriteExplosion(x, y){
-  //   mapTemp[y][x] = "E";
-  // }
+    String s = "";
+    switch (unit.value_2) {
+      case 0:
+        s = gameMap.getPotentialCollision(unit, "LEFT_UP");
+        if(s == ""){
+          gameMap.moveUnitLeft(unit);
+          gameMap.moveUnitUp(unit);
+        }
+        break;
+      case 1:
+        s = gameMap.getPotentialCollision(unit, "UP");
+        if(s == ""){
+          gameMap.moveUnitUp(unit);
+        }
+        break;
+      case 2:
+        s = gameMap.getPotentialCollision(unit, "RIGHT_UP");
+        if(s == ""){
+          gameMap.moveUnitRight(unit);
+          gameMap.moveUnitUp(unit);
+        }
+        break;
+      case 3:
+        s = gameMap.getPotentialCollision(unit, "RIGHT");
+        if(s == ""){
+          gameMap.moveUnitRight(unit);
+        }
+        break;
+      case 4:
+        s = gameMap.getPotentialCollision(unit, "RIGHT_DOWN");
+        if(s == ""){
+          gameMap.moveUnitRight(unit);
+          gameMap.moveUnitDown(unit);
+        }
+        break;
+      case 5:
+        s = gameMap.getPotentialCollision(unit, "DOWN");
+        if(s == ""){
+          gameMap.moveUnitDown(unit);
+        }
+        break;
+      case 6:
+        s = gameMap.getPotentialCollision(unit, "LEFT_DOWN");
+        if(s == ""){
+          gameMap.moveUnitLeft(unit);
+          gameMap.moveUnitDown(unit);
+        }
+        break;
+      case 7:
+        s = gameMap.getPotentialCollision(unit, "LEFT");
+        if(s == ""){
+          gameMap.moveUnitLeft(unit);
+        }
+        break;
+      default:
+    }
 
-  // void spriteBombInert(x, y){
-  //   if((gameMap.playerX - x).abs() < 2 && (gameMap.playerY - y).abs() < 2){
-  //     mapTemp[y][x] = "B1";
-  //   }
-  // }
+    if(s == "player"){
+      gameOver = true;
+      gameOverText = "You got bombed :(";
+      return;
+    }
+    if(s != ""){
+      gameMap.removeSprite(unit);
+    }
 
-  // void spriteBombCharged(x, y){
+    unit.value_1++;
 
-  //   num amount = getSpriteAmount(gameMap.map[y][x]);
-  //   amount++;
-  //   if(amount < 40){
-  //     mapTemp[y][x] = "B" + amount.toString(); 
-  //     return;
-  //   }
+  }
 
-  //   for(int i = x-1; i <= x+1; i++){
-  //     for(int j = y-1; j <= y+1; j++){
-  //       switch (getSpriteType(gameMap.map[j][i])) {
-  //         case "a":
-  //         case "B":
-  //           mapTemp[j][i] = "e";
-  //           break;
-  //         case "p":
-  //           mapTemp[j][i] = "e";
-  //           gameOver = true;
-  //           gameOverText = "You exploded";
-  //           break;
-  //         default:
-  //       }
-  //     }
-  //   }
-  // }
+  void spriteBombInert(Unit unit){
+    if(gameMap.isSpriteInVicinity(unit, gameMap.player, 2)){
+      gameMap.changeUnitType(unit, "bomb_charged");
+    }
+  }
+
+  void spriteBombCharged(Unit unit){
+
+    if(unit.value_1 < 12){
+      unit.value_1 ++;
+      return;
+    }
+
+    gameMap.removeSprite(unit);
+
+    // Unit explosion1 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 0, width: 1, height: 1);
+    // explosion1.value_2 = 0;
+    // gameMap.addUnit(explosion1);
+    Unit explosion2 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 0, width: 1, height: 1);
+    explosion2.value_2 = 1;
+    gameMap.addUnit(explosion2);
+    Unit explosion3 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 0, width: 1, height: 1);
+    explosion3.value_2 = 1;
+    gameMap.addUnit(explosion3);
+    // Unit explosion4 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 0, width: 1, height: 1);
+    // explosion4.value_2 = 2;
+    // gameMap.addUnit(explosion4);
+
+    Unit explosion5 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 1, width: 1, height: 1);
+    explosion5.value_2 = 7;
+    gameMap.addUnit(explosion5);
+    Unit explosion6 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 1, width: 1, height: 1);
+    explosion6.value_2 = 0;
+    gameMap.addUnit(explosion6);
+    Unit explosion7 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 1, width: 1, height: 1);
+    explosion7.value_2 = 2;
+    gameMap.addUnit(explosion7);
+    Unit explosion8 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 1, width: 1, height: 1);
+    explosion8.value_2 = 3;
+    gameMap.addUnit(explosion8);
+
+    Unit explosion9 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 2, width: 1, height: 1);
+    explosion9.value_2 = 7;
+    gameMap.addUnit(explosion9);
+    Unit explosion10 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 2, width: 1, height: 1);
+    explosion10.value_2 = 6;
+    gameMap.addUnit(explosion10);
+    Unit explosion11 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 2, width: 1, height: 1);
+    explosion11.value_2 = 4;
+    gameMap.addUnit(explosion11);
+    Unit explosion12 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 2, width: 1, height: 1);
+    explosion12.value_2 = 3;
+    gameMap.addUnit(explosion12);
+
+    // Unit explosion13 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 3, width: 1, height: 1);
+    // explosion13.value_2 = 6;
+    // gameMap.addUnit(explosion13);
+    Unit explosion14 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 1, height: 1);
+    explosion14.value_2 = 5;
+    gameMap.addUnit(explosion14);
+    Unit explosion15 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 3, width: 1, height: 1);
+    explosion15.value_2 = 5;
+    gameMap.addUnit(explosion15);
+    // Unit explosion16 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 3, width: 1, height: 1);
+    // explosion16.value_2 = 4;
+    // gameMap.addUnit(explosion16);
+  }
 
   void spriteMonsterLeft(Unit unit){
 

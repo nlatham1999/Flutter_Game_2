@@ -107,17 +107,17 @@ class ViewUtils {
           topRight: Radius.circular(10.0),
         ),
       );
-     case "b":
+     case "bomb":
       return const BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.all(Radius.circular(10.0)),
       );
-     case "B":
+     case "bomb_charged":
       return BoxDecoration(
         color: Colors.orange.shade900,
         borderRadius: const BorderRadius.all(Radius.circular(10.0)),
       );
-     case "e":
+     case "explosion":
      case "E":
       return const BoxDecoration(
         color: Colors.orange,
@@ -136,8 +136,8 @@ class ViewUtils {
       return const BoxDecoration(
         color: Colors.brown,
       );
-    case "i":
-    case "I":
+    case "icicle":
+    case "icicle_falling":
       return const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
