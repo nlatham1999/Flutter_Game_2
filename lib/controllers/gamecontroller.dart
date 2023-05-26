@@ -138,6 +138,8 @@ class GameController  extends ChangeNotifier{
     //   mapTemp.add(tempList);
     // }
 
+    List<Unit> unitsUpdated = [];
+
     int startLeft = gameMap.player.x - 20;
     if(startLeft < 0){
       startLeft = 0;
@@ -151,6 +153,12 @@ class GameController  extends ChangeNotifier{
       for(int j = startLeft; j < startRight; j++){
         for(int k = 0; k < gameMap.map[i][j].length; k++){
           Unit unit = gameMap.map[i][j][k];
+          if(unit.alreadyUpdated){
+            continue;
+          }else{
+            unit.alreadyUpdated = true;
+            unitsUpdated.add(unit);
+          }
           switch (getSpriteType(unit)) {
             case "monster_left":
               spriteMonsterLeft(unit);
@@ -183,6 +191,10 @@ class GameController  extends ChangeNotifier{
           }
         }
       }
+    }
+
+    for(Unit unit in unitsUpdated){
+      unit.alreadyUpdated = false;
     }
 
     // for(int i = 0; i < gameMap.map.length; i++){

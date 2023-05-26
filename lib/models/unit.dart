@@ -13,6 +13,8 @@ class Unit {
   int value_1 = 0;
   int value_2 = 0;
 
+  bool alreadyUpdated = false;
+
   Unit({
     required this.type,
     required this.x,
