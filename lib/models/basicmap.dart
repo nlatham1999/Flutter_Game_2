@@ -1,6 +1,5 @@
 // ignore_for_file: overridden_fields
 
-import 'package:flutter/material.dart';
 import 'package:my_app/models/map.dart';
 import 'package:my_app/models/unit.dart';
 
@@ -24,24 +23,7 @@ class BasicMap extends GameMap {
   //i: icicle
   //I: icicle row
 
-  List<String> mapTemplate = [
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaagggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaIIIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaa",
-    "apajaaaagaamaaaaagaamaaaaaaaamaaaaaaaaaaaaaaaaaaa",
-    "ggggggggggggggggggggggggggggggggggggggggggggggggg",
-  ];
-
+  List<String> mapTemplate;
   @override
   List<List<List<Unit>>> map = [];
 
@@ -55,7 +37,7 @@ class BasicMap extends GameMap {
 
   List<List<String>> collisionMap = [];
 
-  BasicMap(){
+  BasicMap({required this.mapTemplate }){
     buildMapFromTemplate();
 
     buildCollisionMap();

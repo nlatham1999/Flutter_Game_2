@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
 import 'package:provider/provider.dart';
 
-import 'home.dart';
-import 'other_page.dart';
+import 'views/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => GameContext(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Cube World',
       theme: themeData,
-      home: const GameScreen(),
+      home: const MyHomePage(title: "Cube World", initialOpen: true,),
     );
   }
 }

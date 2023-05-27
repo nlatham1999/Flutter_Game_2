@@ -68,7 +68,7 @@ class ViewUtils {
           height: height * map.length + width * 3,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.lightBlue[200]!,
+              color: Colors.blue,
               width: width + width / 2,
             ),
           ),

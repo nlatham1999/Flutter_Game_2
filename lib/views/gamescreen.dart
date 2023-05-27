@@ -1,17 +1,20 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:my_app/views/gamecontext.dart';
+import 'package:my_app/views/home.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart'; 
 
+import '../models/level.dart';
 import 'utils/viewutils.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  GameScreen({super.key, required this.level});
+  Level level;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -19,15 +22,18 @@ class GameScreen extends StatefulWidget {
 
 
 class _GameScreenState extends State<GameScreen> {
+  late Level _level;
   late Timer _timer;
   bool _gameOver = false;
   bool _initialLoad = true;
   bool _showAboutGame = false;
-  final GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance.window).size);
+  late GameController _gameController;
 
   @override
   void initState() {
     super.initState();
+    _level = widget.level;
+    _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance.window).size, level: _level);
     _startTimer();
   }
 
@@ -45,6 +51,7 @@ class _GameScreenState extends State<GameScreen> {
         });
       }else{
         if(!_gameOver){
+          checkForGameEnd();
           setState(() {
             _gameOver = true;
           });
@@ -81,6 +88,16 @@ class _GameScreenState extends State<GameScreen> {
     _gameController.leftPressed = false;
   }
 
+  void checkForGameEnd(){
+      if(!_level.finished){
+        return;
+      }
+      var gamecontext = context.read<GameContext>();
+      if(gamecontext.level < _level.level){
+        gamecontext.setLevel(_level.level);
+      }
+  }
+
   void restartGame(){
     setState(() {
       _gameController.reset();
@@ -109,7 +126,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
           ],
         ),
-        backgroundColor: Colors.lightBlue[200],
+        backgroundColor: Colors.blue,
         body: Stack(
           children: [
             Focus(
@@ -188,14 +205,23 @@ class _GameScreenState extends State<GameScreen> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Game Over"),
-                  content: Text(" ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
+                  content: Text(_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
+
                         restartGame();
                       },
                       child: const Text("Restart Game"),
                     ),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => MyHomePage(title: "Cube World", initialOpen: false,)),
+                        );
+                      },
+                      child: const Text("Return to main menu")),
                   ],
                 )
               ),
@@ -205,7 +231,7 @@ class _GameScreenState extends State<GameScreen> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey.",),
+                  content: Text(_level.startingText,),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
