@@ -1,173 +1,136 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:my_app/models/unit.dart';
+import 'package:my_app/painters/bombpainter.dart';
+import 'package:my_app/painters/deadmonsterpainter.dart';
+import 'package:my_app/painters/jumperpainter.dart';
+import 'package:my_app/painters/monsterpainter.dart';
+import 'package:my_app/painters/playerpainter.dart';
 
+import '../../painters/grasspainter.dart';
+import '../../painters/traingelpainter.dart';
 import '../../util/util.dart';
 
 class ViewUtils {
 
-  static List<Widget> getMapScreen(List<List<String>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight){
+  static List<Widget> getMapScreen(List<List<List<Unit>>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight){
     List<Widget> positions = [
       Positioned(
         left: offsetX,
         top: offsetY,
         child: Container(
-          width: width * 13,
+          width: width * 13 + width / 4,
           height: height * map.length,
           color: Colors.blue,
         ),
       )
     ];
 
+    int vL = viewMapLeft ~/ 4;
+    // if(vL > 0){
+    //   vL --;
+      // print("minusing");
+    // }
+    int vLo = viewMapLeft % 4;
+    int vR  = viewMapRight ~/ 4 + 1;
+
     for(int i = 0; i < map.length; i++){
-      for(int j = viewMapLeft; j <= viewMapRight; j++){
-        switch (getSpriteType(map[i][j])) {
-          case "a":
-            break;
-          case "j":
-          case "J":
-            positions.add(Positioned(
-              left: width * (j- viewMapLeft) + offsetX ,
-              top: height * i + offsetY - ((height / 4) * getSpriteAmount(map[i][j])),
-              child: Container(
-                width: width,
-                height: height,
-                decoration: getCell(map[i][j])
+      for(int j = vL; j < vR; j++){
+        for(int k = 0; k < map[i][j].length; k++){
+          Unit unit = map[i][j][k];
+          switch (getSpriteType(unit)) {
+            case "air":
+              break;
+            default:
+              double left = width * (j- vL - (vLo/4)) + offsetX + (width * unit.offsetX / 4);
+              double top = height * i + offsetY + (height * unit.offsetY / 4);
+              double boxWidth = width * unit.width / 4;
+              positions.add(Positioned(
+                left: left,
+                top: top,
+                child: SizedBox(
+                  width:  boxWidth,
+                  height: height * unit.height / 4,
+                  child: getPaintedCell(unit)
+                ),
               ),
-            ));
-            break;
-          case "m":
-          case "d":
-            double left = width * (j- viewMapLeft) + offsetX - ((width / 4) * getSpriteAmount(map[i][j]));
-            double widthToUse = width;
-            if(j == viewMapLeft){
-              left = width * (j- viewMapLeft) + offsetX;
-              widthToUse = ((width / 4) * getSpriteAmount(map[i][j]));
-            }
-            positions.add(Positioned(
-              left: left,
-              top: height * i + offsetY,
-              child: Container(
-                width: widthToUse,
-                height: height,
-                decoration: getCell(map[i][j])
-              ),
-            ));
-            break;
-          case "M":
-          case "D":
-            double left = width * (j- viewMapLeft) + offsetX + ((width / 4) * getSpriteAmount(map[i][j]));
-            double widthToUse = width;
-            if(j == viewMapRight){
-              widthToUse = width - ((width / 4) * getSpriteAmount(map[i][j]));
-            }
-            positions.add(Positioned(
-              left: left,
-              top: height * i + offsetY,
-              child: Container(
-                width: widthToUse,
-                height: height,
-                decoration: getCell(map[i][j])
-              ),
-            ));
-            break;
-          case "e":
-            positions.add(Positioned(
-              left: width * (j- viewMapLeft) - offsetX ,
-              top: height * i + offsetY,
-              child: Container(
-                width: width * .75,
-                height: height * .75,
-                decoration: getCell(map[i][j])
-              ),
-            ));
-            break;
-          default:
-            positions.add(Positioned(
-              left: width * (j- viewMapLeft) + offsetX ,
-              top: height * i + offsetY,
-              child: Container(
-                width: width,
-                height: height,
-                decoration: getCell(map[i][j])
-              ),
-            ));
+            );
+          }
         }
       }
     }
 
+    positions.add(Positioned(
+        left: offsetX - width,
+        top: offsetY - width,
+        child: Container(
+          width: width * 14 + width * 3 / 4,
+          height: height * map.length + width * 3,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.lightBlue[200]!,
+              width: width + width / 2,
+            ),
+          ),
+        ),
+    ));
+
     return positions;
   }
 
-  static BoxDecoration getCell(String type){
-   switch (getSpriteType(type)) {
-     case "p":
-       return const BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10.0),
-          topLeft: Radius.circular(10.0)
-        ),
-       );
-     case "g":
-       return const BoxDecoration(
-        color: Colors.green,
-       );
-     case "j":
-     case "J":
-      return const BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10.0),
-          bottomRight: Radius.circular(10.0),
-        ),
-      );
-     case "m":
-      return const BoxDecoration(
-        color: Colors.purple,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-        ),
-      );
-     case "M":
-      return const BoxDecoration(
-        color: Colors.purple,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10.0),
-        ),
-      );
-     case "b":
-      return const BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      );
-     case "B":
-      return BoxDecoration(
-        color: Colors.orange.shade900,
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      );
-     case "e":
-     case "E":
-      return const BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      );
-    case "d":
-      return const BoxDecoration(
-        color: Colors.purple,
-      );
-    case "i":
-    case "I":
-      return const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.elliptical(10, 40),
-          bottomRight: Radius.elliptical(10, 40),
-        )
-      );
-     default:
-       return const BoxDecoration(
-        color: Colors.blue,
-       );
-   }
+  static CustomPaint getPaintedCell(Unit unit){
+    switch (unit.type) {
+      case "bomb":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.black),
+        );
+      case "bomb_charged":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.orange),
+        );
+      case "explosion":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.orange),
+        );
+      case "grass":
+        return CustomPaint(
+          painter: GrassPainter(),
+        );
+      case "icicle":
+      case "icicle_falling":
+        return CustomPaint(
+          painter: IciclePainter(
+            color: Colors.white,
+          ),
+        );
+      case "jumper_rising":
+      case "jumper_falling":
+        return CustomPaint(
+          painter: JumperPainter(),
+        );
+      case "monster_dead":
+        return CustomPaint(
+            painter: DeadMonsterPainter(),
+        );
+      case "monster_left":
+        return CustomPaint(
+            painter: MonsterPainter(
+              direction: 0
+            ),
+        );  
+      case "monster_right":
+        return CustomPaint(
+            painter: MonsterPainter(
+              direction: 1
+            ),
+        );      
+      case "player":
+        return CustomPaint(
+          painter: PlayerPainter(color: Colors.red, direction: unit.direction),
+        );
+      default:
+        return CustomPaint();
+    }
   }
 
   static topAppBar(param0, BuildContext context) {}

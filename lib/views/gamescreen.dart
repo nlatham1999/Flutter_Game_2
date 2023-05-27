@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart'; 
@@ -22,7 +23,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _gameOver = false;
   bool _initialLoad = true;
   bool _showAboutGame = false;
-  GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance!.window).size);
+  final GameController _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance.window).size);
 
   @override
   void initState() {
@@ -111,6 +112,29 @@ class _GameScreenState extends State<GameScreen> {
         backgroundColor: Colors.lightBlue[200],
         body: Stack(
           children: [
+            Focus(
+              autofocus: true,
+              onKey: (node, event) {
+                if (event is RawKeyUpEvent) {
+                  if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+                    moveLeftReleased();
+                  } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+                    moveRightReleased();
+                  }
+                }
+                if (event is RawKeyDownEvent) {
+                  if (event.logicalKey == LogicalKeyboardKey.space) {
+                    jump();
+                  }else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+                    moveLeft();
+                  }else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+                    moveRight();
+                  }
+                }
+                return KeyEventResult.ignored;
+              },
+              child: Container()
+            ),
             Stack(
               children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
             ),
