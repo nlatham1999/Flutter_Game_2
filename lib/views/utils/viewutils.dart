@@ -19,7 +19,7 @@ class ViewUtils {
         left: offsetX,
         top: offsetY,
         child: Container(
-          width: width * 12 + width / 4,
+          width: width * 13 + width / 4,
           height: height * map.length,
           color: Colors.blue,
         ),
@@ -33,7 +33,6 @@ class ViewUtils {
     // }
     int vLo = viewMapLeft % 4;
     int vR  = viewMapRight ~/ 4 + 1;
-    int vRo = viewMapRight % 4;
 
     for(int i = 0; i < map.length; i++){
       for(int j = vL; j < vR; j++){
@@ -65,12 +64,12 @@ class ViewUtils {
         left: offsetX - width,
         top: offsetY - width,
         child: Container(
-          width: width * 14 + width / 4,
-          height: height * map.length + width * 2,
+          width: width * 14 + width * 3 / 4,
+          height: height * map.length + width * 3,
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.blue,
-              width: width,
+              color: Colors.lightBlue[200]!,
+              width: width + width / 2,
             ),
           ),
         ),

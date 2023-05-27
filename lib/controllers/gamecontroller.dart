@@ -152,7 +152,7 @@ class GameController  extends ChangeNotifier{
     }
 
     for(int i = 0; i < gameMap.map.length; i++){
-      for(int j = startLeft; j < startRight; j++){
+      for(int j = startLeft; j <= startRight; j++){
         for(int k = 0; k < gameMap.map[i][j].length; k++){
           Unit unit = gameMap.map[i][j][k];
           if(unit.alreadyUpdated){
