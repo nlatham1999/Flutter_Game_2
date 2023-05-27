@@ -171,32 +171,60 @@ class _GameScreenState extends State<GameScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MaterialButton(
-                    onPressed: (){}, 
-                    onHighlightChanged: (isHighlighted) {
-                      if (!isHighlighted) {
-                        moveLeftReleased();
-                      }else{
-                        moveLeft();
-                      }
-                    },
-                    child: const Icon(Icons.arrow_back),
-                  ), 
-                  MaterialButton(
-                  onPressed: (){jump();},
-                    child: const Icon(Icons.arrow_upward_outlined),
+                  // MaterialButton(
+                  //   onPressed: (){}, 
+                  //   onHighlightChanged: (isHighlighted) {
+                  //     if (!isHighlighted) {
+                  //       moveLeftReleased();
+                  //     }else{
+                  //       moveLeft();
+                  //     }
+                  //   },
+                  //   child: const Icon(Icons.arrow_back),
+                  // ), 
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: _gameController.cellWidth),
+                    child: GestureDetector(
+                      onTapDown: (_) => moveLeft(),
+                      onTapUp: (_) => moveLeftReleased(),
+                      child: const Icon(Icons.arrow_back,),
+                    ),
                   ),
-                  MaterialButton(
-                    onPressed: (){}, 
-                    onHighlightChanged: (isHighlighted) {
-                      if (!isHighlighted) {
-                        moveRightReleased();
-                      }else{
-                        moveRight();
-                      }
-                    },
-                    child: const Icon(Icons.arrow_forward),
+                  
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: _gameController.cellWidth),
+                    child: GestureDetector(
+                      onTapDown: (_) => jump(),
+                      // onTapUp: (_) => moveLeftReleased(),
+                      child: const Icon(Icons.arrow_upward_outlined,),
+                    ),
                   ),
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: _gameController.cellWidth),
+                      child: GestureDetector(
+                      onTapDown: (_) => moveRight(),
+                      onTapUp: (_) => moveRightReleased(),
+                      child: const Icon(
+                        Icons.arrow_forward,
+                      ),
+                    ),
+                  ),
+                  // MaterialButton(
+                  // onPressed: (){jump();},
+                  //   child: const Icon(Icons.arrow_upward_outlined),
+                  // ),
+                  // MaterialButton(
+                  //   onPressed: (){}, 
+                  //   onHighlightChanged: (isHighlighted) {
+                  //     if (!isHighlighted) {
+                  //       moveRightReleased();
+                  //     }else{
+                  //       moveRight();
+                  //     }
+                  //   },
+                  //   child: const Icon(Icons.arrow_forward),
+                  // ),
                 ],
               )
             ),
