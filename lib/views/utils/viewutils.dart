@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/painters/bombpainter.dart';
+import 'package:my_app/painters/deadmonsterpainter.dart';
+import 'package:my_app/painters/jumperpainter.dart';
+import 'package:my_app/painters/monsterpainter.dart';
+import 'package:my_app/painters/playerpainter.dart';
 
+import '../../painters/grasspainter.dart';
+import '../../painters/traingelpainter.dart';
 import '../../util/util.dart';
 
 class ViewUtils {
@@ -41,12 +49,13 @@ class ViewUtils {
               positions.add(Positioned(
                 left: left,
                 top: top,
-                child: Container(
+                child: SizedBox(
                   width:  boxWidth,
                   height: height * unit.height / 4,
-                  decoration: getCell(unit))
+                  child: getPaintedCell(unit)
                 ),
-              );
+              ),
+            );
           }
         }
       }
@@ -70,86 +79,59 @@ class ViewUtils {
     return positions;
   }
 
-  static BoxDecoration getCell(Unit unit){
-   switch (getSpriteType(unit)) {
-     case "player":
-       return const BoxDecoration(
-        color: Colors.red,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10.0),
-          topLeft: Radius.circular(10.0)
-        ),
-       );
-     case "grass":
-       return const BoxDecoration(
-        color: Colors.green,
-       );
-     case "jumper_rising":
-     case "jumper_falling":
-      return const BoxDecoration(
-        color: Colors.amber,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10.0),
-          bottomRight: Radius.circular(10.0),
-        ),
-      );
-     case "monster_left":
-      return const BoxDecoration(
-        color: Colors.purple,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-        ),
-      );
-     case "monster_right":
-      return const BoxDecoration(
-        color: Colors.purple,
-        borderRadius: BorderRadius.only(
-          topRight: Radius.circular(10.0),
-        ),
-      );
-     case "bomb":
-      return const BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      );
-     case "bomb_charged":
-      return BoxDecoration(
-        color: Colors.orange.shade900,
-        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-      );
-     case "explosion":
-     case "E":
-      return const BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      );
-    case "coin":
-      return const BoxDecoration(
-        color: Colors.yellow,
-        borderRadius: BorderRadius.all(Radius.circular(10.0)),
-      );
-    case "monster_dead":
-      return const BoxDecoration(
-        color: Colors.purple,
-      );
-    case "crate":
-      return const BoxDecoration(
-        color: Colors.brown,
-      );
-    case "icicle":
-    case "icicle_falling":
-      return const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.elliptical(10, 40),
-          bottomRight: Radius.elliptical(10, 40),
-        )
-      );
-     default:
-       return const BoxDecoration(
-        color: Colors.blue,
-       );
-   }
+  static CustomPaint getPaintedCell(Unit unit){
+    switch (unit.type) {
+      case "bomb":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.black),
+        );
+      case "bomb_charged":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.orange),
+        );
+      case "explosion":
+        return CustomPaint(
+          painter: BombPainter(color: Colors.orange),
+        );
+      case "grass":
+        return CustomPaint(
+          painter: GrassPainter(),
+        );
+      case "icicle":
+      case "icicle_falling":
+        return CustomPaint(
+          painter: IciclePainter(
+            color: Colors.white,
+          ),
+        );
+      case "jumper_rising":
+      case "jumper_falling":
+        return CustomPaint(
+          painter: JumperPainter(),
+        );
+      case "monster_dead":
+        return CustomPaint(
+            painter: DeadMonsterPainter(),
+        );
+      case "monster_left":
+        return CustomPaint(
+            painter: MonsterPainter(
+              direction: 0
+            ),
+        );  
+      case "monster_right":
+        return CustomPaint(
+            painter: MonsterPainter(
+              direction: 1
+            ),
+        );      
+      case "player":
+        return CustomPaint(
+          painter: PlayerPainter(color: Colors.red, direction: unit.direction),
+        );
+      default:
+        return CustomPaint();
+    }
   }
 
   static topAppBar(param0, BuildContext context) {}

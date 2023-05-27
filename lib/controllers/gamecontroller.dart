@@ -104,6 +104,7 @@ class GameController  extends ChangeNotifier{
       if(!leftPressed){
         leftTrigger = false;
       }
+      gameMap.player.direction = 1;
     }
 
     if(rightTrigger){
@@ -111,6 +112,7 @@ class GameController  extends ChangeNotifier{
       if(!rightPressed){
         rightTrigger = false;
       }
+      gameMap.player.direction = 0;
     }
 
     if(!jumpState && !isOnSolidGround(gameMap.player)){
@@ -542,6 +544,7 @@ class GameController  extends ChangeNotifier{
     String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
     switch (spriteBelow) {
       case "grass":
+      case "monster_dead":
         return true;
       default:
         return false;
@@ -647,6 +650,8 @@ class GameController  extends ChangeNotifier{
         Unit monster = gameMap.map[unit.y+1][unit.x-1+i][k];
         if((monster.type == "monster_left" || monster.type == "monster_right") && gameMap.isUnitOnUnit(unit, monster)){
           gameMap.changeUnitType(monster, "monster_dead");
+          monster.height = 3;
+          gameMap.moveUnitDown(monster);
         }
       }
     }

@@ -22,7 +22,7 @@ class BasicMap extends GameMap {
   //M: monster (moving right)
   //p: main character
   //i: icicle
-  //I: icicle (falling)
+  //I: icicle row
 
   List<String> mapTemplate = [
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
@@ -31,14 +31,14 @@ class BasicMap extends GameMap {
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaapaagggggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaagaaaiaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaag",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "ggaajaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaagaaaaaaaaaaaaag",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "gpaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "ggggggggggggggggggggggggggggggggggggggggggggggggggg",
   ];
 
@@ -82,6 +82,12 @@ class BasicMap extends GameMap {
             break;
           case "i":
             cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 4));
+            break;
+          case "I":
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 4));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 1, offsetY: 0, width: 1, height: 4));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 2, offsetY: 0, width: 1, height: 4));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 3, offsetY: 0, width: 1, height: 4));
             break;
           case "j":
             Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);

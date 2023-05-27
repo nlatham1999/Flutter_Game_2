@@ -15,6 +15,8 @@ class Unit {
 
   bool alreadyUpdated = false;
 
+  int direction = 0;
+
   Unit({
     required this.type,
     required this.x,
