@@ -28,12 +28,13 @@ class _GameScreenState extends State<GameScreen> {
   bool _initialLoad = true;
   bool _showAboutGame = false;
   late GameController _gameController;
+  Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
 
   @override
   void initState() {
     super.initState();
     _level = widget.level;
-    _gameController = GameController(offsetY: 10, screenSize: MediaQueryData.fromWindow(WidgetsBinding.instance.window).size, level: _level);
+    _gameController = GameController(offsetY: 10, screenSize: size, level: _level);
     _startTimer();
   }
 
@@ -114,18 +115,6 @@ class _GameScreenState extends State<GameScreen> {
   return Builder(
     builder: (BuildContext context) {
       return Scaffold(
-        appBar: AppBar(
-          title: const Text("Cube World"),
-          actions: [
-            MaterialButton(
-              highlightColor: Colors.transparent,
-              child: const Icon(Icons.info_outline, color: Colors.white), 
-              onPressed: () { setState(() {
-                _showAboutGame = true;
-              });},
-            ),
-          ],
-        ),
         backgroundColor: Colors.blue,
         body: Stack(
           children: [
@@ -156,7 +145,18 @@ class _GameScreenState extends State<GameScreen> {
               children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
             ),
             Positioned(
-              top: _gameController.offsetY + (_gameController.cellHeight / 2),
+              top: size.height / 12,
+              right: size.height / 12,
+              child: MaterialButton(
+                highlightColor: Colors.transparent,
+                child: const Icon(Icons.info_outline, color: Colors.white), 
+                onPressed: () { setState(() {
+                  _showAboutGame = true;
+                });},
+              ),
+            ),
+            Positioned(
+              top: size.height / 12,
               width: _gameController.screenSize.width,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

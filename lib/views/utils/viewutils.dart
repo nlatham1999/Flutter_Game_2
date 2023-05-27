@@ -13,13 +13,14 @@ import '../../util/util.dart';
 
 class ViewUtils {
 
-  static List<Widget> getMapScreen(List<List<List<Unit>>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight){
+  static List<Widget> getMapScreen(List<List<List<Unit>>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight, {int numCellsToDisplay = 13}){
+
     List<Widget> positions = [
       Positioned(
         left: offsetX,
-        top: offsetY,
+        bottom: offsetY,
         child: Container(
-          width: width * 13 + width / 4,
+          width: width * numCellsToDisplay + width / 4,
           height: height * map.length,
           color: Colors.blue,
         ),
@@ -33,6 +34,7 @@ class ViewUtils {
     // }
     int vLo = viewMapLeft % 4;
     int vR  = viewMapRight ~/ 4 + 1;
+
 
     for(int i = 0; i < map.length; i++){
       for(int j = vL; j < vR; j++){
@@ -64,7 +66,7 @@ class ViewUtils {
         left: offsetX - width,
         top: offsetY - width,
         child: Container(
-          width: width * 14 + width * 3 / 4,
+          width: width * (numCellsToDisplay + 1) + width * 3 / 4,
           height: height * map.length + width * 3,
           decoration: BoxDecoration(
             border: Border.all(

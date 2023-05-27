@@ -57,6 +57,8 @@ class GameController  extends ChangeNotifier{
     double cellSize = (minDimension/divisor) - ((minDimension/divisor) % 4);
     cellHeight = cellSize;
     cellWidth = cellSize;
+
+    print(cellSize);
   
     offsetX = (screenSize.width - (cellSize * (viewMapWidth + .75))) / 2;
 

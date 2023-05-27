@@ -4,8 +4,11 @@ import 'package:my_app/models/level.dart';
 import 'package:my_app/models/level1.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
+import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../models/basicmap.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -23,7 +26,17 @@ class _MyHomePageState extends State<MyHomePage> {
   
   bool _showAboutGame = false;
   bool _initialLoad = true;
+  Level sampleLevel = Level();
+  late BasicMap sampleMap;
   Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+  late int numSampleCells;
+  
+  @override
+  void initState() {
+    super.initState();
+    sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
+    numSampleCells = size.width ~/ 32;
+  }
 
   int getLevel(){
     var gamecontext = context.read<GameContext>();
@@ -32,45 +45,61 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-          actions: [
-            MaterialButton(
-              highlightColor: Colors.transparent,
-              child: const Icon(Icons.info_outline, color: Colors.white), 
-              onPressed: () { setState(() {
-                _showAboutGame = true;
-              });},
+      backgroundColor: Colors.blue,
+      body: Stack(
+          
+          children: [
+            Stack(
+              children: ViewUtils.getMapScreen(sampleMap.map, 32, 32, 0, size.height - (512), 0, numSampleCells * 4, numCellsToDisplay: numSampleCells),
             ),
-          ],
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Visibility(
-              visible: getLevel() >= 0,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
-                  );
-                },
-                child: const Text("Level 1"),
-              )
-            ),
-            Visibility(
-              visible: getLevel() >= 1,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => GameScreen(level: Level1())),
-                  );
-                },
-                child: const Text("Level 2"),
-              )
+            Stack(
+              children: [
+                Positioned(
+                  top: size.height / 12,
+                  right: size.height / 12,
+                  child: MaterialButton(
+                    highlightColor: Colors.transparent,
+                    child: const Icon(Icons.info_outline, color: Colors.white), 
+                    onPressed: () { setState(() {
+                      _showAboutGame = true;
+                    });},
+                  ),
+                ),
+                Positioned(
+                  top: size.height / 8,
+                  left: size.width / 4,
+                  child: Visibility(
+                    visible: getLevel() >= 0,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
+                        );
+                      },
+                      child: const Text("Level 1", style: TextStyle(color: Colors.white),),
+                    )
+                  ),
+                ),
+                Positioned(
+                  top: size.height * 2 / 8,
+                  left: size.width / 4,
+                  child: Visibility(
+                    visible: getLevel() >= 1,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
+                        );
+                      },
+                      child: const Text("Level 2", style: TextStyle(color: Colors.white),),
+                    )
+                  ),
+                ),
+              ],
             ),
             Visibility (
               visible: widget.initialOpen && _initialLoad,
@@ -143,7 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
     );
   }
 }

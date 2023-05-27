@@ -89,6 +89,9 @@ class BasicMap extends GameMap {
           case "m":
             cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
             break;
+          case "M":
+            cell.add(Unit(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
           case "p":
             player = Unit(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4); 
             cell.add(player);
