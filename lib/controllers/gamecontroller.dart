@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/models/unit.dart';
 
 import '../models/basicmap.dart';
-import '../models/map.dart';
+import '../models/level.dart';
 import '../util/util.dart';
 
 class GameController  extends ChangeNotifier{
@@ -41,9 +38,12 @@ class GameController  extends ChangeNotifier{
 
   late int distanceTraveled;
 
+  Level level;
+
   GameController({
     required this.offsetY,
     required this.screenSize,
+    required this.level,
   }){
 
     viewMapWidth = 12;
@@ -58,14 +58,14 @@ class GameController  extends ChangeNotifier{
     cellHeight = cellSize;
     cellWidth = cellSize;
   
-    offsetX = (screenSize.width - (cellSize * (viewMapWidth+1))) / 2;
+    offsetX = (screenSize.width - (cellSize * (viewMapWidth + .75))) / 2;
 
     reset();
   }
 
   void reset(){
     distanceTraveled = 0;
-    gameMap = BasicMap();
+    gameMap = BasicMap(mapTemplate: level.mapTemplate);
     jumpState = false;
     jumpCount = 0;
 
@@ -87,6 +87,7 @@ class GameController  extends ChangeNotifier{
     if(gameMap.map[0].length - 1 == distanceTraveled){
       gameOver = true;
       gameOverText  = "YOU WON!!!";
+      level.finished = true;
       return;
     }
 
@@ -97,6 +98,10 @@ class GameController  extends ChangeNotifier{
     if(jumpTrigger){
       jump();
       jumpTrigger = false;
+    }
+
+    if(!jumpState && !isOnSolidGround(gameMap.player)){
+      fallDown();
     }
 
     if(leftTrigger){
@@ -113,10 +118,6 @@ class GameController  extends ChangeNotifier{
         rightTrigger = false;
       }
       gameMap.player.direction = 0;
-    }
-
-    if(!jumpState && !isOnSolidGround(gameMap.player)){
-      fallDown();
     }
 
     if(jumpState){
@@ -545,6 +546,7 @@ class GameController  extends ChangeNotifier{
     switch (spriteBelow) {
       case "grass":
       case "monster_dead":
+      case "brick":
         return true;
       default:
         return false;
@@ -623,6 +625,9 @@ class GameController  extends ChangeNotifier{
   // }
 
   void fallDown(){
+    if(gameMap.player.fall == 0){
+      gameMap.player.fall = 1;
+    }
     for(int i = 0; i < gameMap.player.fall; i++){
       String spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
       switch (spriteBelow) {
@@ -633,6 +638,10 @@ class GameController  extends ChangeNotifier{
         case "":
           gameMap.moveUnitDown(gameMap.player);
           break;
+        case "-1":
+          gameOver = true;
+          gameOverText = "You fell off the edge of the map :(";
+          return;
         default:
           gameMap.player.fall = 0;
           return;

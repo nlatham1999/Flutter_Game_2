@@ -1,6 +1,5 @@
 // ignore_for_file: overridden_fields
 
-import 'package:flutter/material.dart';
 import 'package:my_app/models/map.dart';
 import 'package:my_app/models/unit.dart';
 
@@ -24,24 +23,7 @@ class BasicMap extends GameMap {
   //i: icicle
   //I: icicle row
 
-  List<String> mapTemplate = [
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaagggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaIIIaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaa",
-    "apajaaaagaamaaaaagaamaaaaaaaamaaaaaaaaaaaaaaaaaaa",
-    "ggggggggggggggggggggggggggggggggggggggggggggggggg",
-  ];
-
+  List<String> mapTemplate;
   @override
   List<List<List<Unit>>> map = [];
 
@@ -55,7 +37,7 @@ class BasicMap extends GameMap {
 
   List<List<String>> collisionMap = [];
 
-  BasicMap(){
+  BasicMap({required this.mapTemplate }){
     buildMapFromTemplate();
 
     buildCollisionMap();
@@ -107,11 +89,17 @@ class BasicMap extends GameMap {
           case "m":
             cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
             break;
+          case "M":
+            cell.add(Unit(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
           case "p":
             player = Unit(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4); 
             cell.add(player);
             playerX = j;
             playerY = i;
+            break;
+          case "r":
+            cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
             break;
           default:
         }
