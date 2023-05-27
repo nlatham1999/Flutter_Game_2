@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/models/level.dart';
 import 'package:my_app/models/level1.dart';
+import 'package:my_app/models/level2.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
 import 'package:my_app/views/utils/viewutils.dart';
@@ -9,6 +10,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models/basicmap.dart';
+import '../models/level3.dart';
+import '../models/level4.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -57,8 +60,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Stack(
               children: [
                 Positioned(
-                  top: size.height / 12,
-                  right: size.height / 12,
+                  top: size.height / 15,
+                  right: size.height / 15,
                   child: MaterialButton(
                     highlightColor: Colors.transparent,
                     child: const Icon(Icons.info_outline, color: Colors.white), 
@@ -68,36 +71,56 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Positioned(
-                  top: size.height / 8,
-                  left: size.width / 4,
-                  child: Visibility(
-                    visible: getLevel() >= 0,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
-                        );
-                      },
-                      child: const Text("Level 1", style: TextStyle(color: Colors.white),),
-                    )
-                  ),
+                  top: size.height / 10,
+                  left: size.width / 5,
+                  child: ElevatedButton(
+                    onPressed: getLevel() >= 0 ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
+                      );
+                    } : null,
+                    child: const Text("Level 1", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  )
                 ),
                 Positioned(
-                  top: size.height * 2 / 8,
-                  left: size.width / 4,
-                  child: Visibility(
-                    visible: getLevel() >= 1,
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => GameScreen(level: Level1(),)),
-                        );
-                      },
-                      child: const Text("Level 2", style: TextStyle(color: Colors.white),),
-                    )
-                  ),
+                  top: size.height * 2 / 10,
+                  left: size.width / 5,
+                  child: ElevatedButton(
+                    onPressed: getLevel() >= 1 ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: Level2(),)),
+                      );
+                    } : null,
+                    child: const Text("Level 2", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  )
+                ),
+                Positioned(
+                  top: size.height * 3 / 10,
+                  left: size.width / 5,
+                  child: ElevatedButton(
+                    onPressed: getLevel() >= 2 ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: Level3(),)),
+                      );
+                    } : null,
+                    child: const Text("Level 3", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  )
+                ),
+                Positioned(
+                  top: size.height * 4 / 10,
+                  left: size.width / 5,
+                  child: ElevatedButton(
+                    onPressed: getLevel() >= 3 ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: Level4(),)),
+                      );
+                    } : null,
+                    child: const Text("Level 4", style: TextStyle(color: Colors.white, fontSize: 24),),
+                  )
                 ),
               ],
             ),

@@ -57,8 +57,6 @@ class GameController  extends ChangeNotifier{
     double cellSize = (minDimension/divisor) - ((minDimension/divisor) % 4);
     cellHeight = cellSize;
     cellWidth = cellSize;
-
-    print(cellSize);
   
     offsetX = (screenSize.width - (cellSize * (viewMapWidth + .75))) / 2;
 
@@ -102,6 +100,10 @@ class GameController  extends ChangeNotifier{
       jumpTrigger = false;
     }
 
+    if(!jumpState && !isOnSolidGround(gameMap.player)){
+      fallDown();
+    }
+
     if(leftTrigger){
       moveLeft();
       if(!leftPressed){
@@ -116,10 +118,6 @@ class GameController  extends ChangeNotifier{
         rightTrigger = false;
       }
       gameMap.player.direction = 0;
-    }
-
-    if(!jumpState && !isOnSolidGround(gameMap.player)){
-      fallDown();
     }
 
     if(jumpState){
@@ -548,6 +546,7 @@ class GameController  extends ChangeNotifier{
     switch (spriteBelow) {
       case "grass":
       case "monster_dead":
+      case "brick":
         return true;
       default:
         return false;
@@ -626,6 +625,9 @@ class GameController  extends ChangeNotifier{
   // }
 
   void fallDown(){
+    if(gameMap.player.fall == 0){
+      gameMap.player.fall = 1;
+    }
     for(int i = 0; i < gameMap.player.fall; i++){
       String spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
       switch (spriteBelow) {
@@ -636,6 +638,10 @@ class GameController  extends ChangeNotifier{
         case "":
           gameMap.moveUnitDown(gameMap.player);
           break;
+        case "-1":
+          gameOver = true;
+          gameOverText = "You fell off the edge of the map :(";
+          return;
         default:
           gameMap.player.fall = 0;
           return;

@@ -98,6 +98,9 @@ class BasicMap extends GameMap {
             playerX = j;
             playerY = i;
             break;
+          case "r":
+            cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
           default:
         }
         row.add(cell);
