@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, and to jump.\n\nYou will encounter different dangerous elements in your journey.",),
+                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {

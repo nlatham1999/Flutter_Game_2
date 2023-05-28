@@ -16,6 +16,7 @@ class GameController  extends ChangeNotifier{
 
   late bool leftPressed;
   late bool rightPressed;
+  int movingSpeed = 1;
 
   late int viewMapLeft;
   late int viewMapRight;
@@ -75,6 +76,7 @@ class GameController  extends ChangeNotifier{
 
     leftPressed = false;
     rightPressed = false;
+
 
     viewMapLeft = 0;
     viewMapRight = 15 * 4;
@@ -521,6 +523,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void moveRight(){
+    for(int i = 0; i < movingSpeed; i++) {
     String spriteRight = gameMap.getPotentialCollision(gameMap.player, "RIGHT");
     switch (spriteRight) {
       case "":
@@ -528,15 +531,18 @@ class GameController  extends ChangeNotifier{
         break;
       default:
     }
+    }
   }
 
   void moveLeft(){
-    String spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
-    switch (spriteLeft) {
-      case "":
-        gameMap.moveUnitLeft(gameMap.player);
-        break;
-      default:
+    for(int i = 0; i < movingSpeed; i++){
+      String spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
+      switch (spriteLeft) {
+        case "":
+          gameMap.moveUnitLeft(gameMap.player);
+          break;
+        default:
+      }
     }
   }
 

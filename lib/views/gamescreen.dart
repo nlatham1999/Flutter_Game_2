@@ -29,6 +29,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _showAboutGame = false;
   late GameController _gameController;
   Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+  bool shiftPressed = false;
 
   @override
   void initState() {
@@ -89,6 +90,14 @@ class _GameScreenState extends State<GameScreen> {
     _gameController.leftPressed = false;
   }
 
+  void sprintMode(){
+    _gameController.movingSpeed = 2;
+  }
+
+  void walkingMode(){
+    _gameController.movingSpeed = 1;
+  }
+
   void checkForGameEnd(){
       if(!_level.finished){
         return;
@@ -126,15 +135,19 @@ class _GameScreenState extends State<GameScreen> {
                     moveLeftReleased();
                   } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
                     moveRightReleased();
+                  } else if (event.logicalKey == LogicalKeyboardKey.shiftLeft || event.logicalKey == LogicalKeyboardKey.shiftRight) {
+                    walkingMode();
                   }
                 }
                 if (event is RawKeyDownEvent) {
                   if (event.logicalKey == LogicalKeyboardKey.space) {
                     jump();
                   }else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-                    moveLeft();
+                      moveLeft();
                   }else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-                    moveRight();
+                      moveRight();
+                  }else if (event.logicalKey == LogicalKeyboardKey.shiftLeft || event.logicalKey == LogicalKeyboardKey.shiftRight) {
+                    sprintMode();
                   }
                 }
                 return KeyEventResult.ignored;
@@ -167,36 +180,75 @@ class _GameScreenState extends State<GameScreen> {
             ),
             Positioned(
               top: _gameController.offsetY + (_gameController.cellHeight * 16),
-              width: _gameController.screenSize.width,
+              width: size.width,
+              // left: -_gameController.cellWidth / 2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  MaterialButton(
-                    onPressed: (){}, 
-                    onHighlightChanged: (isHighlighted) {
-                      if (!isHighlighted) {
-                        moveLeftReleased();
-                      }else{
-                        moveLeft();
-                      }
-                    },
-                    child: const Icon(Icons.arrow_back),
-                  ), 
-                  MaterialButton(
-                  onPressed: (){jump();},
-                    child: const Icon(Icons.arrow_upward_outlined),
+                  Column (
+                    children: [
+                    MaterialButton(
+                      onPressed: (){}, 
+                      onHighlightChanged: (isHighlighted) {
+                        if (!isHighlighted) {
+                          moveLeftReleased();
+                        }else{
+                          walkingMode();
+                          moveLeft();
+                        }
+                      },
+                      child: const Icon(Icons.arrow_back),
+                    ),
+                    MaterialButton(
+                      onPressed: (){}, 
+                      onHighlightChanged: (isHighlighted) {
+                        if (!isHighlighted) {
+                          moveLeftReleased();
+                        }else{
+                          sprintMode();
+                          moveLeft();
+                        }
+                      },
+                      child: const Icon(Icons.keyboard_double_arrow_left),
+                    ), 
+                    ], 
                   ),
-                  MaterialButton(
-                    onPressed: (){}, 
-                    onHighlightChanged: (isHighlighted) {
-                      if (!isHighlighted) {
-                        moveRightReleased();
-                      }else{
-                        moveRight();
-                      }
-                    },
-                    child: const Icon(Icons.arrow_forward),
+                  Column(
+                    children: [
+                      MaterialButton(
+                      onPressed: (){jump();},
+                        child: const Icon(Icons.arrow_upward_outlined),
+                      ),
+                    ],
                   ),
+                  Column(
+                    children: [
+                      MaterialButton(
+                        onPressed: (){}, 
+                        onHighlightChanged: (isHighlighted) {
+                          if (!isHighlighted) {
+                            moveRightReleased();
+                          }else{
+                            walkingMode();
+                            moveRight();
+                          }
+                        },
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                      MaterialButton(
+                        onPressed: (){}, 
+                        onHighlightChanged: (isHighlighted) {
+                          if (!isHighlighted) {
+                            moveRightReleased();
+                          }else{
+                            sprintMode();
+                            moveRight();
+                          }
+                        },
+                        child: const Icon(Icons.keyboard_double_arrow_right),
+                      ),
+                    ],
+                  )
                 ],
               )
             ),
