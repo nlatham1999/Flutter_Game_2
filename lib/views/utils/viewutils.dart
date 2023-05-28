@@ -65,10 +65,10 @@ class ViewUtils {
     }
 
     positions.add(Positioned(
-        left: offsetX - width,
-        top: offsetY - width,
+        left: offsetX - (width * 3 / 2),
+        top: offsetY - (width * 3 / 2),
         child: Container(
-          width: width * (numCellsToDisplay + 1) + width * 3 / 4,
+          width: width * (numCellsToDisplay + 2) + width * 3 / 4,
           height: height * map.length + width * 3,
           decoration: BoxDecoration(
             border: Border.all(

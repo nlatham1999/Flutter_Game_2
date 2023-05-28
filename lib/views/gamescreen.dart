@@ -30,12 +30,13 @@ class _GameScreenState extends State<GameScreen> {
   late GameController _gameController;
   Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
   bool shiftPressed = false;
+  int _duration = 0;
 
   @override
   void initState() {
     super.initState();
     _level = widget.level;
-    _gameController = GameController(offsetY: 10, screenSize: size, level: _level);
+    _gameController = GameController(offsetY: 40, screenSize: size, level: _level);
     _startTimer();
   }
 
@@ -49,6 +50,7 @@ class _GameScreenState extends State<GameScreen> {
     _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       if(!_gameController.gameOver){
         setState(() {
+          _duration++;
           _gameController.setNextState();
         });
       }else{
@@ -110,6 +112,7 @@ class _GameScreenState extends State<GameScreen> {
 
   void restartGame(){
     setState(() {
+      _duration = 0;
       _gameController.reset();
       _gameOver = false;
     });
@@ -155,26 +158,32 @@ class _GameScreenState extends State<GameScreen> {
               child: Container()
             ),
             Stack(
-              children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight),
+              children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.numCellsToDisplay),
             ),
             Positioned(
-              top: size.height / 12,
-              right: size.height / 12,
+              top: 0,
+              right: 0,
               child: MaterialButton(
                 highlightColor: Colors.transparent,
                 child: const Icon(Icons.info_outline, color: Colors.white), 
-                onPressed: () { setState(() {
+                onPressed: () { 
+                  setState(() {
                   _showAboutGame = true;
-                });},
-              ),
+                  });
+                }, 
+              )
             ),
+            
             Positioned(
-              top: size.height / 12,
+              top: size.height * 1 / 12,
               width: _gameController.screenSize.width,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  ElevatedButton(onPressed: () {restartGame();}, child: const Text("restart")),
                   Text("Distance: ${_gameController.distanceTraveled}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("\tTime: ${_duration ~/ 20}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  
                 ]
               ),
             ),

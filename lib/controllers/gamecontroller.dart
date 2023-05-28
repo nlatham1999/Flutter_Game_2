@@ -17,6 +17,7 @@ class GameController  extends ChangeNotifier{
   late bool leftPressed;
   late bool rightPressed;
   int movingSpeed = 1;
+  int numCellsToDisplay = 13;
 
   late int viewMapLeft;
   late int viewMapRight;
@@ -47,7 +48,7 @@ class GameController  extends ChangeNotifier{
     required this.level,
   }){
 
-    viewMapWidth = 12;
+    viewMapWidth = 13;
 
     int divisor = viewMapWidth;
     if(screenSize.height < screenSize.width){
@@ -58,8 +59,17 @@ class GameController  extends ChangeNotifier{
     double cellSize = (minDimension/divisor) - ((minDimension/divisor) % 4);
     cellHeight = cellSize;
     cellWidth = cellSize;
-  
-    offsetX = (screenSize.width - (cellSize * (viewMapWidth + .75))) / 2;
+
+    if(screenSize.height < screenSize.width){
+      numCellsToDisplay = screenSize.width ~/ cellWidth;
+      numCellsToDisplay -= 4;
+      if(numCellsToDisplay > 100){
+        numCellsToDisplay = 100;
+      }
+      viewMapWidth = numCellsToDisplay;
+    }
+    
+    offsetX = (screenSize.width - (cellSize * (viewMapWidth))) / 2;
 
     reset();
   }
@@ -79,7 +89,7 @@ class GameController  extends ChangeNotifier{
 
 
     viewMapLeft = 0;
-    viewMapRight = 15 * 4;
+    viewMapRight = (numCellsToDisplay - 2) * 4;
 
     gameOver = false;
   }
@@ -145,11 +155,11 @@ class GameController  extends ChangeNotifier{
 
     List<Unit> unitsUpdated = [];
 
-    int startLeft = gameMap.player.x - 20;
+    int startLeft = gameMap.player.x - numCellsToDisplay;
     if(startLeft < 0){
       startLeft = 0;
     }
-    int startRight = gameMap.player.x + 20;
+    int startRight = gameMap.player.x + numCellsToDisplay;
     if(startRight > gameMap.map[0].length - 1){
       startRight = gameMap.map[0].length - 1;
     }
