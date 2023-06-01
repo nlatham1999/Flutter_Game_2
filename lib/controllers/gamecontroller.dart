@@ -66,6 +66,9 @@ class GameController  extends ChangeNotifier{
       if(numCellsToDisplay > 100){
         numCellsToDisplay = 100;
       }
+      if(numCellsToDisplay > level.mapTemplate[0].length - 1){
+        numCellsToDisplay = level.mapTemplate[0].length - 1;
+      }
       viewMapWidth = numCellsToDisplay;
     }
     
@@ -168,6 +171,9 @@ class GameController  extends ChangeNotifier{
       for(int j = startLeft; j <= startRight; j++){
         for(int k = 0; k < gameMap.map[i][j].length; k++){
           Unit unit = gameMap.map[i][j][k];
+          if(unit.type == 'grass'){
+            continue;
+          }
           if(unit.alreadyUpdated){
             continue;
           }else{
@@ -244,78 +250,81 @@ class GameController  extends ChangeNotifier{
 
   void spriteExplosion(Unit unit){
 
-    if(unit.value_1 > 3){
-      gameMap.removeSprite(unit);
-      return;
-    }
+    for(int i = 0; i < 2; i++){
 
-    String s = "";
-    switch (unit.value_2) {
-      case 0:
-        s = gameMap.getPotentialCollision(unit, "LEFT_UP");
-        if(s == ""){
-          gameMap.moveUnitLeft(unit);
-          gameMap.moveUnitUp(unit);
-        }
-        break;
-      case 1:
-        s = gameMap.getPotentialCollision(unit, "UP");
-        if(s == ""){
-          gameMap.moveUnitUp(unit);
-        }
-        break;
-      case 2:
-        s = gameMap.getPotentialCollision(unit, "RIGHT_UP");
-        if(s == ""){
-          gameMap.moveUnitRight(unit);
-          gameMap.moveUnitUp(unit);
-        }
-        break;
-      case 3:
-        s = gameMap.getPotentialCollision(unit, "RIGHT");
-        if(s == ""){
-          gameMap.moveUnitRight(unit);
-        }
-        break;
-      case 4:
-        s = gameMap.getPotentialCollision(unit, "RIGHT_DOWN");
-        if(s == ""){
-          gameMap.moveUnitRight(unit);
-          gameMap.moveUnitDown(unit);
-        }
-        break;
-      case 5:
-        s = gameMap.getPotentialCollision(unit, "DOWN");
-        if(s == ""){
-          gameMap.moveUnitDown(unit);
-        }
-        break;
-      case 6:
-        s = gameMap.getPotentialCollision(unit, "LEFT_DOWN");
-        if(s == ""){
-          gameMap.moveUnitLeft(unit);
-          gameMap.moveUnitDown(unit);
-        }
-        break;
-      case 7:
-        s = gameMap.getPotentialCollision(unit, "LEFT");
-        if(s == ""){
-          gameMap.moveUnitLeft(unit);
-        }
-        break;
-      default:
-    }
+      if(unit.value_1 > 8){
+        gameMap.removeSprite(unit);
+        return;
+      }
 
-    if(s == "player"){
-      gameOver = true;
-      gameOverText = "You got bombed :(";
-      return;
-    }
-    if(s != ""){
-      gameMap.removeSprite(unit);
-    }
+      String s = "";
+      switch (unit.value_2) {
+        case 0:
+          s = gameMap.getPotentialCollision(unit, "LEFT_UP");
+          if(s == ""){
+            gameMap.moveUnitLeft(unit);
+            gameMap.moveUnitUp(unit);
+          }
+          break;
+        case 1:
+          s = gameMap.getPotentialCollision(unit, "UP");
+          if(s == ""){
+            gameMap.moveUnitUp(unit);
+          }
+          break;
+        case 2:
+          s = gameMap.getPotentialCollision(unit, "RIGHT_UP");
+          if(s == ""){
+            gameMap.moveUnitRight(unit);
+            gameMap.moveUnitUp(unit);
+          }
+          break;
+        case 3:
+          s = gameMap.getPotentialCollision(unit, "RIGHT");
+          if(s == ""){
+            gameMap.moveUnitRight(unit);
+          }
+          break;
+        case 4:
+          s = gameMap.getPotentialCollision(unit, "RIGHT_DOWN");
+          if(s == ""){
+            gameMap.moveUnitRight(unit);
+            gameMap.moveUnitDown(unit);
+          }
+          break;
+        case 5:
+          s = gameMap.getPotentialCollision(unit, "DOWN");
+          if(s == ""){
+            gameMap.moveUnitDown(unit);
+          }
+          break;
+        case 6:
+          s = gameMap.getPotentialCollision(unit, "LEFT_DOWN");
+          if(s == ""){
+            gameMap.moveUnitLeft(unit);
+            gameMap.moveUnitDown(unit);
+          }
+          break;
+        case 7:
+          s = gameMap.getPotentialCollision(unit, "LEFT");
+          if(s == ""){
+            gameMap.moveUnitLeft(unit);
+          }
+          break;
+        default:
+      }
 
-    unit.value_1++;
+      if(s == "player"){
+        gameOver = true;
+        gameOverText = "You got bombed :(";
+        return;
+      }
+      if(s != ""){
+        gameMap.removeSprite(unit);
+      }
+
+      unit.value_1++;
+    }
 
   }
 
@@ -388,7 +397,6 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterLeft(Unit unit){
-
     String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
     switch (spriteBelow) {
       case "player":
@@ -514,6 +522,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void updateViewMap(){
+
     if(viewMapRight - (gameMap.player.x * 4 + gameMap.player.offsetX) < 5 * 4){
       viewMapRight = (gameMap.player.x * 4 + gameMap.player.offsetX) + 5 * 4;
       if(viewMapRight > (gameMap.map[0].length * 4)-1){
@@ -528,7 +537,6 @@ class GameController  extends ChangeNotifier{
         viewMapLeft = 0;
       }
       viewMapRight = viewMapLeft + (viewMapWidth * 4);
-
     }
   }
 
@@ -671,7 +679,12 @@ class GameController  extends ChangeNotifier{
   //this assumes that monsters are 4x4 
   void squashMonsters(Unit unit){
     for(int i = 0; i < 3; i++){
-      for(int k = 0; k < gameMap.map[unit.y+1][unit.x-1+i].length; k++){
+      int x = unit.x-1+i;
+      int y = unit.y+1;
+      if(x < 0 || x > gameMap.map[0].length - 1 || y > gameMap.map.length){
+        continue;
+      }
+      for(int k = 0; k < gameMap.map[y][x].length; k++){
         Unit monster = gameMap.map[unit.y+1][unit.x-1+i][k];
         if((monster.type == "monster_left" || monster.type == "monster_right") && gameMap.isUnitOnUnit(unit, monster)){
           gameMap.changeUnitType(monster, "monster_dead");

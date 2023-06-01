@@ -14,6 +14,9 @@ class BasicMap extends GameMap {
   //e: explosion
   //E: explosion 2
   //g: grass
+  //G: grass large block
+  //Ĝ: grass skinny
+  //Ğ: grass tall
   //j: jumper (going up)
   //J: jumper (going down)
   //Ĵ: slightly faster jumper
@@ -60,7 +63,24 @@ class BasicMap extends GameMap {
             cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 1));
             break;
           case "g":
-            cell.add(Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            grass.value_1 = 0;
+            cell.add(grass);
+            break;
+          case "G":
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 16, height: 16);
+            grass.value_1 = 1;
+            cell.add(grass);
+            break;
+          case "Ĝ":
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 16, height: 4);
+            grass.value_1 = 2;
+            cell.add(grass);
+            break;
+          case "Ğ":
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 16);
+            grass.value_1 = 3;
+            cell.add(grass);
             break;
           case "i":
             cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 4));
@@ -129,6 +149,9 @@ class BasicMap extends GameMap {
               collisionMap[(i*4) + unit.offsetY + m][(j*4) + unit.offsetX + l] = unit.type;
             }
           } 
+          // if(unit.type == "grass"){
+          //   map[i][j].remove(unit);
+          // }
         }
       }
     }

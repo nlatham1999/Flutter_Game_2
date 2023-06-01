@@ -77,7 +77,10 @@ flutter:
     - assets/bomb_charged.png
     - assets/brick.png
     - assets/explosion_tiny.png
-    - assets/grass.png
+    - assets/grass1x1.png
+    - assets/grass1x4.png
+    - assets/grass4x1.png
+    - assets/grass4x4.png
     - assets/icicle.png
     - assets/jumper.png
     - assets/monster_left.png
