@@ -31,6 +31,8 @@ class _GameScreenState extends State<GameScreen> {
   Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
   bool shiftPressed = false;
   int _duration = 0;
+  bool _rightTapDown = false;
+  bool _leftTapDown = false;
 
   @override
   void initState() {
@@ -115,6 +117,7 @@ class _GameScreenState extends State<GameScreen> {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
+      _gameController.gameStarted = true;
     });
   }
 
@@ -188,76 +191,128 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Positioned(
+              top:  _gameController.offsetY + (_gameController.cellHeight * 20),
+              width: size.width,
+              child: MaterialButton(
+                onPressed: (){},
+                onHighlightChanged: (isHighlighted) {
+                    if (isHighlighted) {
+                      jump();
+                    }
+                  },
+                  child: Icon(
+                    size: _gameController.cellHeight * 2,
+                    Icons.arrow_upward_outlined
+                  ),
+                ),
+            ),
+            Positioned(
               top: _gameController.offsetY + (_gameController.cellHeight * 16),
               width: size.width,
               // left: -_gameController.cellWidth / 2,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column (
-                    children: [
-                    MaterialButton(
-                      onPressed: (){}, 
-                      onHighlightChanged: (isHighlighted) {
-                        if (!isHighlighted) {
-                          moveLeftReleased();
-                        }else{
-                          walkingMode();
-                          moveLeft();
-                        }
-                      },
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                    MaterialButton(
-                      onPressed: (){}, 
-                      onHighlightChanged: (isHighlighted) {
-                        if (!isHighlighted) {
-                          moveLeftReleased();
-                        }else{
-                          sprintMode();
-                          moveLeft();
-                        }
-                      },
-                      child: const Icon(Icons.keyboard_double_arrow_left),
-                    ), 
-                    ], 
-                  ),
-                  Column(
-                    children: [
-                      MaterialButton(
-                      onPressed: (){jump();},
-                        child: const Icon(Icons.arrow_upward_outlined),
-                      ),
-                    ],
-                  ),
-                  Column(
+                  Expanded(
+                    flex: 1,
+                    child: Column (
                     children: [
                       MaterialButton(
                         onPressed: (){}, 
                         onHighlightChanged: (isHighlighted) {
                           if (!isHighlighted) {
-                            moveRightReleased();
+                            moveLeftReleased();
+                            _leftTapDown = false;
+                            if(_rightTapDown){
+                              walkingMode();
+                              moveRight();
+                            }
                           }else{
+                            moveRightReleased();
                             walkingMode();
-                            moveRight();
+                            moveLeft();
+                            _leftTapDown = true;
                           }
                         },
-                        child: const Icon(Icons.arrow_forward),
+                        child: Icon(
+                          size: _gameController.cellHeight * 2,
+                          Icons.arrow_forward
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: (){}, 
+                        onHighlightChanged: (isHighlighted) {
+                          if (!isHighlighted) {
+                            moveLeftReleased();
+                            _leftTapDown = false;
+                            if(_rightTapDown){
+                              walkingMode();
+                              moveRight();
+                            }
+                          }else{
+                            moveRightReleased();
+                            sprintMode();
+                            moveLeft();
+                            _leftTapDown = true;
+                          }
+                        },
+                        child: Icon(
+                          size: _gameController.cellHeight * 2,
+                          Icons.keyboard_double_arrow_left
+                        ),
+                      ),
+                    ],
+                  ),), 
+                  Expanded(
+                    flex: 1,
+                    child: Column (
+                    children: [
+                      MaterialButton(
+                        onPressed: (){}, 
+                        onHighlightChanged: (isHighlighted) {
+                          if (!isHighlighted) {
+                            moveRightReleased();
+                            _rightTapDown = false;
+                            if(_leftTapDown){
+                              walkingMode();
+                              moveLeft();
+                            }
+                          }else{
+                            moveLeftReleased();
+                            walkingMode();
+                            moveRight();
+                            _rightTapDown = true;
+                          }
+                        },
+                        child: Icon(
+                          size: _gameController.cellHeight * 2,
+                          Icons.arrow_forward
+                        ),
                       ),
                       MaterialButton(
                         onPressed: (){}, 
                         onHighlightChanged: (isHighlighted) {
                           if (!isHighlighted) {
                             moveRightReleased();
+                            _rightTapDown = false;
+                            if(_leftTapDown){
+                              moveLeftReleased();
+                              walkingMode();
+                              moveLeft();
+                            }
                           }else{
                             sprintMode();
                             moveRight();
+                            _rightTapDown = true;
                           }
                         },
-                        child: const Icon(Icons.keyboard_double_arrow_right),
+                        child: Icon(
+                          size: _gameController.cellHeight * 2,
+                          Icons.keyboard_double_arrow_right
+                        ),
                       ),
                     ],
-                  )
+                  ),),
                 ],
               )
             ),
@@ -298,6 +353,7 @@ class _GameScreenState extends State<GameScreen> {
                       onPressed: () {
                         setState(() {
                           _initialLoad = false;
+                          _gameController.gameStarted = true;
                         });
                       },
                       child: const Text("Lets Play!"),

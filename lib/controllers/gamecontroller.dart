@@ -24,6 +24,7 @@ class GameController  extends ChangeNotifier{
   late int viewMapWidth;
 
   late bool gameOver;
+  bool gameStarted = false;
 
   late List<List<Unit>> mapTemp = [];
 
@@ -78,6 +79,8 @@ class GameController  extends ChangeNotifier{
   }
 
   void reset(){
+
+    gameStarted = false;
     distanceTraveled = 0;
     gameMap = BasicMap(mapTemplate: level.mapTemplate);
     jumpState = false;
@@ -98,6 +101,10 @@ class GameController  extends ChangeNotifier{
   }
 
   void setNextState(){
+
+    if(!gameStarted){
+      return;
+    }
 
     if(gameMap.map[0].length - 1 == distanceTraveled){
       gameOver = true;
