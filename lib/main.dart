@@ -4,10 +4,20 @@ import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
 import 'package:provider/provider.dart';
 
+// import 'dart:html' as html;
+
+
 import 'views/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+// Disable right-clicks on web
+  // if (html.window != null) {
+  //   html.document.onContextMenu.listen((event) {
+  //     event.preventDefault();
+  //   });
+  // }
 
   runApp(
     ChangeNotifierProvider(

@@ -194,6 +194,9 @@ class GameController  extends ChangeNotifier{
             case "monster_right":
               spriteMonsterRight(unit);
               break;
+            case "monster_dead":
+              monster_dead(unit);
+              break;
             case "jumper_rising":
               spriteJumperUp(unit);        
               break;
@@ -230,6 +233,13 @@ class GameController  extends ChangeNotifier{
     //     gameMap.map[i][j] = mapTemp[i][j];
     //   }
     // }
+  }
+
+  void monster_dead(Unit unit){
+    unit.value_1++;
+    if(unit.value_1 > 10){
+      gameMap.removeSprite(unit);
+    }
   }
 
   void spriteIcicleCheck(Unit unit){
@@ -410,6 +420,9 @@ class GameController  extends ChangeNotifier{
         gameOver = true;
         gameOverText = "You got eaten :(";
         break;
+      case "-1":
+        gameMap.removeSprite(unit);
+        return;
       case "":
         gameMap.moveUnitDown(unit);
         return;
@@ -438,6 +451,9 @@ class GameController  extends ChangeNotifier{
         gameOver = true;
         gameOverText = "You got eaten :(";
         break;
+      case "-1":
+        gameMap.removeSprite(unit);
+        return;
       case "":
         gameMap.moveUnitDown(unit);
         return;

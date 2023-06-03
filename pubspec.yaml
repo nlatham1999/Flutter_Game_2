@@ -83,6 +83,8 @@ flutter:
     - assets/grass4x4.png
     - assets/icicle.png
     - assets/jumper.png
+    - assets/marble_column1x4.png
+    - assets/marble_arch1x1.png
     - assets/monster_left.png
     - assets/monster_right.png
     - assets/monster_left_small.png

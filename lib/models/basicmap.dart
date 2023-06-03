@@ -17,6 +17,8 @@ class BasicMap extends GameMap {
   //G: grass large block
   //Ĝ: grass skinny
   //Ğ: grass tall
+  //h: marble column
+  //H: marble arch
   //j: jumper (going up)
   //J: jumper (going down)
   //Ĵ: slightly faster jumper
@@ -80,6 +82,16 @@ class BasicMap extends GameMap {
           case "Ğ":
             Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 16);
             grass.value_1 = 3;
+            cell.add(grass);
+            break;
+          case "h":
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 16);
+            grass.value_1 = 4;
+            cell.add(grass);
+            break;
+          case "H":
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            grass.value_1 = 5;
             cell.add(grass);
             break;
           case "i":

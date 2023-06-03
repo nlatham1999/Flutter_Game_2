@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/home.dart';
 import 'package:provider/provider.dart';
@@ -33,12 +34,16 @@ class _GameScreenState extends State<GameScreen> {
   int _duration = 0;
   bool _rightTapDown = false;
   bool _leftTapDown = false;
+  bool pause = false;
+
+  String mapAsString = "";
 
   @override
   void initState() {
     super.initState();
     _level = widget.level;
     _gameController = GameController(offsetY: 40, screenSize: size, level: _level);
+    mapAsString = _gameController.level.mapTemplate.join("\n");
     _startTimer();
   }
 
@@ -50,6 +55,9 @@ class _GameScreenState extends State<GameScreen> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+      if(pause){
+        return;
+      }
       if(!_gameController.gameOver){
         setState(() {
           _duration++;
@@ -191,8 +199,9 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Positioned(
-              top:  _gameController.offsetY + (_gameController.cellHeight * 20),
-              width: size.width,
+              top:  _gameController.offsetY + (_gameController.cellHeight * 17),
+              left: size.width / 3,
+              width: size.width / 3,
               child: MaterialButton(
                 onPressed: (){},
                 onHighlightChanged: (isHighlighted) {
@@ -201,13 +210,13 @@ class _GameScreenState extends State<GameScreen> {
                     }
                   },
                   child: Icon(
-                    size: _gameController.cellHeight * 2,
+                    size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
                     Icons.arrow_upward_outlined
                   ),
                 ),
             ),
             Positioned(
-              top: _gameController.offsetY + (_gameController.cellHeight * 16),
+              top: _gameController.offsetY + (_gameController.cellHeight * 17),
               width: size.width,
               // left: -_gameController.cellWidth / 2,
               child: Row(
@@ -235,8 +244,8 @@ class _GameScreenState extends State<GameScreen> {
                           }
                         },
                         child: Icon(
-                          size: _gameController.cellHeight * 2,
-                          Icons.arrow_forward
+                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
+                          Icons.arrow_back
                         ),
                       ),
                       MaterialButton(
@@ -257,7 +266,7 @@ class _GameScreenState extends State<GameScreen> {
                           }
                         },
                         child: Icon(
-                          size: _gameController.cellHeight * 2,
+                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
                           Icons.keyboard_double_arrow_left
                         ),
                       ),
@@ -285,7 +294,7 @@ class _GameScreenState extends State<GameScreen> {
                           }
                         },
                         child: Icon(
-                          size: _gameController.cellHeight * 2,
+                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
                           Icons.arrow_forward
                         ),
                       ),
@@ -307,7 +316,7 @@ class _GameScreenState extends State<GameScreen> {
                           }
                         },
                         child: Icon(
-                          size: _gameController.cellHeight * 2,
+                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
                           Icons.keyboard_double_arrow_right
                         ),
                       ),
@@ -315,6 +324,51 @@ class _GameScreenState extends State<GameScreen> {
                   ),),
                 ],
               )
+            ),
+            Positioned(
+              top: 0,
+              width: 300,
+              left: 0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onChanged:(value) {
+                    mapAsString = value;
+                  },
+                  controller: TextEditingController(text:  mapAsString),
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Enter text',
+                  ),
+                  maxLines: null,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: 
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: (){
+                        setState(() {
+                        pause = !pause;
+                        });
+                      },
+                      child: Text("pause/play"),
+                    ),
+                    ElevatedButton(
+                      onPressed: (){
+                        Level level = TestLevel();
+                        level.mapTemplate = mapAsString.split('\n');
+                        _gameController.level = level;
+                        restartGame();
+                      },
+                      child: Text("apply changes"),
+                    ),
+                  ],
+                ), 
             ),
             Visibility (
               visible: _gameOver,
