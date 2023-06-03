@@ -31,7 +31,7 @@ void main() {
   // });
 
 
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Dynamic Level Test', (WidgetTester tester) async {
     LevelDynamic level = LevelDynamic();
     
     Map<String, int> occurances = {};
@@ -55,7 +55,7 @@ void main() {
 
     List<String> sortedKeys = occurances.keys.toList()..sort();
     for (String key in sortedKeys) {
-      if(occurances[key]! > 333){
+      if(occurances[key]! > 200){
         print("$key, ${occurances[key]!}");
       }
     }
