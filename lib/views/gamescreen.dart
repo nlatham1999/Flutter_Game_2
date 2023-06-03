@@ -325,51 +325,51 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               )
             ),
-            Positioned(
-              top: 0,
-              width: 300,
-              left: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  onChanged:(value) {
-                    mapAsString = value;
-                  },
-                  controller: TextEditingController(text:  mapAsString),
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Enter text',
-                  ),
-                  maxLines: null,
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              right: 0,
-              child: 
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: (){
-                        setState(() {
-                        pause = !pause;
-                        });
-                      },
-                      child: Text("pause/play"),
-                    ),
-                    ElevatedButton(
-                      onPressed: (){
-                        Level level = TestLevel();
-                        level.mapTemplate = mapAsString.split('\n');
-                        _gameController.level = level;
-                        restartGame();
-                      },
-                      child: Text("apply changes"),
-                    ),
-                  ],
-                ), 
-            ),
+            // Positioned(
+            //   top: 0,
+            //   width: 300,
+            //   left: 0,
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: TextField(
+            //       onChanged:(value) {
+            //         mapAsString = value;
+            //       },
+            //       controller: TextEditingController(text:  mapAsString),
+            //       decoration: InputDecoration(
+            //         border: OutlineInputBorder(),
+            //         labelText: 'Enter text',
+            //       ),
+            //       maxLines: null,
+            //     ),
+            //   ),
+            // ),
+            // Positioned(
+            //   top: 0,
+            //   right: 0,
+            //   child: 
+            //     Column(
+            //       children: [
+            //         ElevatedButton(
+            //           onPressed: (){
+            //             setState(() {
+            //             pause = !pause;
+            //             });
+            //           },
+            //           child: Text("pause/play"),
+            //         ),
+            //         ElevatedButton(
+            //           onPressed: (){
+            //             Level level = TestLevel();
+            //             level.mapTemplate = mapAsString.split('\n');
+            //             _gameController.level = level;
+            //             restartGame();
+            //           },
+            //           child: Text("apply changes"),
+            //         ),
+            //       ],
+            //     ), 
+            // ),
             Visibility (
               visible: _gameOver,
               child:Center(
