@@ -12,38 +12,45 @@ import '../../painters/traingelpainter.dart';
 import '../../util/util.dart';
 
 class ViewUtils {
-
-  static List<Widget> getMapScreen(List<List<List<Unit>>> map, double width, double height, double offsetX, double offsetY, int viewMapLeft, int viewMapRight, {int numCellsToDisplay = 13}){
-
+  static List<Widget> getMapScreen(
+      List<List<List<Unit>>> map,
+      double width,
+      double height,
+      double offsetX,
+      double offsetY,
+      int viewMapLeft,
+      int viewMapRight,
+      {int numCellsToDisplay = 13}) {
     List<Widget> positions = [
-      Positioned(
-        left: offsetX,
-        bottom: offsetY,
-        child: Container(
-          width: width * numCellsToDisplay + width / 4,
-          height: height * map.length,
-          color: Colors.blue,
-        ),
-      )
+      // Positioned(
+      //   left: offsetX,
+      //   bottom: offsetY,
+      //   child: Container(
+      //     width: width * numCellsToDisplay + width / 4,
+      //     height: height * map.length,
+      //     color: Colors.blue,
+      //   ),
+      // )
     ];
 
     int vL = viewMapLeft ~/ 4;
     // if(vL > 0){
     //   vL --;
-      // print("minusing");
+    // print("minusing");
     // }
     int vLo = viewMapLeft % 4;
-    int vR  = viewMapRight ~/ 4 + 1;
+    int vR = viewMapRight ~/ 4 + 1;
 
-
-    for(int i = 0; i < map.length; i++){
-      for(int j = vL; j < vR; j++){
-        for(int k = 0; k < map[i][j].length; k++){
+    for (int i = 0; i < map.length; i++) {
+      for (int j = vL; j < vR; j++) {
+        for (int k = 0; k < map[i][j].length; k++) {
           Unit unit = map[i][j][k];
-          if(unit.type == "air"){
+          if (unit.type == "air") {
             continue;
           }
-          double left = width * (j- vL - (vLo/4)) + offsetX + (width * unit.offsetX / 4);
+          double left = width * (j - vL - (vLo / 4)) +
+              offsetX +
+              (width * unit.offsetX / 4);
           double top = height * i + offsetY + (height * unit.offsetY / 4);
           double boxWidth = width * unit.width / 4;
           positions.add(
@@ -54,8 +61,10 @@ class ViewUtils {
                 width: boxWidth,
                 height: height * unit.height / 4,
                 child: Image.asset(
-                  getPositionedImage(unit), // Replace with the actual image path
-                  fit: BoxFit.contain, // Adjust the image within the specified box
+                  getPositionedImage(
+                      unit), // Replace with the actual image path
+                  fit: BoxFit
+                      .contain, // Adjust the image within the specified box
                 ),
               ),
             ),
@@ -65,24 +74,24 @@ class ViewUtils {
     }
 
     positions.add(Positioned(
-        left: offsetX - (width * 3 / 2),
-        top: offsetY - (width * 3 / 2),
-        child: Container(
-          width: width * (numCellsToDisplay + 2) + width * 3 / 4,
-          height: height * map.length + width * 3,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.blue,
-              width: width + width / 2,
-            ),
+      left: offsetX - (width * 3 / 2),
+      top: offsetY - (width * 3 / 2),
+      child: Container(
+        width: width * (numCellsToDisplay + 2) + width * 3 / 4,
+        height: height * map.length + width * 3,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.blue,
+            width: width + width / 2,
           ),
         ),
+      ),
     ));
 
     return positions;
   }
 
-  static String getPositionedImage(Unit unit){
+  static String getPositionedImage(Unit unit) {
     switch (unit.type) {
       case "bomb":
         return 'assets/bomb.png';
@@ -93,7 +102,21 @@ class ViewUtils {
       case "explosion":
         return 'assets/explosion_tiny.png';
       case "grass":
-        return 'assets/grass.png';
+        if(unit.value_1 == 0){
+          return 'assets/grass1x1.png';
+        }else if(unit.value_1 == 1){
+          return 'assets/grass4x4.png';
+        }else if(unit.value_1 == 2){
+          return 'assets/grass4x1.png';
+        } else if(unit.value_1 == 3){
+          return 'assets/grass1x4.png';
+        } else if(unit.value_1 == 4){
+          return 'assets/marble_column1x4.png';
+        }else if(unit.value_1 == 5){
+          return 'assets/marble_arch1x1.png';
+        }else{
+          return 'assets/grass1x1.png';
+        }
       case "icicle":
       case "icicle_falling":
         return 'assets/icicle.png';
@@ -107,9 +130,9 @@ class ViewUtils {
       case "monster_right":
         return 'assets/monster_right_small.png';
       case "player":
-        if(unit.direction == 0){
+        if (unit.direction == 0) {
           return 'assets/player_right_small.png';
-        }else{
+        } else {
           return 'assets/player_left_small.png';
         }
       default:
@@ -117,7 +140,7 @@ class ViewUtils {
     }
   }
 
-  static CustomPaint getPaintedCell(Unit unit){
+  static CustomPaint getPaintedCell(Unit unit) {
     switch (unit.type) {
       // case "bomb":
       //   return CustomPaint(
@@ -149,20 +172,20 @@ class ViewUtils {
       //   );
       case "monster_dead":
         return CustomPaint(
-            painter: DeadMonsterPainter(),
+          painter: DeadMonsterPainter(),
         );
       // case "monster_left":
       //   return CustomPaint(
       //       painter: MonsterPainter(
       //         direction: 0
       //       ),
-      //   );  
+      //   );
       // case "monster_right":
       //   return CustomPaint(
       //       painter: MonsterPainter(
       //         direction: 1
       //       ),
-      //   );      
+      //   );
       // case "player":
       //   return CustomPaint(
       //     painter: PlayerPainter(color: Colors.red, direction: unit.direction),
@@ -173,5 +196,4 @@ class ViewUtils {
   }
 
   static topAppBar(param0, BuildContext context) {}
-
 }
