@@ -5,22 +5,22 @@ import 'package:my_app/models/level.dart';
 class TestLevel extends Level {
   @override
   List<String> mapTemplate = [
+    "aaĞaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaagĞ",
-    "aggaaggaaggaagga",
-    "aaaaaaaaaaajaaaa",
-    "aaggaaggaaggaaga",
-    "aaaaaaabaaaajaaĞ",
-    "aaaggaaggaaggaaa",
     "paaaaaaaaaaaaaaa",
-    "ggggggggggggggga",
+    "ĞaggĞaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "Ğaaaaaaaaaaaaaaa",
+    "aaaaggaagaaaaaaa",
+    "aaaagaaaaaaagaaa",
+    "aalagaaaaaaaaaaa",
+    "ĞĞĞĞĞaaagaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaabababaajaja",
+    "aaaaaggggggggggg",
   ];
 
   @override 

@@ -27,6 +27,7 @@ class BasicMap extends GameMap {
   //p: main character
   //i: icicle
   //I: icicle row
+  //l log
 
   List<String> mapTemplate;
   @override
@@ -40,7 +41,10 @@ class BasicMap extends GameMap {
 
   late Unit player;
 
-  List<List<String>> collisionMap = [];
+  List<List<Unit>> collisionMap = [];
+
+  Unit airUnit = Unit(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 4, height: 4);
+  Unit outOfBoundsUnit = Unit(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
 
   BasicMap({required this.mapTemplate }){
     buildMapFromTemplate();
@@ -118,6 +122,9 @@ class BasicMap extends GameMap {
             jumper.value_2 = 12;
             cell.add(jumper);
             break;
+          case "l":
+            cell.add(Unit(type: "log", x: j, y: i, offsetX: 0, offsetY: 3, width: 8, height: 1));
+            break;
           case "m":
             cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
             break;
@@ -145,9 +152,9 @@ class BasicMap extends GameMap {
     collisionMap = [];
 
     for(int i = 0; i < map.length * 4; i++){
-      List<String> row = [];
+      List<Unit> row = [];
       for(int j = 0; j < map[0].length * 4; j++){
-        row.add("air");
+        row.add(airUnit);
       }
       collisionMap.add(row);
     }
@@ -158,7 +165,7 @@ class BasicMap extends GameMap {
           Unit unit = map[i][j][k];
           for(int m = 0; m < unit.height; m++){
             for(int l = 0; l < unit.width; l++){
-              collisionMap[(i*4) + unit.offsetY + m][(j*4) + unit.offsetX + l] = unit.type;
+              collisionMap[(i*4) + unit.offsetY + m][(j*4) + unit.offsetX + l] = unit;
             }
           } 
           // if(unit.type == "grass"){
@@ -169,17 +176,17 @@ class BasicMap extends GameMap {
     }
   }
 
-  String getPotentialCollision(Unit unit, String direction){
+  Unit getPotentialCollision(Unit unit, String direction){
     switch (direction) {
       // @TODO if there is a player and a grass to the left (like the player is on the block) what should be returned?
       case "LEFT":
         int top = unit.y * 4 + unit.offsetY;
         int left = unit.x * 4 + unit.offsetX - 1;
         if(left < 0){
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][left] != "air"){
+          if(collisionMap[top+i][left].type != "air"){
             return collisionMap[top+i][left];
           }
         }
@@ -189,10 +196,10 @@ class BasicMap extends GameMap {
         int top = unit.y * 4 + unit.offsetY;
         int left = unit.x * 4 + unit.offsetX + unit.width;
         if(left > collisionMap[0].length - 1){
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][left] != "air"){
+          if(collisionMap[top+i][left].type != "air"){
             return collisionMap[top+i][left];
           }
         }
@@ -202,10 +209,10 @@ class BasicMap extends GameMap {
         int bottom = unit.y * 4 + unit.offsetY + unit.height;
         int left = unit.x * 4 + unit.offsetX;
         if (bottom > collisionMap.length - 1) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[bottom][left+i] != "air"){
+          if(collisionMap[bottom][left+i].type != "air"){
             return collisionMap[bottom][left+i];
           }
         }
@@ -215,10 +222,10 @@ class BasicMap extends GameMap {
         int top = unit.y * 4 + unit.offsetY - 1;
         int left = unit.x * 4 + unit.offsetX;
         if (top < 0) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[top][left+i] != "air"){
+          if(collisionMap[top][left+i].type != "air"){
             return collisionMap[top][left+i];
           }
         }
@@ -228,15 +235,15 @@ class BasicMap extends GameMap {
         int top = unit.y * 4 + unit.offsetY - 1;
         int left = unit.x * 4 + unit.offsetX - 1;
         if (top < 0 || left < 0) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[top][left+i] != "air"){
+          if(collisionMap[top][left+i].type != "air"){
             return collisionMap[top][left+i];
           }
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][left] != "air"){
+          if(collisionMap[top+i][left].type != "air"){
             return collisionMap[top+i][left];
           }
         }
@@ -245,20 +252,20 @@ class BasicMap extends GameMap {
       case "LEFT_DOWN":
         int top = unit.y * 4 + unit.offsetY + 1;
         if(top > collisionMap.length - 1){
-          return "-1";
+          return outOfBoundsUnit;
         }
         int left = unit.x * 4 + unit.offsetX - 1;
         int bottom = unit.y * 4 + unit.offsetY + unit.height;
         if (bottom > collisionMap.length - 1) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][left] != "air"){
+          if(collisionMap[top+i][left].type != "air"){
             return collisionMap[top+i][left];
           }
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[bottom][left+i] != "air"){
+          if(collisionMap[bottom][left+i].type != "air"){
             return collisionMap[bottom][left+i];
           }
         }
@@ -268,19 +275,19 @@ class BasicMap extends GameMap {
         int top = unit.y * 4 + unit.offsetY - 1;
         int left = unit.x * 4 + unit.offsetX + 1;
         if (top < 0) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         int right = unit.x * 4 + unit.offsetX + unit.width;
         if(right > collisionMap[0].length - 1){
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[top][left+i] != "air"){
+          if(collisionMap[top][left+i].type != "air"){
             return collisionMap[top][left+i];
           }
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][right] != "air"){
+          if(collisionMap[top+i][right].type != "air"){
             return collisionMap[top+i][right];
           }
         }
@@ -292,18 +299,18 @@ class BasicMap extends GameMap {
         int bottom = unit.y * 4 + unit.offsetY + unit.height;
         int left = unit.x * 4 + unit.offsetX + 1;
         if (bottom > collisionMap.length - 1 || top > collisionMap.length) {
-          return "-1";
+          return outOfBoundsUnit;
         }
         if(right > collisionMap[0].length - 1 || left > collisionMap[0].length){
-          return "-1";
+          return outOfBoundsUnit;
         }
         for(int i = 0; i < unit.height; i++){
-          if(collisionMap[top+i][right] != "air"){
+          if(collisionMap[top+i][right].type != "air"){
             return collisionMap[top+i][right];
           }
         }
         for(int i = 0; i < unit.width; i++){
-          if(collisionMap[bottom][left+i] != "air"){
+          if(collisionMap[bottom][left+i].type != "air"){
             return collisionMap[bottom][left+i];
           }
         }
@@ -313,7 +320,25 @@ class BasicMap extends GameMap {
       default:
 
     }
-    return "";
+    return airUnit;
+  }
+
+  List<Unit> getUnitsAbove(Unit unit){
+    Set<Unit> unitsSet = {};
+
+    
+    int top = unit.y * 4 + unit.offsetY - 1;
+    int left = unit.x * 4 + unit.offsetX;
+    if (top < 0) {
+      return [outOfBoundsUnit];
+    }
+    for(int i = 0; i < unit.width; i++){
+      if(collisionMap[top][left+i].type != "air"){
+        unitsSet.add(collisionMap[top][left+i]);
+      }
+    } 
+
+    return unitsSet.toList();
   }
 
   void moveUnitLeft(Unit unit){
@@ -321,8 +346,8 @@ class BasicMap extends GameMap {
     int left = unit.x * 4 + unit.offsetX - 1;
     int right = unit.x * 4 + unit.offsetX + unit.width - 1;
     for(int i = 0; i < unit.height; i++){
-      collisionMap[top+i][left] = unit.type;
-      collisionMap[top+i][right] = "air";
+      collisionMap[top+i][left] = unit;
+      collisionMap[top+i][right] = airUnit;
     }
 
     unit.offsetX--;
@@ -339,8 +364,8 @@ class BasicMap extends GameMap {
     int left = unit.x * 4 + unit.offsetX;
     int right = unit.x * 4 + unit.offsetX + unit.width;
     for(int i = 0; i < unit.height; i++){
-      collisionMap[top+i][left] = "air";
-      collisionMap[top+i][right] = unit.type;
+      collisionMap[top+i][left] = airUnit;
+      collisionMap[top+i][right] = unit;
     }
 
     unit.offsetX++;
@@ -357,8 +382,8 @@ class BasicMap extends GameMap {
     int bottom = unit.y * 4 + unit.offsetY + unit.height;
     int left = unit.x * 4 + unit.offsetX;
     for(int i = 0; i < unit.width; i++){
-      collisionMap[top][left+i] = "air";
-      collisionMap[bottom][left+i] = unit.type;
+      collisionMap[top][left+i] = airUnit;
+      collisionMap[bottom][left+i] = unit;
     }
 
     unit.offsetY++;
@@ -375,8 +400,8 @@ class BasicMap extends GameMap {
     int bottom = unit.y * 4 + unit.offsetY + unit.height - 1;
     int left = unit.x * 4 + unit.offsetX;
     for(int i = 0; i < unit.width; i++){
-      collisionMap[top][left+i] = unit.type;
-      collisionMap[bottom][left+i] = "air";
+      collisionMap[top][left+i] = unit;
+      collisionMap[bottom][left+i] = airUnit;
     }
 
     unit.offsetY--;
@@ -410,11 +435,11 @@ class BasicMap extends GameMap {
   }
 
   void changeUnitType(Unit unit, String newType){
-    for(int i = 0; i < unit.height; i++){
-      for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = newType;
-      }
-    }
+    // for(int i = 0; i < unit.height; i++){
+    //   for(int j = 0; j < unit.width; j++){
+    //     collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = newType;
+    //   }
+    // }
 
     unit.type = newType;
   }
@@ -443,7 +468,7 @@ class BasicMap extends GameMap {
   void removeSprite(Unit unit){
     for(int i = 0; i < unit.height; i++){
       for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = "air";
+        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = airUnit;
       }
     }
     map[unit.y][unit.x].remove(unit);
@@ -452,7 +477,7 @@ class BasicMap extends GameMap {
   void addUnit(Unit unit){
     for(int i = 0; i < unit.height; i++){
       for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = unit.type;
+        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = unit;
       }
     }
     map[unit.y][unit.x].add(unit);

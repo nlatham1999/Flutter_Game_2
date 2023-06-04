@@ -117,13 +117,16 @@ class GameController  extends ChangeNotifier{
       distanceTraveled = gameMap.player.x;
     }
 
+    updateSprites();
+
+    
+    if(!jumpState && !isOnSolidGround(gameMap.player)){
+      fallDown();
+    }
+
     if(jumpTrigger){
       jump();
       jumpTrigger = false;
-    }
-
-    if(!jumpState && !isOnSolidGround(gameMap.player)){
-      fallDown();
     }
 
     if(leftTrigger){
@@ -146,7 +149,6 @@ class GameController  extends ChangeNotifier{
       updateJump();
     }
 
-    updateSprites();
 
     updateViewMap();
 
@@ -188,6 +190,9 @@ class GameController  extends ChangeNotifier{
             unitsUpdated.add(unit);
           }
           switch (getSpriteType(unit)) {
+            case "log":
+              vertical_log(unit);
+              break;
             case "monster_left":
               spriteMonsterLeft(unit);
               break;
@@ -195,7 +200,7 @@ class GameController  extends ChangeNotifier{
               spriteMonsterRight(unit);
               break;
             case "monster_dead":
-              monster_dead(unit);
+              monsterDead(unit);
               break;
             case "jumper_rising":
               spriteJumperUp(unit);        
@@ -235,7 +240,64 @@ class GameController  extends ChangeNotifier{
     // }
   }
 
-  void monster_dead(Unit unit){
+  void vertical_log(Unit unit){
+
+    if(unit.value_2 >= 16){
+      if(unit.value_1 == 0){
+        unit.value_1 = 1;
+      }else{
+        unit.value_1 = 0;
+      }
+      unit.value_2 = 0;
+    }
+
+    if(unit.value_1 == 0){
+
+      List<Unit> spritesAbove = gameMap.getUnitsAbove(unit);
+      
+      if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
+        unit.value_1 = 1;
+        return;
+      }
+
+      for(int i = 0; i < spritesAbove.length; i++){
+        Unit spriteAbove = gameMap.getPotentialCollision(spritesAbove[i], "UP");
+        if(spriteAbove.type != "air"){
+          return;
+        }
+      }
+
+      for(int i = 0; i < spritesAbove.length; i++){
+        gameMap.moveUnitUp(spritesAbove[i]);
+      }
+
+      gameMap.moveUnitUp(unit);
+
+    }else{
+      Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+      switch (spriteBelow.type) {
+        case "air":
+          // List<Unit> spritesAbove = gameMap.getUnitsAbove(unit);
+      
+          // if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
+          //   unit.value_2 = 1;
+          //   return;
+          // }
+
+          // for(int i = 0; i < spritesAbove.length; i++){
+          //   gameMap.moveUnitDown(spritesAbove[i]);
+          // }
+
+          gameMap.moveUnitDown(unit);
+          break;
+        default:
+          return;
+      }
+    }
+    unit.value_2++;
+  }
+
+  void monsterDead(Unit unit){
     unit.value_1++;
     if(unit.value_1 > 10){
       gameMap.removeSprite(unit);
@@ -250,10 +312,10 @@ class GameController  extends ChangeNotifier{
 
   void spriteIcicleFallDown(Unit unit){
 
-    String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
 
-    switch (spriteBelow) {
-      case "":
+    switch (spriteBelow.type) {
+      case "air":
         gameMap.moveUnitDown(unit);
         break;
       case "player":
@@ -274,69 +336,69 @@ class GameController  extends ChangeNotifier{
         return;
       }
 
-      String s = "";
+      Unit s = gameMap.airUnit;
       switch (unit.value_2) {
         case 0:
           s = gameMap.getPotentialCollision(unit, "LEFT_UP");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitLeft(unit);
             gameMap.moveUnitUp(unit);
           }
           break;
         case 1:
           s = gameMap.getPotentialCollision(unit, "UP");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitUp(unit);
           }
           break;
         case 2:
           s = gameMap.getPotentialCollision(unit, "RIGHT_UP");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitRight(unit);
             gameMap.moveUnitUp(unit);
           }
           break;
         case 3:
           s = gameMap.getPotentialCollision(unit, "RIGHT");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitRight(unit);
           }
           break;
         case 4:
           s = gameMap.getPotentialCollision(unit, "RIGHT_DOWN");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitRight(unit);
             gameMap.moveUnitDown(unit);
           }
           break;
         case 5:
           s = gameMap.getPotentialCollision(unit, "DOWN");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitDown(unit);
           }
           break;
         case 6:
           s = gameMap.getPotentialCollision(unit, "LEFT_DOWN");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitLeft(unit);
             gameMap.moveUnitDown(unit);
           }
           break;
         case 7:
           s = gameMap.getPotentialCollision(unit, "LEFT");
-          if(s == ""){
+          if(s.type == "air"){
             gameMap.moveUnitLeft(unit);
           }
           break;
         default:
       }
 
-      if(s == "player"){
+      if(s.type == "player"){
         gameOver = true;
         gameOverText = "You got bombed :(";
         return;
       }
-      if(s != ""){
+      if(s.type != "air"){
         gameMap.removeSprite(unit);
       }
 
@@ -414,8 +476,8 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterLeft(Unit unit){
-    String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
-    switch (spriteBelow) {
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    switch (spriteBelow.type) {
       case "player":
         gameOver = true;
         gameOverText = "You got eaten :(";
@@ -423,19 +485,19 @@ class GameController  extends ChangeNotifier{
       case "-1":
         gameMap.removeSprite(unit);
         return;
-      case "":
+      case "air":
         gameMap.moveUnitDown(unit);
         return;
       default:
     }
 
-    String spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
-    switch (spriteLeft) {
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+    switch (spriteLeft.type) {
       case "player":
         gameOver = true;
         gameOverText = "You got eaten :(";
         break;
-      case "":
+      case "air":
         gameMap.moveUnitLeft(unit);
         break;
       default:
@@ -445,8 +507,8 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterRight(Unit unit){
-    String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
-    switch (spriteBelow) {
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    switch (spriteBelow.type) {
       case "player":
         gameOver = true;
         gameOverText = "You got eaten :(";
@@ -454,19 +516,19 @@ class GameController  extends ChangeNotifier{
       case "-1":
         gameMap.removeSprite(unit);
         return;
-      case "":
+      case "air":
         gameMap.moveUnitDown(unit);
         return;
       default:
     }
 
-    String spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT");
-    switch (spriteLeft) {
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT");
+    switch (spriteLeft.type) {
       case "player":
         gameOver = true;
         gameOverText = "You got eaten :(";
         break;
-      case "":
+      case "air":
         gameMap.moveUnitRight(unit);
         break;
       default:
@@ -489,9 +551,9 @@ class GameController  extends ChangeNotifier{
     }
 
     // for(int i = 0; i < accelerationCalc(unit.value_1); i++){
-      String spriteAbove = gameMap.getPotentialCollision(unit, "UP");
-      switch (spriteAbove) {
-        case "":
+      Unit spriteAbove = gameMap.getPotentialCollision(unit, "UP");
+      switch (spriteAbove.type) {
+        case "air":
           gameMap.moveUnitUp(unit);
           break;
         default:
@@ -526,13 +588,13 @@ class GameController  extends ChangeNotifier{
     }
 
     for(int i = 0; i < accelerationCalc(unit.value_1); i++){
-      String spriteAbove = gameMap.getPotentialCollision(unit, "DOWN");
-      switch (spriteAbove) {
+      Unit spriteAbove = gameMap.getPotentialCollision(unit, "DOWN");
+      switch (spriteAbove.type) {
         case "player":
           gameOver = true;
           gameOverText = "You got smushed";
           return;
-        case "":
+        case "air":
           gameMap.moveUnitDown(unit);
           break;
         default:
@@ -565,9 +627,9 @@ class GameController  extends ChangeNotifier{
 
   void moveRight(){
     for(int i = 0; i < movingSpeed; i++) {
-    String spriteRight = gameMap.getPotentialCollision(gameMap.player, "RIGHT");
-    switch (spriteRight) {
-      case "":
+    Unit spriteRight = gameMap.getPotentialCollision(gameMap.player, "RIGHT");
+    switch (spriteRight.type) {
+      case "air":
         gameMap.moveUnitRight(gameMap.player);
         break;
       default:
@@ -577,9 +639,9 @@ class GameController  extends ChangeNotifier{
 
   void moveLeft(){
     for(int i = 0; i < movingSpeed; i++){
-      String spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
-      switch (spriteLeft) {
-        case "":
+      Unit spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
+      switch (spriteLeft.type) {
+        case "air":
           gameMap.moveUnitLeft(gameMap.player);
           break;
         default:
@@ -589,11 +651,12 @@ class GameController  extends ChangeNotifier{
 
 
   bool isOnSolidGround(Unit unit){
-    String spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
-    switch (spriteBelow) {
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    switch (spriteBelow.type) {
       case "grass":
       case "monster_dead":
       case "brick":
+      case "log":
         return true;
       default:
         return false;
@@ -628,14 +691,14 @@ class GameController  extends ChangeNotifier{
       }
 
       for(int i = 0; i < spacesToJump; i++){
-        String spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
-        switch (spriteAbove) {
+        Unit spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
+        switch (spriteAbove.type) {
           case "monster_left":
           case "monster_right":
             gameOver = true;
             gameOverText = "You got eaten :(";
             break;
-          case "":
+          case "air":
             gameMap.moveUnitUp(gameMap.player);
             break;
           default:
@@ -676,13 +739,13 @@ class GameController  extends ChangeNotifier{
       gameMap.player.fall = 1;
     }
     for(int i = 0; i < gameMap.player.fall; i++){
-      String spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
-      switch (spriteBelow) {
+      Unit spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
+      switch (spriteBelow.type) {
         case "monster_left":
         case "monster_right":
           squashMonsters(gameMap.player);
           break;
-        case "":
+        case "air":
           gameMap.moveUnitDown(gameMap.player);
           break;
         case "-1":
