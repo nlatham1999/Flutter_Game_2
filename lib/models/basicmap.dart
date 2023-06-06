@@ -19,15 +19,18 @@ class BasicMap extends GameMap {
   //Ğ: grass tall
   //h: marble column
   //H: marble arch
+  //i: icicle
+  //I: icicle row
   //j: jumper (going up)
   //J: jumper (going down)
   //Ĵ: slightly faster jumper
+  //l log
   //m: monster (moving left)
   //M: monster (moving right)
   //p: main character
-  //i: icicle
-  //I: icicle row
-  //l log
+  //r: brick
+  //s: spiked monster left
+  //S: spiked monster right
 
   List<String> mapTemplate;
   @override
@@ -140,6 +143,12 @@ class BasicMap extends GameMap {
           case "r":
             cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
             break;
+          case "s":
+            cell.add(Unit(type: "spiked_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 5, height: 5));
+            break;
+          case "S":
+            cell.add(Unit(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 5, height: 5));
+            break;
           default:
         }
         row.add(cell);
@@ -176,7 +185,10 @@ class BasicMap extends GameMap {
     }
   }
 
-  Unit getPotentialCollision(Unit unit, String direction){
+  Unit getPotentialCollision(Unit unit, String direction, {String playerPriority = "neutral"}){
+    
+    Unit found = airUnit;
+
     switch (direction) {
       // @TODO if there is a player and a grass to the left (like the player is on the block) what should be returned?
       case "LEFT":
@@ -185,9 +197,15 @@ class BasicMap extends GameMap {
         if(left < 0){
           return outOfBoundsUnit;
         }
+
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][left].type != "air"){
-            return collisionMap[top+i][left];
+            Unit collision = collisionMap[top+i][left];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -200,7 +218,12 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][left].type != "air"){
-            return collisionMap[top+i][left];
+            Unit collision = collisionMap[top+i][left];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -213,7 +236,12 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[bottom][left+i].type != "air"){
-            return collisionMap[bottom][left+i];
+            Unit collision = collisionMap[bottom][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -226,7 +254,12 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[top][left+i].type != "air"){
-            return collisionMap[top][left+i];
+            Unit collision = collisionMap[top][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -239,12 +272,22 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[top][left+i].type != "air"){
-            return collisionMap[top][left+i];
+            Unit collision = collisionMap[top][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][left].type != "air"){
-            return collisionMap[top+i][left];
+            Unit collision = collisionMap[top+i][left];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -261,12 +304,22 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][left].type != "air"){
-            return collisionMap[top+i][left];
+            Unit collision = collisionMap[top+i][left];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[bottom][left+i].type != "air"){
-            return collisionMap[bottom][left+i];
+            Unit collision = collisionMap[bottom][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -283,12 +336,22 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[top][left+i].type != "air"){
-            return collisionMap[top][left+i];
+            Unit collision = collisionMap[top][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][right].type != "air"){
-            return collisionMap[top+i][right];
+            Unit collision = collisionMap[top+i][right];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         break;
@@ -306,12 +369,22 @@ class BasicMap extends GameMap {
         }
         for(int i = 0; i < unit.height; i++){
           if(collisionMap[top+i][right].type != "air"){
-            return collisionMap[top+i][right];
+            Unit collision = collisionMap[top+i][right];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
         for(int i = 0; i < unit.width; i++){
           if(collisionMap[bottom][left+i].type != "air"){
-            return collisionMap[bottom][left+i];
+            Unit collision = collisionMap[bottom][left+i];
+            if(playerPriority == "low" && collision.type == "player"){
+              found = collision;
+            }else{
+              return collision;
+            }
           }
         }
 
@@ -320,7 +393,7 @@ class BasicMap extends GameMap {
       default:
 
     }
-    return airUnit;
+    return found;
   }
 
   List<Unit> getUnitsAbove(Unit unit){

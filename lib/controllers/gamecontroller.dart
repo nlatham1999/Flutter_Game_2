@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/models/unit.dart';
 
@@ -222,6 +223,12 @@ class GameController  extends ChangeNotifier{
               break;
             case "icicle_falling":
               spriteIcicleFallDown(unit);
+              break;
+            case "spiked_monster_left":
+              spriteSpikedMonsterLeft(unit);
+              break;
+            case "spiked_monster_right":
+              spriteSpikedMonsterRight(unit);
               break;
             default:
           }
@@ -476,7 +483,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterLeft(Unit unit){
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
     switch (spriteBelow.type) {
       case "player":
         gameOver = true;
@@ -491,7 +498,7 @@ class GameController  extends ChangeNotifier{
       default:
     }
 
-    Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
     switch (spriteLeft.type) {
       case "player":
         gameOver = true;
@@ -507,7 +514,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterRight(Unit unit){
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
     switch (spriteBelow.type) {
       case "player":
         gameOver = true;
@@ -522,7 +529,7 @@ class GameController  extends ChangeNotifier{
       default:
     }
 
-    Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT");
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
     switch (spriteLeft.type) {
       case "player":
         gameOver = true;
@@ -533,6 +540,68 @@ class GameController  extends ChangeNotifier{
         break;
       default:
         unit.type = "monster_left";
+    }
+    
+  }
+
+  void spriteSpikedMonsterLeft(Unit unit){
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
+    switch (spriteBelow.type) {
+      case "player":
+        gameOver = true;
+        gameOverText = "You got eaten :(";
+        break;
+      case "-1":
+        gameMap.removeSprite(unit);
+        return;
+      case "air":
+        gameMap.moveUnitDown(unit);
+        return;
+      default:
+    }
+
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
+    switch (spriteLeft.type) {
+      case "player":
+        gameOver = true;
+        gameOverText = "You got eaten :(";
+        break;
+      case "air":
+        gameMap.moveUnitLeft(unit);
+        break;
+      default:
+        unit.type = "spiked_monster_right";
+    }
+    
+  }
+
+  void spriteSpikedMonsterRight(Unit unit){
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
+    switch (spriteBelow.type) {
+      case "player":
+        gameOver = true;
+        gameOverText = "You got eaten :(";
+        break;
+      case "-1":
+        gameMap.removeSprite(unit);
+        return;
+      case "air":
+        gameMap.moveUnitDown(unit);
+        return;
+      default:
+    }
+
+    Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
+    switch (spriteLeft.type) {
+      case "player":
+        gameOver = true;
+        gameOverText = "You got eaten :(";
+        break;
+      case "air":
+        gameMap.moveUnitRight(unit);
+        break;
+      default:
+        unit.type = "spiked_monster_left";
     }
     
   }
@@ -632,6 +701,11 @@ class GameController  extends ChangeNotifier{
       case "air":
         gameMap.moveUnitRight(gameMap.player);
         break;
+      case "spiked_monster_left":
+      case "spiked_monster_right":
+        gameOver = true;
+        gameOverText = "You ran into a monster :(";
+        return;
       default:
     }
     }
@@ -644,6 +718,11 @@ class GameController  extends ChangeNotifier{
         case "air":
           gameMap.moveUnitLeft(gameMap.player);
           break;
+        case "spiked_monster_left":
+        case "spiked_monster_right":
+          gameOver = true;
+          gameOverText = "You ran into a monster :(";
+          return;
         default:
       }
     }
@@ -741,6 +820,11 @@ class GameController  extends ChangeNotifier{
     for(int i = 0; i < gameMap.player.fall; i++){
       Unit spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
       switch (spriteBelow.type) {
+        case "spiked_monster_left":
+        case "spiked_monster_right":
+          gameOver = true;
+          gameOverText = "You fell onto a monster :(";
+          return;
         case "monster_left":
         case "monster_right":
           squashMonsters(gameMap.player);

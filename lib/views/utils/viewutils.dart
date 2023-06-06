@@ -137,6 +137,10 @@ class ViewUtils {
         } else {
           return 'assets/player_left_small.png';
         }
+      case "spiked_monster_left":
+        return 'assets/spiked_monster_left_small.png';
+      case "spiked_monster_right":
+        return 'assets/spiked_monster_right_small.png';
       default:
         return "";
     }

@@ -34,6 +34,7 @@ class _GameScreenState extends State<GameScreen> {
   int _duration = 0;
   bool _rightTapDown = false;
   bool _leftTapDown = false;
+  bool _menuPressed = false;
   bool pause = false;
 
   String mapAsString = "";
@@ -60,7 +61,9 @@ class _GameScreenState extends State<GameScreen> {
       }
       if(!_gameController.gameOver){
         setState(() {
-          _duration++;
+          if(_gameController.gameStarted){
+            _duration++;
+          }
           _gameController.setNextState();
         });
       }else{
@@ -125,7 +128,7 @@ class _GameScreenState extends State<GameScreen> {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
-      _gameController.gameStarted = true;
+      // _gameController.gameStarted = true;
     });
   }
 
@@ -191,7 +194,10 @@ class _GameScreenState extends State<GameScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: () {restartGame();}, child: const Text("restart")),
+                  ElevatedButton(onPressed: () {setState(() {
+                    _gameController.gameStarted = false;
+                    _menuPressed = true;
+                  });}, child: const Icon(Icons.menu)),
                   Text("Distance: ${_gameController.distanceTraveled}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
                   Text("\tTime: ${_duration ~/ 20}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
                   
@@ -392,6 +398,49 @@ class _GameScreenState extends State<GameScreen> {
                         );
                       },
                       child: const Text("Return to main menu")),
+                  ],
+                )
+              ),
+            ),
+            Visibility (
+              visible: _menuPressed,
+              child:Center(
+                child: AlertDialog(
+                  title: const Text("Menu"),
+                  content: SizedBox(
+                      height: size.height / 2,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              restartGame();
+                            },
+                            child: const Text("Restart Game"),
+                          ),
+                          ElevatedButton(
+                            onPressed: (){
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (context) => const MyHomePage(title: "Cube World", initialOpen: false,)),
+                              );
+                            },
+                            child: const Text("Return to main menu"),
+                          ),
+                        ],
+                      ),
+                    
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          _menuPressed = false;
+                          _gameController.gameStarted = true;
+                        });
+                      },
+                      child: const Text("Ok"),
+                    ),
                   ],
                 )
               ),
