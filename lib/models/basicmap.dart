@@ -71,6 +71,12 @@ class BasicMap extends GameMap {
           case "C":
             cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 1));
             break;
+          case "f":
+            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 8));
+            break;
+          case "F":
+            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 8));
+            break;
           case "g":
             Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
             grass.value_1 = 0;
@@ -505,6 +511,16 @@ class BasicMap extends GameMap {
     }
 
     return true;
+  }
+
+  //is unit b somewhere before unit a
+  bool isUnitSomewherBeforeUnit(Unit a, Unit b){
+    return a.x * 4 + a.offsetX > b.x * 4 + b.offsetX;
+  }
+
+  //is unit b somewhere above unit a
+  bool isUnitSomewherAboveUnit(Unit a, Unit b){
+    return a.y * 4 + a.offsetY > b.y * 4 + b.offsetY;
   }
 
   void changeUnitType(Unit unit, String newType){

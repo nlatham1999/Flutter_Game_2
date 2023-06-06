@@ -101,6 +101,30 @@ class ViewUtils {
         return 'assets/brick.png';
       case "explosion":
         return 'assets/explosion_tiny.png';
+      case "fireball":
+        return 'assets/fireball.png';
+      case "fire_monster_left":
+        if(unit.value_1 == 28){
+          return 'assets/fire_monster_left_phase_2.png';
+        }
+        // if(unit.value_1 == 9){
+        //   return 'assets/fire_monster_left_phase_3.png';
+        // }
+        if(unit.value_2 == 1){
+          return 'assets/fire_monster_left_looking_up.png';
+        }
+        return 'assets/fire_monster_left.png';
+      case "fire_monster_right":
+        if(unit.value_1 == 28){
+          return 'assets/fire_monster_right_phase_2.png';
+        }
+        if(unit.value_2 == 1){
+          return 'assets/fire_monster_right_looking_up.png';
+        }
+        // if(unit.value_1 == 9){
+        //   return 'assets/fire_monster_right_phase_3.png';
+        // }
+        return 'assets/fire_monster_right.png';
       case "grass":
         if(unit.value_1 == 0){
           return 'assets/grass1x1.png';

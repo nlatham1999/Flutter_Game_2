@@ -97,6 +97,16 @@ flutter:
     - assets/log.png
     - assets/spiked_monster_left_small.png
     - assets/spiked_monster_right_small.png
+    - assets/fire_monster_left.png
+    - assets/fire_monster_right.png
+    - assets/fire_monster_left_phase_2.png
+    - assets/fire_monster_right_phase_2.png
+    - assets/fire_monster_left_phase_3.png
+    - assets/fire_monster_right_phase_3.png
+    - assets/fire_monster_left_looking_up.png
+    - assets/fire_monster_right_looking_up.png
+    - assets/fireball.png
+  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

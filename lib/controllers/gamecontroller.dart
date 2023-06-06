@@ -119,6 +119,9 @@ class GameController  extends ChangeNotifier{
     }
 
     updateSprites();
+    if(gameOver){
+      return;
+    }
 
     
     if(!jumpState && !isOnSolidGround(gameMap.player)){
@@ -192,7 +195,7 @@ class GameController  extends ChangeNotifier{
           }
           switch (getSpriteType(unit)) {
             case "log":
-              vertical_log(unit);
+              spriteVerticalLog(unit);
               break;
             case "monster_left":
               spriteMonsterLeft(unit);
@@ -230,6 +233,15 @@ class GameController  extends ChangeNotifier{
             case "spiked_monster_right":
               spriteSpikedMonsterRight(unit);
               break;
+            case "fire_monster_left":
+              spriteFireMonsterLeft(unit);
+              break;
+            case "fire_monster_right":
+              spriteFireMonsterRight(unit);
+              break;
+            case "fireball":
+              spriteFireball(unit);
+              break;
             default:
           }
         }
@@ -247,7 +259,101 @@ class GameController  extends ChangeNotifier{
     // }
   }
 
-  void vertical_log(Unit unit){
+  void spriteFireball(Unit unit){
+    unit.value_1++;
+    if(unit.value_1 == 40){
+      gameMap.removeSprite(unit);
+      return;
+    }
+    if(unit.value_2 == 1){
+      Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+      switch (spriteLeft.type) {
+        case "fire_monster_left":
+        case "air":
+          gameMap.moveUnitLeft(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got hit with a fireball :(";
+          break;
+        default:
+          gameMap.removeSprite(unit);
+          return;
+      }
+    }else{
+      Unit spriteRight = gameMap.getPotentialCollision(unit, "RIGHT");
+      switch (spriteRight.type) {
+        case "fire_monster_right":
+        case "air":
+          gameMap.moveUnitRight(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got hit with a fireball :(";
+          break;
+        default:
+          gameMap.removeSprite(unit);
+          return;
+      }
+    }
+    // if((unit.value_1 > 20 && unit.value_1 <= 30 && unit.value_1 % 2 == 0 ) || (unit.value_1 > 30) ){
+    //   Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    //   switch (spriteBelow.type) {
+    //     case "air":
+    //       gameMap.moveUnitDown(unit);
+    //       break;
+    //     case "player":
+    //       gameOver = true;
+    //       gameOverText = "You got hit with a fireball :(";
+    //       break;
+    //     default:
+    //       gameMap.removeSprite(unit);
+    //       return;
+    //   }
+    // }
+  }
+
+  void spriteFireMonsterLeft(Unit unit){
+    if(gameMap.isUnitSomewherAboveUnit(unit, gameMap.player) && gameMap.isSpriteInVicinity(unit, gameMap.player, 5)){
+      unit.value_2 = 1;
+    }else{
+      unit.value_2 = 0;
+    }
+
+    if(!gameMap.isUnitSomewherBeforeUnit(unit, gameMap.player)){
+      unit.value_1 = 0;
+      gameMap.changeUnitType(unit, "fire_monster_right");
+    }
+
+    unit.value_1 = (unit.value_1 + 1) % 30;
+    if(unit.value_1 == 29){
+      Unit fireball = Unit(type: "fireball", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 2, height: 2);
+      fireball.value_2 = 1;
+      gameMap.addUnit(fireball);
+    }
+  }
+
+  void spriteFireMonsterRight(Unit unit){
+    if(gameMap.isUnitSomewherAboveUnit(unit, gameMap.player) && gameMap.isSpriteInVicinity(unit, gameMap.player, 5)){
+      unit.value_2 = 1;
+    }else{
+      unit.value_2 = 0;
+    }
+    
+    if(gameMap.isUnitSomewherBeforeUnit(unit, gameMap.player)){
+      unit.value_1 = 0;
+      gameMap.changeUnitType(unit, "fire_monster_left");
+    }
+
+    unit.value_1 = (unit.value_1 + 1) % 30;
+    if(unit.value_1 == 29){
+      Unit fireball = Unit(type: "fireball", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 2, height: 2);
+      fireball.value_2 = 2;
+      gameMap.addUnit(fireball);
+    }
+  }
+
+  void spriteVerticalLog(Unit unit){
 
     if(unit.value_2 >= 16){
       if(unit.value_1 == 0){
@@ -777,6 +883,10 @@ class GameController  extends ChangeNotifier{
             gameOver = true;
             gameOverText = "You got eaten :(";
             break;
+          case "fireball":
+            gameOver = true;
+            gameOverText = "You hit a fireball :(";
+            return;
           case "air":
             gameMap.moveUnitUp(gameMap.player);
             break;
@@ -829,6 +939,10 @@ class GameController  extends ChangeNotifier{
         case "monster_right":
           squashMonsters(gameMap.player);
           break;
+        case "fireball":
+          gameOver = true;
+          gameOverText = "You fell onto a fireball :(";
+          return;
         case "air":
           gameMap.moveUnitDown(gameMap.player);
           break;

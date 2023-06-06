@@ -123,11 +123,14 @@ class _GameScreenState extends State<GameScreen> {
       }
   }
 
-  void restartGame(){
+  void restartGame({bool startGame = false}){
     setState(() {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
+      if(startGame){
+        _gameController.gameStarted = true;
+      }
       // _gameController.gameStarted = true;
     });
   }
@@ -385,8 +388,8 @@ class _GameScreenState extends State<GameScreen> {
                   actions: [
                     ElevatedButton(
                       onPressed: () {
-
-                        restartGame();
+                        
+                        restartGame(startGame: true);
                       },
                       child: const Text("Restart Game"),
                     ),
