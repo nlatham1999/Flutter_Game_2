@@ -355,7 +355,7 @@ class GameController  extends ChangeNotifier{
 
   void spriteVerticalLog(Unit unit){
 
-    if(unit.value_2 >= 16){
+    if(unit.value_2 >= 15){
       if(unit.value_1 == 0){
         unit.value_1 = 1;
       }else{
@@ -634,6 +634,7 @@ class GameController  extends ChangeNotifier{
         return;
       default:
     }
+    
 
     Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
     switch (spriteLeft.type) {
@@ -651,6 +652,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteSpikedMonsterLeft(Unit unit){
+
     Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
     switch (spriteBelow.type) {
       case "player":
@@ -664,6 +666,11 @@ class GameController  extends ChangeNotifier{
         gameMap.moveUnitDown(unit);
         return;
       default:
+    }
+
+    unit.value_1 ++;
+    if(unit.value_1.isOdd){
+      return;
     }
 
     Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
@@ -695,6 +702,12 @@ class GameController  extends ChangeNotifier{
         gameMap.moveUnitDown(unit);
         return;
       default:
+    }
+
+    
+    unit.value_1 ++;
+    if(unit.value_1.isOdd){
+      return;
     }
 
     Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");

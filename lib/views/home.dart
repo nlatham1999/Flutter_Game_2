@@ -4,6 +4,7 @@ import 'package:my_app/models/level.dart';
 import 'package:my_app/models/level1.dart';
 import 'package:my_app/models/level2.dart';
 import 'package:my_app/models/leveldynamic.dart';
+import 'package:my_app/models/randomlevel.dart';
 import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
@@ -85,6 +86,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: const Text("Play Game", style: TextStyle(color: Colors.white, fontSize: 24),),
                   )
                 ),
+                // Positioned(
+                //   top: size.height * 3 / 10,
+                //   left: size.width / 5,
+                //   child: ElevatedButton(
+                //     onPressed: getLevel() >= 0 ? () {
+                //       Navigator.pushReplacement(
+                //         context,
+                //         MaterialPageRoute(builder: (context) => GameScreen(level: RandomLevel(),)),
+                //       );
+                //     } : null,
+                //     child: const Text("Random Test", style: TextStyle(color: Colors.white, fontSize: 24),),
+                //   )
+                // ),
                 Positioned(
                   top: size.height * 2 / 10,
                   left: size.width / 5,
