@@ -94,6 +94,21 @@ flutter:
     - assets/player_left.png
     - assets/player_right.png
     - assets/monster_dead.png
+    - assets/log.png
+    - assets/spiked_monster_left_small.png
+    - assets/spiked_monster_right_small.png
+    - assets/fire_monster_left.png
+    - assets/fire_monster_right.png
+    - assets/fire_monster_left_phase_2.png
+    - assets/fire_monster_right_phase_2.png
+    - assets/fire_monster_left_phase_3.png
+    - assets/fire_monster_right_phase_3.png
+    - assets/fire_monster_left_looking_up.png
+    - assets/fire_monster_right_looking_up.png
+    - assets/fireball.png
+    - assets/winged_monster.png
+    - assets/ghost.png
+    - assets/sign_ghosts.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

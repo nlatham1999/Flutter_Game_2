@@ -93,6 +93,8 @@ class ViewUtils {
 
   static String getPositionedImage(Unit unit) {
     switch (unit.type) {
+      case "signage":
+        return "assets/sign_ghosts.png";
       case "bomb":
         return 'assets/bomb.png';
       case "bomb_charged":
@@ -101,6 +103,30 @@ class ViewUtils {
         return 'assets/brick.png';
       case "explosion":
         return 'assets/explosion_tiny.png';
+      case "fireball":
+        return 'assets/fireball.png';
+      case "fire_monster_left":
+        if(unit.value_1 == 28){
+          return 'assets/fire_monster_left_phase_2.png';
+        }
+        // if(unit.value_1 == 9){
+        //   return 'assets/fire_monster_left_phase_3.png';
+        // }
+        if(unit.value_2 == 1){
+          return 'assets/fire_monster_left_looking_up.png';
+        }
+        return 'assets/fire_monster_left.png';
+      case "fire_monster_right":
+        if(unit.value_1 == 28){
+          return 'assets/fire_monster_right_phase_2.png';
+        }
+        if(unit.value_2 == 1){
+          return 'assets/fire_monster_right_looking_up.png';
+        }
+        // if(unit.value_1 == 9){
+        //   return 'assets/fire_monster_right_phase_3.png';
+        // }
+        return 'assets/fire_monster_right.png';
       case "grass":
         if(unit.value_1 == 0){
           return 'assets/grass1x1.png';
@@ -120,6 +146,10 @@ class ViewUtils {
       case "icicle":
       case "icicle_falling":
         return 'assets/icicle.png';
+      case "log":
+        return 'assets/log.png';
+      case "log_horizontal":
+        return 'assets/log.png';
       case "jumper_rising":
       case "jumper_falling":
         return 'assets/jumper.png';
@@ -135,6 +165,12 @@ class ViewUtils {
         } else {
           return 'assets/player_left_small.png';
         }
+      case "spiked_monster_left":
+        return 'assets/spiked_monster_left_small.png';
+      case "spiked_monster_right":
+        return 'assets/spiked_monster_right_small.png';
+      case "winged_monster":
+        return 'assets/ghost.png';
       default:
         return "";
     }

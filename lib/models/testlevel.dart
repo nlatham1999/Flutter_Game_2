@@ -6,21 +6,21 @@ class TestLevel extends Level {
   @override
   List<String> mapTemplate = [
     "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaawaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
+    "paaajaaaajaaaaaa",
+    "Ğaagggaagggaaaaa",
+    "aaaaaaaaaaaaaaja",
+    "agaaaaggaaaaaggg",
     "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaagĞ",
-    "aggaaggaaggaagga",
-    "aaaaaaaaaaajaaaa",
-    "aaggaaggaaggaaga",
-    "aaaaaaabaaaajaaĞ",
-    "aaaggaaggaaggaaa",
-    "paaaaaaaaaaaaaaa",
-    "ggggggggggggggga",
+    "Ğaaggaaagggaaaaa",
+    "aaaaagaaaawaagaa",
+    "aaamaaaaaaaaaaaa",
+    "aggggggggggggggg",
   ];
 
   @override 
