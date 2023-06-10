@@ -197,6 +197,9 @@ class GameController  extends ChangeNotifier{
             case "log":
               spriteVerticalLog(unit);
               break;
+            case "log_horizontal":
+              spriteHorizontalLog(unit);
+              break;
             case "monster_left":
               spriteMonsterLeft(unit);
               break;
@@ -257,6 +260,54 @@ class GameController  extends ChangeNotifier{
     //     gameMap.map[i][j] = mapTemp[i][j];
     //   }
     // }
+  }
+
+  void spriteHorizontalLog(Unit unit){
+    // unit.value_4 = (unit.value_4 + 1) % 2;
+    // if(unit.value_4 == 1){
+    //   return;
+    // }
+
+    unit.value_2++;
+    if(unit.value_2 > unit.value_3){
+      if(unit.value_1 == 0){
+        unit.value_1 = 1;
+      }else{
+        unit.value_1 = 0;
+      }
+      unit.value_2 = 0;
+    }
+
+    if(unit.value_1 == 0){
+      Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+      switch (spriteLeft.type) {
+        case "air":
+          gameMap.moveUnitLeft(unit);
+          List<Unit> spritesAbove = gameMap.getUnitsAbove(unit, onlyOnUnit: true);
+          for(Unit spriteAbove in spritesAbove){
+            gameMap.moveUnitLeft(spriteAbove);
+          }
+          break;
+        default:
+          unit.value_1 = 1;
+          unit.value_2 = 0;
+      }
+    }else{
+      Unit spriteRight = gameMap.getPotentialCollision(unit, "RIGHT");
+      switch (spriteRight.type) {
+        case "air":
+          gameMap.moveUnitRight(unit);
+          List<Unit> spritesAbove = gameMap.getUnitsAbove(unit, onlyOnUnit: true);
+          for(Unit spriteAbove in spritesAbove){
+            gameMap.moveUnitRight(spriteAbove);
+          }
+          break;
+        default:
+          unit.value_1 = 0;
+          unit.value_2 = 0;
+      }
+    }
+
   }
 
   void spriteFireball(Unit unit){
@@ -347,7 +398,7 @@ class GameController  extends ChangeNotifier{
 
     unit.value_1 = (unit.value_1 + 1) % 30;
     if(unit.value_1 == 29){
-      Unit fireball = Unit(type: "fireball", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 2, height: 2);
+      Unit fireball = Unit(type: "fireball", x: unit.x + 1, y: unit.y, offsetX: 0, offsetY: 3, width: 2, height: 2);
       fireball.value_2 = 2;
       gameMap.addUnit(fireball);
     }
@@ -855,6 +906,7 @@ class GameController  extends ChangeNotifier{
       case "monster_dead":
       case "brick":
       case "log":
+      case "log_horizontal":
         return true;
       default:
         return false;

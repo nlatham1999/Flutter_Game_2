@@ -24,7 +24,8 @@ class BasicMap extends GameMap {
   //j: jumper (going up)
   //J: jumper (going down)
   //Ĵ: slightly faster jumper
-  //l log
+  //l log (vertical movement)
+  //L: log (horizontal movement)
   //m: monster (moving left)
   //M: monster (moving right)
   //p: main character
@@ -133,6 +134,16 @@ class BasicMap extends GameMap {
             break;
           case "l":
             cell.add(Unit(type: "log", x: j, y: i, offsetX: 0, offsetY: 3, width: 8, height: 1));
+            break;
+          case "L":
+            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 1);
+            log.value_3 = 24;
+            cell.add(log);
+            break;
+          case "Ĺ":
+            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 1);
+            log.value_3 = 12;
+            cell.add(log);
             break;
           case "m":
             cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
@@ -402,7 +413,9 @@ class BasicMap extends GameMap {
     return found;
   }
 
-  List<Unit> getUnitsAbove(Unit unit){
+  //gets a list of all units above
+  //if onlyOnUnit is true, will only grab those soley resting on the unit
+  List<Unit> getUnitsAbove(Unit unit, {bool onlyOnUnit = false}){
     Set<Unit> unitsSet = {};
 
     
@@ -412,12 +425,42 @@ class BasicMap extends GameMap {
       return [outOfBoundsUnit];
     }
     for(int i = 0; i < unit.width; i++){
-      if(collisionMap[top][left+i].type != "air"){
-        unitsSet.add(collisionMap[top][left+i]);
+      Unit unitAbove = collisionMap[top][left+i];
+      if(unitAbove.type != "air"){
+        if(!onlyOnUnit || unitOnlyOnUnit(unit, unitAbove)){
+          unitsSet.add(unitAbove);
+        }
       }
     } 
 
     return unitsSet.toList();
+  }
+
+  //is b only on a
+  bool unitOnlyOnUnit(Unit a, Unit b){
+    int bottom = b.y * 4 + b.offsetY + b.height;
+    int left = b.x * 4 + b.offsetX;
+    for(int i = 0; i < b.width; i++){
+      Unit unitBelow = collisionMap[bottom][left+i];
+      if(unitBelow != a && unitBelow != airUnit){
+        return false;
+      }
+    } 
+
+    return true;
+  }
+
+  //is unit b within the width of unit a
+  bool unitWithinUnitX(Unit a, Unit b){
+    if(b.x * 4 + b.offsetX < a.x * 4 + a.offsetX){
+      return false;
+    }
+
+    if(a.x * 4 + a.offsetX + a.width < b.x * 4 + b.offsetX + b.width){
+      return false;
+    }
+
+    return true;
   }
 
   void moveUnitLeft(Unit unit){

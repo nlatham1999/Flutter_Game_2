@@ -55,7 +55,7 @@ void main() {
 
     List<String> sortedKeys = occurances.keys.toList()..sort();
     for (String key in sortedKeys) {
-      if(occurances[key]! > 150){
+      if(occurances[key]! > 100){
         print("$key, ${occurances[key]!}");
       }
     }

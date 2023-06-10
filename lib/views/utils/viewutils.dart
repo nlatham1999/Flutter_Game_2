@@ -146,6 +146,8 @@ class ViewUtils {
         return 'assets/icicle.png';
       case "log":
         return 'assets/log.png';
+      case "log_horizontal":
+        return 'assets/log.png';
       case "jumper_rising":
       case "jumper_falling":
         return 'assets/jumper.png';
