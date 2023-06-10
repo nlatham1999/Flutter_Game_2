@@ -32,6 +32,7 @@ class BasicMap extends GameMap {
   //r: brick
   //s: spiked monster left
   //S: spiked monster right
+  //w: winged monster
 
   List<String> mapTemplate;
   @override
@@ -166,6 +167,12 @@ class BasicMap extends GameMap {
           case "S":
             cell.add(Unit(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 5, height: 5));
             break;
+          case "w":
+            cell.add(Unit(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
+          case "α":
+            cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            break;
           default:
         }
         row.add(cell);
@@ -189,6 +196,9 @@ class BasicMap extends GameMap {
       for(int j = 0; j < map[i].length; j++){
         for(int k = 0; k < map[i][j].length; k++){
           Unit unit = map[i][j][k];
+          if(unit.type == "signage"){
+            continue; //we don't want to add signage to the collision map
+          }
           for(int m = 0; m < unit.height; m++){
             for(int l = 0; l < unit.width; l++){
               collisionMap[(i*4) + unit.offsetY + m][(j*4) + unit.offsetX + l] = unit;

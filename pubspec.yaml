@@ -106,7 +106,9 @@ flutter:
     - assets/fire_monster_left_looking_up.png
     - assets/fire_monster_right_looking_up.png
     - assets/fireball.png
-  
+    - assets/winged_monster.png
+    - assets/ghost.png
+    - assets/sign_ghosts.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

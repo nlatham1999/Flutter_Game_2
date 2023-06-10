@@ -93,6 +93,8 @@ class ViewUtils {
 
   static String getPositionedImage(Unit unit) {
     switch (unit.type) {
+      case "signage":
+        return "assets/sign_ghosts.png";
       case "bomb":
         return 'assets/bomb.png';
       case "bomb_charged":
@@ -167,6 +169,8 @@ class ViewUtils {
         return 'assets/spiked_monster_left_small.png';
       case "spiked_monster_right":
         return 'assets/spiked_monster_right_small.png';
+      case "winged_monster":
+        return 'assets/ghost.png';
       default:
         return "";
     }

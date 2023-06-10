@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
 import 'package:my_app/models/unit.dart';
@@ -245,6 +247,9 @@ class GameController  extends ChangeNotifier{
             case "fireball":
               spriteFireball(unit);
               break;
+            case "winged_monster":
+              spriteWingedMonster(unit);
+              break;
             default:
           }
         }
@@ -260,6 +265,72 @@ class GameController  extends ChangeNotifier{
     //     gameMap.map[i][j] = mapTemp[i][j];
     //   }
     // }
+  }
+
+  void spriteWingedMonster(Unit unit){
+    if(unit.value_1 == 0){
+      Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+      switch (spriteLeft.type) {
+        case "air":
+          gameMap.moveUnitLeft(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          return;
+        default:
+          unit.value_1 = 1;
+      }
+    }else{
+      Unit spriteRight = gameMap.getPotentialCollision(unit, "RIGHT");
+      switch (spriteRight.type) {
+        case "air":
+          gameMap.moveUnitRight(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          return;
+        default:
+          unit.value_1 = 0;
+      }
+    }
+
+    unit.value_2 = (unit.value_2 + 1) % 4;
+    if(unit.value_2 == 0){
+      Random random = Random();
+      unit.value_3 = random.nextInt(2);
+    }
+
+
+
+    if(unit.value_3 == 0){
+      Unit spriteUp = gameMap.getPotentialCollision(unit, "UP");
+      switch (spriteUp.type) {
+        case "air":
+          gameMap.moveUnitUp(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          return;
+        default:
+          unit.value_3 = 1;
+      }
+    }else{
+      Unit spriteDown = gameMap.getPotentialCollision(unit, "DOWN");
+      switch (spriteDown.type) {
+        case "air":
+          gameMap.moveUnitDown(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          return;
+        default:
+          unit.value_3 = 0;
+      }
+    }
   }
 
   void spriteHorizontalLog(Unit unit){
