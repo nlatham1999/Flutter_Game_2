@@ -40,7 +40,10 @@ class ViewUtils {
     // print("minusing");
     // }
     int vLo = viewMapLeft % kCellSize;
-    int vR = viewMapRight ~/ kCellSize + 1;
+    int vR = viewMapRight ~/ kCellSize + (kCellSize ~/ 4);
+    if(vR > map[0].length){
+      vR = map[0].length;
+    }
 
     for (int i = 0; i < map.length; i++) {
       for (int j = vL; j < vR; j++) {
@@ -78,7 +81,7 @@ class ViewUtils {
       left: offsetX - (width * (3) / 2),
       top: offsetY - (width * (3) / 2),
       child: Container(
-        width: width * (numCellsToDisplay + 2) + width * 5 / (16 / kCellSize),
+        width: width * (numCellsToDisplay + 2) + width * 2,
         height: height * map.length + width * (kCellSize -1),
         decoration: BoxDecoration(
           border: Border.all(

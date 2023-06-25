@@ -128,6 +128,7 @@ class _GameScreenState extends State<GameScreen> {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
+      _level.finished = false;
       if(startGame){
         _gameController.gameStarted = true;
       }
@@ -201,8 +202,8 @@ class _GameScreenState extends State<GameScreen> {
                     _gameController.gameStarted = false;
                     _menuPressed = true;
                   });}, child: const Icon(Icons.menu)),
-                  Text("Distance: ${_gameController.distanceTraveled}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
-                  Text("\tTime: ${_duration ~/ 20}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("Distance: ${_gameController.distanceTraveled.toString().padLeft(3, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("\tTime: ${(_duration / 20).toStringAsFixed(2).padLeft(8, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
                   
                 ]
               ),

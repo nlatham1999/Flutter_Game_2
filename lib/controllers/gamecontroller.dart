@@ -80,6 +80,8 @@ class GameController  extends ChangeNotifier{
     offsetX = (screenSize.width - (cellSize * (viewMapWidth))) / 2;
 
     reset();
+
+    updateViewMap();
   }
 
   void reset(){
