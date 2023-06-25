@@ -48992,7 +48992,7 @@ j===$&&A.e()
 i=A.m5(A.pa(B.wF,j*(r?2:1)),h,new A.a_4(f),new A.a_5())
 s=A.ek(h,A.AS(A.a([s,new A.ru(h),new A.ru(h),A.NG(A.KM(A.a([i,A.m5(A.pa(B.wM,j*(r?2:1)),h,new A.ZO(f),new A.ZP())],k),B.dt,B.ay),1)],k),B.p3,B.ay),h,h,0,h,l,o)
 o=f.f
-l=A.fW(B.a8,A.a([A.kC("Game Over\n",h,h,h),A.ek(h,A.eI(A.pa(B.wJ,h),new A.ZQ(f,a)),h,h,h,-2,-2,h)],k),B.al)
+l=A.fW(B.a8,A.a([A.kC("Game Over\n",h,h,h),A.ek(h,A.eI(A.pa(B.wJ,h),new A.ZQ(f,a)),h,h,h,1,0,h)],k),B.al)
 r=f.d
 r===$&&A.e()
 if(r.d){r=r.gAJ()

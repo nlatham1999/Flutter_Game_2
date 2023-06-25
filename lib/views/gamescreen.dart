@@ -394,8 +394,8 @@ class _GameScreenState extends State<GameScreen> {
                     children: [
                       Text("Game Over\n"),
                       Positioned(
-                        top: -2,
-                        right: -2,
+                        top: 0,
+                        right: 1,
                         child: ElevatedButton(
                           onPressed: () {
 
