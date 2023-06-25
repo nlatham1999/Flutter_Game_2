@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/constants.dart';
 import 'package:my_app/models/level.dart';
 import 'package:my_app/models/level1.dart';
 import 'package:my_app/models/level2.dart';
@@ -11,6 +12,7 @@ import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../constants.dart';
 import '../models/basicmap.dart';
 import '../models/level3.dart';
 import '../models/level4.dart';
@@ -57,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
           
           children: [
             Stack(
-              children: ViewUtils.getMapScreen(sampleMap.map, 32, 32, 0, size.height - (512), 0, numSampleCells * 4, numCellsToDisplay: numSampleCells),
+              children: ViewUtils.getMapScreen(sampleMap.map, 32, 32, 0, size.height - (512), 0, numSampleCells * kCellSize, numCellsToDisplay: numSampleCells),
             ),
             Stack(
               children: [

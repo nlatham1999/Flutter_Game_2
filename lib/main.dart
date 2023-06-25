@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 
 import 'views/home.dart';
 
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 

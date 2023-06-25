@@ -1,5 +1,6 @@
 // ignore_for_file: overridden_fields
 
+import 'package:my_app/constants.dart';
 import 'package:my_app/models/map.dart';
 import 'package:my_app/models/unit.dart';
 
@@ -48,7 +49,7 @@ class BasicMap extends GameMap {
 
   List<List<Unit>> collisionMap = [];
 
-  Unit airUnit = Unit(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 4, height: 4);
+  Unit airUnit = Unit(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
   Unit outOfBoundsUnit = Unit(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
 
   BasicMap({required this.mapTemplate }){
@@ -65,113 +66,113 @@ class BasicMap extends GameMap {
         List<Unit> cell = [];
         switch (mapTemplate[i][j]) {
           case "b":
-            cell.add(Unit(type: "bomb", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "bomb", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "c":
-            cell.add(Unit(type: "crate", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "crate", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "C":
-            cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 1));
+            cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize ~/ 4));
             break;
           case "f":
-            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 8));
+            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
             break;
           case "F":
-            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 8));
+            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
             break;
           case "g":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 0;
             cell.add(grass);
             break;
           case "G":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 16, height: 16);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 4, height: kCellSize * 4);
             grass.value_1 = 1;
             cell.add(grass);
             break;
           case "Ĝ":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 16, height: 4);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 2;
             cell.add(grass);
             break;
           case "Ğ":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 16);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
             grass.value_1 = 3;
             cell.add(grass);
             break;
           case "h":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 16);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
             grass.value_1 = 4;
             cell.add(grass);
             break;
           case "H":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 5;
             cell.add(grass);
             break;
           case "i":
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 4));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
             break;
           case "I":
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: 1, height: 4));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 1, offsetY: 0, width: 1, height: 4));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 2, offsetY: 0, width: 1, height: 4));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 3, offsetY: 0, width: 1, height: 4));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 2, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 3, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
             break;
           case "j":
-            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             jumper.value_2 = 16;
             cell.add(jumper);
             break;
           case "J":
-            Unit jumper = Unit(type: "jumper_falling", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            Unit jumper = Unit(type: "jumper_falling", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             jumper.value_2 = 16;
             cell.add(jumper);
             break;
           case "Ĵ":
-            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4);
+            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             jumper.value_2 = 12;
             cell.add(jumper);
             break;
           case "l":
-            cell.add(Unit(type: "log", x: j, y: i, offsetX: 0, offsetY: 3, width: 8, height: 1));
+            cell.add(Unit(type: "log", x: j, y: i, offsetX: 0, offsetY: kCellSize * 3 ~/ 4, width: kCellSize * 2, height: kCellSize ~/ 4));
             break;
           case "L":
-            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 1);
+            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
             log.value_3 = 24;
             cell.add(log);
             break;
           case "Ĺ":
-            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: 8, height: 1);
+            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
             log.value_3 = 12;
             cell.add(log);
             break;
           case "m":
-            cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "M":
-            cell.add(Unit(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "p":
-            player = Unit(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4); 
+            player = Unit(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
             cell.add(player);
             playerX = j;
             playerY = i;
             break;
           case "r":
-            cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "s":
-            cell.add(Unit(type: "spiked_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: 5, height: 5));
+            cell.add(Unit(type: "spiked_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
             break;
           case "S":
-            cell.add(Unit(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: 5, height: 5));
+            cell.add(Unit(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
             break;
           case "w":
-            cell.add(Unit(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "α":
-            cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 4, height: 4));
+            cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           default:
         }
@@ -184,9 +185,9 @@ class BasicMap extends GameMap {
   void buildCollisionMap(){
     collisionMap = [];
 
-    for(int i = 0; i < map.length * 4; i++){
+    for(int i = 0; i < map.length * kCellSize; i++){
       List<Unit> row = [];
-      for(int j = 0; j < map[0].length * 4; j++){
+      for(int j = 0; j < map[0].length * kCellSize; j++){
         row.add(airUnit);
       }
       collisionMap.add(row);
@@ -201,7 +202,7 @@ class BasicMap extends GameMap {
           }
           for(int m = 0; m < unit.height; m++){
             for(int l = 0; l < unit.width; l++){
-              collisionMap[(i*4) + unit.offsetY + m][(j*4) + unit.offsetX + l] = unit;
+              collisionMap[(i*kCellSize) + unit.offsetY + m][(j*kCellSize) + unit.offsetX + l] = unit;
             }
           } 
           // if(unit.type == "grass"){
@@ -219,8 +220,8 @@ class BasicMap extends GameMap {
     switch (direction) {
       // @TODO if there is a player and a grass to the left (like the player is on the block) what should be returned?
       case "LEFT":
-        int top = unit.y * 4 + unit.offsetY;
-        int left = unit.x * 4 + unit.offsetX - 1;
+        int top = unit.y * kCellSize + unit.offsetY;
+        int left = unit.x * kCellSize + unit.offsetX - 1;
         if(left < 0){
           return outOfBoundsUnit;
         }
@@ -238,8 +239,8 @@ class BasicMap extends GameMap {
         break;
 
       case "RIGHT":
-        int top = unit.y * 4 + unit.offsetY;
-        int left = unit.x * 4 + unit.offsetX + unit.width;
+        int top = unit.y * kCellSize + unit.offsetY;
+        int left = unit.x * kCellSize + unit.offsetX + unit.width;
         if(left > collisionMap[0].length - 1){
           return outOfBoundsUnit;
         }
@@ -256,8 +257,8 @@ class BasicMap extends GameMap {
         break;
       
       case "DOWN":
-        int bottom = unit.y * 4 + unit.offsetY + unit.height;
-        int left = unit.x * 4 + unit.offsetX;
+        int bottom = unit.y * kCellSize + unit.offsetY + unit.height;
+        int left = unit.x * kCellSize + unit.offsetX;
         if (bottom > collisionMap.length - 1) {
           return outOfBoundsUnit;
         }
@@ -274,8 +275,8 @@ class BasicMap extends GameMap {
         break;
 
       case "UP":
-        int top = unit.y * 4 + unit.offsetY - 1;
-        int left = unit.x * 4 + unit.offsetX;
+        int top = unit.y * kCellSize + unit.offsetY - 1;
+        int left = unit.x * kCellSize + unit.offsetX;
         if (top < 0) {
           return outOfBoundsUnit;
         }
@@ -292,8 +293,8 @@ class BasicMap extends GameMap {
         break;
 
       case "LEFT_UP":
-        int top = unit.y * 4 + unit.offsetY - 1;
-        int left = unit.x * 4 + unit.offsetX - 1;
+        int top = unit.y * kCellSize + unit.offsetY - 1;
+        int left = unit.x * kCellSize + unit.offsetX - 1;
         if (top < 0 || left < 0) {
           return outOfBoundsUnit;
         }
@@ -320,12 +321,12 @@ class BasicMap extends GameMap {
         break;
 
       case "LEFT_DOWN":
-        int top = unit.y * 4 + unit.offsetY + 1;
+        int top = unit.y * kCellSize + unit.offsetY + 1;
         if(top > collisionMap.length - 1){
           return outOfBoundsUnit;
         }
-        int left = unit.x * 4 + unit.offsetX - 1;
-        int bottom = unit.y * 4 + unit.offsetY + unit.height;
+        int left = unit.x * kCellSize + unit.offsetX - 1;
+        int bottom = unit.y * kCellSize + unit.offsetY + unit.height;
         if (bottom > collisionMap.length - 1) {
           return outOfBoundsUnit;
         }
@@ -352,12 +353,12 @@ class BasicMap extends GameMap {
         break;
 
       case "RIGHT_UP":
-        int top = unit.y * 4 + unit.offsetY - 1;
-        int left = unit.x * 4 + unit.offsetX + 1;
+        int top = unit.y * kCellSize + unit.offsetY - 1;
+        int left = unit.x * kCellSize + unit.offsetX + 1;
         if (top < 0) {
           return outOfBoundsUnit;
         }
-        int right = unit.x * 4 + unit.offsetX + unit.width;
+        int right = unit.x * kCellSize + unit.offsetX + unit.width;
         if(right > collisionMap[0].length - 1){
           return outOfBoundsUnit;
         }
@@ -384,10 +385,10 @@ class BasicMap extends GameMap {
         break;
 
       case "RIGHT_DOWN":
-        int top = unit.y * 4 + unit.offsetY + 1;
-        int right = unit.x * 4 + unit.offsetX + unit.width;
-        int bottom = unit.y * 4 + unit.offsetY + unit.height;
-        int left = unit.x * 4 + unit.offsetX + 1;
+        int top = unit.y * kCellSize + unit.offsetY + 1;
+        int right = unit.x * kCellSize + unit.offsetX + unit.width;
+        int bottom = unit.y * kCellSize + unit.offsetY + unit.height;
+        int left = unit.x * kCellSize + unit.offsetX + 1;
         if (bottom > collisionMap.length - 1 || top > collisionMap.length) {
           return outOfBoundsUnit;
         }
@@ -429,8 +430,8 @@ class BasicMap extends GameMap {
     Set<Unit> unitsSet = {};
 
     
-    int top = unit.y * 4 + unit.offsetY - 1;
-    int left = unit.x * 4 + unit.offsetX;
+    int top = unit.y * kCellSize + unit.offsetY - 1;
+    int left = unit.x * kCellSize + unit.offsetX;
     if (top < 0) {
       return [outOfBoundsUnit];
     }
@@ -448,8 +449,8 @@ class BasicMap extends GameMap {
 
   //is b only on a
   bool unitOnlyOnUnit(Unit a, Unit b){
-    int bottom = b.y * 4 + b.offsetY + b.height;
-    int left = b.x * 4 + b.offsetX;
+    int bottom = b.y * kCellSize + b.offsetY + b.height;
+    int left = b.x * kCellSize + b.offsetX;
     for(int i = 0; i < b.width; i++){
       Unit unitBelow = collisionMap[bottom][left+i];
       if(unitBelow != a && unitBelow != airUnit){
@@ -462,11 +463,11 @@ class BasicMap extends GameMap {
 
   //is unit b within the width of unit a
   bool unitWithinUnitX(Unit a, Unit b){
-    if(b.x * 4 + b.offsetX < a.x * 4 + a.offsetX){
+    if(b.x * kCellSize + b.offsetX < a.x * kCellSize + a.offsetX){
       return false;
     }
 
-    if(a.x * 4 + a.offsetX + a.width < b.x * 4 + b.offsetX + b.width){
+    if(a.x * kCellSize + a.offsetX + a.width < b.x * kCellSize + b.offsetX + b.width){
       return false;
     }
 
@@ -474,9 +475,9 @@ class BasicMap extends GameMap {
   }
 
   void moveUnitLeft(Unit unit){
-    int top = unit.y * 4 + unit.offsetY;
-    int left = unit.x * 4 + unit.offsetX - 1;
-    int right = unit.x * 4 + unit.offsetX + unit.width - 1;
+    int top = unit.y * kCellSize + unit.offsetY;
+    int left = unit.x * kCellSize + unit.offsetX - 1;
+    int right = unit.x * kCellSize + unit.offsetX + unit.width - 1;
     for(int i = 0; i < unit.height; i++){
       collisionMap[top+i][left] = unit;
       collisionMap[top+i][right] = airUnit;
@@ -484,7 +485,7 @@ class BasicMap extends GameMap {
 
     unit.offsetX--;
     if(unit.offsetX < 0){
-      unit.offsetX = 3;
+      unit.offsetX = kCellSize-1;
       unit.x--;
       map[unit.y][unit.x+1].remove(unit);
       map[unit.y][unit.x].add(unit);
@@ -492,16 +493,16 @@ class BasicMap extends GameMap {
   }
 
   void moveUnitRight(Unit unit){
-    int top = unit.y * 4 + unit.offsetY;
-    int left = unit.x * 4 + unit.offsetX;
-    int right = unit.x * 4 + unit.offsetX + unit.width;
+    int top = unit.y * kCellSize + unit.offsetY;
+    int left = unit.x * kCellSize + unit.offsetX;
+    int right = unit.x * kCellSize + unit.offsetX + unit.width;
     for(int i = 0; i < unit.height; i++){
       collisionMap[top+i][left] = airUnit;
       collisionMap[top+i][right] = unit;
     }
 
     unit.offsetX++;
-    if(unit.offsetX > 3){
+    if(unit.offsetX > kCellSize-1){
       unit.offsetX = 0;
       unit.x++;
       map[unit.y][unit.x-1].remove(unit);
@@ -510,16 +511,16 @@ class BasicMap extends GameMap {
   }
 
   void moveUnitDown(Unit unit){
-    int top = unit.y * 4 + unit.offsetY;
-    int bottom = unit.y * 4 + unit.offsetY + unit.height;
-    int left = unit.x * 4 + unit.offsetX;
+    int top = unit.y * kCellSize + unit.offsetY;
+    int bottom = unit.y * kCellSize + unit.offsetY + unit.height;
+    int left = unit.x * kCellSize + unit.offsetX;
     for(int i = 0; i < unit.width; i++){
       collisionMap[top][left+i] = airUnit;
       collisionMap[bottom][left+i] = unit;
     }
 
     unit.offsetY++;
-    if(unit.offsetY > 3){
+    if(unit.offsetY > kCellSize-1){
       unit.offsetY = 0;
       unit.y++;
       map[unit.y-1][unit.x].remove(unit);
@@ -528,9 +529,9 @@ class BasicMap extends GameMap {
   }
 
   void moveUnitUp(Unit unit){
-    int top = unit.y * 4 + unit.offsetY - 1;
-    int bottom = unit.y * 4 + unit.offsetY + unit.height - 1;
-    int left = unit.x * 4 + unit.offsetX;
+    int top = unit.y * kCellSize + unit.offsetY - 1;
+    int bottom = unit.y * kCellSize + unit.offsetY + unit.height - 1;
+    int left = unit.x * kCellSize + unit.offsetX;
     for(int i = 0; i < unit.width; i++){
       collisionMap[top][left+i] = unit;
       collisionMap[bottom][left+i] = airUnit;
@@ -538,7 +539,7 @@ class BasicMap extends GameMap {
 
     unit.offsetY--;
     if(unit.offsetY < 0){
-      unit.offsetY = 3;
+      unit.offsetY = kCellSize-1;
       unit.y--;
       map[unit.y+1][unit.x].remove(unit);
       map[unit.y][unit.x].add(unit);
@@ -549,17 +550,17 @@ class BasicMap extends GameMap {
   bool isUnitOnUnit(Unit a, Unit b){
     
     //make sure there is no gap in the y
-    if(!(a.y * 4 + a.height + a.offsetY == b.y * 4 + b.offsetY)){
+    if(!(a.y * kCellSize + a.height + a.offsetY == b.y * kCellSize + b.offsetY)){
       return false;
     }
 
     //is b before a
-    if(b.x * 4 + b.offsetX + b.width - 1 < a.x * 4 + a.offsetX){
+    if(b.x * kCellSize + b.offsetX + b.width - 1 < a.x * kCellSize + a.offsetX){
       return false;
     }
 
     //is a before b
-    if(a.x * 4 + a.offsetX + a.width - 1 < b.x * 4 + b.offsetX){
+    if(a.x * kCellSize + a.offsetX + a.width - 1 < b.x * kCellSize + b.offsetX){
       return false;
     }
 
@@ -568,12 +569,12 @@ class BasicMap extends GameMap {
 
   //is unit b somewhere before unit a
   bool isUnitSomewherBeforeUnit(Unit a, Unit b){
-    return a.x * 4 + a.offsetX > b.x * 4 + b.offsetX;
+    return a.x * kCellSize + a.offsetX > b.x * kCellSize + b.offsetX;
   }
 
   //is unit b somewhere above unit a
   bool isUnitSomewherAboveUnit(Unit a, Unit b){
-    return a.y * 4 + a.offsetY > b.y * 4 + b.offsetY;
+    return a.y * kCellSize + a.offsetY > b.y * kCellSize + b.offsetY;
   }
 
   void changeUnitType(Unit unit, String newType){
@@ -588,19 +589,19 @@ class BasicMap extends GameMap {
 
   //is sprite b within th radius of sprite a?
   bool isSpriteInVicinity(Unit a, Unit b, int radius){
-    if(b.x * 4 + b.offsetX > a.x * 4 + a.offsetX + a.width + radius){
+    if(b.x * kCellSize + b.offsetX > a.x * kCellSize + a.offsetX + a.width + radius){
       return false;
     }
 
-    if(a.x * 4 + a.offsetX - radius > b.x * 4 + b.offsetX + b.width){
+    if(a.x * kCellSize + a.offsetX - radius > b.x * kCellSize + b.offsetX + b.width){
       return false;
     }
 
-    if(b.y * 4 + b.offsetY > a.y * 4 + a.offsetY + a.width + radius){
+    if(b.y * kCellSize + b.offsetY > a.y * kCellSize + a.offsetY + a.width + radius){
       return false;
     }
 
-    if(a.y * 4 + a.offsetY - radius > b.y * 4 + b.offsetY + b.width){
+    if(a.y * kCellSize + a.offsetY - radius > b.y * kCellSize + b.offsetY + b.width){
       return false;
     }
 
@@ -610,7 +611,7 @@ class BasicMap extends GameMap {
   void removeSprite(Unit unit){
     for(int i = 0; i < unit.height; i++){
       for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = airUnit;
+        collisionMap[unit.y * kCellSize + unit.offsetY + i][unit.x * kCellSize + unit.offsetX + j] = airUnit;
       }
     }
     map[unit.y][unit.x].remove(unit);
@@ -619,7 +620,7 @@ class BasicMap extends GameMap {
   void addUnit(Unit unit){
     for(int i = 0; i < unit.height; i++){
       for(int j = 0; j < unit.width; j++){
-        collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = unit;
+        collisionMap[unit.y * kCellSize + unit.offsetY + i][unit.x * kCellSize + unit.offsetX + j] = unit;
       }
     }
     map[unit.y][unit.x].add(unit);
@@ -627,17 +628,17 @@ class BasicMap extends GameMap {
 
   //is unit b below unit a
   bool isUnitBelowUnit(Unit a, Unit b){
-    if(b.y * 4 + b.offsetY < a.y * 4 + a.offsetY + a.height){
+    if(b.y * kCellSize + b.offsetY < a.y * kCellSize + a.offsetY + a.height){
       return false;
     }
 
     //is b before a
-    if(b.x * 4 + b.offsetX + b.width - 1 < a.x * 4 + a.offsetX){
+    if(b.x * kCellSize + b.offsetX + b.width - 1 < a.x * kCellSize + a.offsetX){
       return false;
     }
 
     //is a before b
-    if(a.x * 4 + a.offsetX + a.width - 1 < b.x * 4 + b.offsetX){
+    if(a.x * kCellSize + a.offsetX + a.width - 1 < b.x * kCellSize + b.offsetX){
       return false;
     }
 

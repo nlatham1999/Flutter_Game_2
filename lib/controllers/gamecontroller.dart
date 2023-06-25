@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
+import 'package:my_app/constants.dart';
 import 'package:my_app/models/unit.dart';
 
 import '../models/basicmap.dart';
@@ -60,7 +61,7 @@ class GameController  extends ChangeNotifier{
     }
 
     double minDimension = screenSize.shortestSide;
-    double cellSize = (minDimension/divisor) - ((minDimension/divisor) % 4);
+    double cellSize = (minDimension/divisor) - ((minDimension/divisor) % kCellSize);
     cellHeight = cellSize;
     cellWidth = cellSize;
 
@@ -340,7 +341,7 @@ class GameController  extends ChangeNotifier{
     // }
 
     unit.value_2++;
-    if(unit.value_2 > unit.value_3){
+    if(unit.value_2 > unit.value_3 * (kCellSize / 4)){
       if(unit.value_1 == 0){
         unit.value_1 = 1;
       }else{
@@ -356,7 +357,13 @@ class GameController  extends ChangeNotifier{
           gameMap.moveUnitLeft(unit);
           List<Unit> spritesAbove = gameMap.getUnitsAbove(unit, onlyOnUnit: true);
           for(Unit spriteAbove in spritesAbove){
-            gameMap.moveUnitLeft(spriteAbove);
+            Unit spriteAboveLeft = gameMap.getPotentialCollision(spriteAbove, "LEFT");
+            switch (spriteAboveLeft.type) {
+              case "air":
+                gameMap.moveUnitLeft(spriteAbove);
+                break;
+              default:
+            }
           }
           break;
         default:
@@ -370,7 +377,13 @@ class GameController  extends ChangeNotifier{
           gameMap.moveUnitRight(unit);
           List<Unit> spritesAbove = gameMap.getUnitsAbove(unit, onlyOnUnit: true);
           for(Unit spriteAbove in spritesAbove){
-            gameMap.moveUnitRight(spriteAbove);
+            Unit spriteAboveRight = gameMap.getPotentialCollision(spriteAbove, "RIGHT");
+            switch (spriteAboveRight.type) {
+              case "air":
+                gameMap.moveUnitRight(spriteAbove);
+                break;
+              default:
+            }
           }
           break;
         default:
@@ -382,57 +395,44 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteFireball(Unit unit){
-    unit.value_1++;
-    if(unit.value_1 == 40){
-      gameMap.removeSprite(unit);
-      return;
-    }
-    if(unit.value_2 == 1){
-      Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
-      switch (spriteLeft.type) {
-        case "fire_monster_left":
-        case "air":
-          gameMap.moveUnitLeft(unit);
-          break;
-        case "player":
-          gameOver = true;
-          gameOverText = "You got hit with a fireball :(";
-          break;
-        default:
-          gameMap.removeSprite(unit);
-          return;
+    for(int i = 0; i < 3; i++){
+      unit.value_1++;
+      if(unit.value_1 == 40){
+        gameMap.removeSprite(unit);
+        return;
       }
-    }else{
-      Unit spriteRight = gameMap.getPotentialCollision(unit, "RIGHT");
-      switch (spriteRight.type) {
-        case "fire_monster_right":
-        case "air":
-          gameMap.moveUnitRight(unit);
-          break;
-        case "player":
-          gameOver = true;
-          gameOverText = "You got hit with a fireball :(";
-          break;
-        default:
-          gameMap.removeSprite(unit);
-          return;
+      if(unit.value_2 == 1){
+        Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT");
+        switch (spriteLeft.type) {
+          case "fire_monster_left":
+          case "air":
+            gameMap.moveUnitLeft(unit);
+            break;
+          case "player":
+            gameOver = true;
+            gameOverText = "You got hit with a fireball :(";
+            break;
+          default:
+            gameMap.removeSprite(unit);
+            return;
+        }
+      }else{
+        Unit spriteRight = gameMap.getPotentialCollision(unit, "RIGHT");
+        switch (spriteRight.type) {
+          case "fire_monster_right":
+          case "air":
+            gameMap.moveUnitRight(unit);
+            break;
+          case "player":
+            gameOver = true;
+            gameOverText = "You got hit with a fireball :(";
+            break;
+          default:
+            gameMap.removeSprite(unit);
+            return;
+        }
       }
     }
-    // if((unit.value_1 > 20 && unit.value_1 <= 30 && unit.value_1 % 2 == 0 ) || (unit.value_1 > 30) ){
-    //   Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
-    //   switch (spriteBelow.type) {
-    //     case "air":
-    //       gameMap.moveUnitDown(unit);
-    //       break;
-    //     case "player":
-    //       gameOver = true;
-    //       gameOverText = "You got hit with a fireball :(";
-    //       break;
-    //     default:
-    //       gameMap.removeSprite(unit);
-    //       return;
-    //   }
-    // }
   }
 
   void spriteFireMonsterLeft(Unit unit){
@@ -449,7 +449,7 @@ class GameController  extends ChangeNotifier{
 
     unit.value_1 = (unit.value_1 + 1) % 30;
     if(unit.value_1 == 29){
-      Unit fireball = Unit(type: "fireball", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 2, height: 2);
+      Unit fireball = Unit(type: "fireball", x: unit.x, y: unit.y, offsetX: (kCellSize ~/ 4), offsetY: 3 * (kCellSize ~/ 4), width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));
       fireball.value_2 = 1;
       gameMap.addUnit(fireball);
     }
@@ -469,7 +469,7 @@ class GameController  extends ChangeNotifier{
 
     unit.value_1 = (unit.value_1 + 1) % 30;
     if(unit.value_1 == 29){
-      Unit fireball = Unit(type: "fireball", x: unit.x + 1, y: unit.y, offsetX: 0, offsetY: 3, width: 2, height: 2);
+      Unit fireball = Unit(type: "fireball", x: unit.x + 1, y: unit.y, offsetX: 0, offsetY: 3 * (kCellSize ~/ 4), width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));
       fireball.value_2 = 2;
       gameMap.addUnit(fireball);
     }
@@ -477,7 +477,7 @@ class GameController  extends ChangeNotifier{
 
   void spriteVerticalLog(Unit unit){
 
-    if(unit.value_2 >= 15){
+    if(unit.value_2 >= 4 * kCellSize - 1){
       if(unit.value_1 == 0){
         unit.value_1 = 1;
       }else{
@@ -547,26 +547,29 @@ class GameController  extends ChangeNotifier{
 
   void spriteIcicleFallDown(Unit unit){
 
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
+    for(int i = 0; i < (kCellSize / 4); i++){
+      Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
 
-    switch (spriteBelow.type) {
-      case "air":
-        gameMap.moveUnitDown(unit);
-        break;
-      case "player":
-        gameOver = true;
-        gameOverText = "You got spiked :(";
-        return;
-      default:
-        gameMap.removeSprite(unit);
+      switch (spriteBelow.type) {
+        case "air":
+          gameMap.moveUnitDown(unit);
+          break;
+        case "player":
+          gameOver = true;
+          gameOverText = "You got spiked :(";
+          return;
+        default:
+          gameMap.removeSprite(unit);
+          return;
+      }
     }
   }
 
   void spriteExplosion(Unit unit){
 
-    for(int i = 0; i < 2; i++){
+    for(int i = 0; i < 2 * (kCellSize / 4); i++){
 
-      if(unit.value_1 > 8){
+      if(unit.value_1 > 2 * (kCellSize)){
         gameMap.removeSprite(unit);
         return;
       }
@@ -660,49 +663,49 @@ class GameController  extends ChangeNotifier{
     // Unit explosion1 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 0, width: 1, height: 1);
     // explosion1.value_2 = 0;
     // gameMap.addUnit(explosion1);
-    Unit explosion2 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 0, width: 1, height: 1);
+    Unit explosion2 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 0, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion2.value_2 = 1;
     gameMap.addUnit(explosion2);
-    Unit explosion3 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 0, width: 1, height: 1);
+    Unit explosion3 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 0, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion3.value_2 = 1;
     gameMap.addUnit(explosion3);
     // Unit explosion4 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 0, width: 1, height: 1);
     // explosion4.value_2 = 2;
     // gameMap.addUnit(explosion4);
 
-    Unit explosion5 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 1, width: 1, height: 1);
+    Unit explosion5 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 1, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion5.value_2 = 7;
     gameMap.addUnit(explosion5);
-    Unit explosion6 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 1, width: 1, height: 1);
+    Unit explosion6 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 1, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion6.value_2 = 0;
     gameMap.addUnit(explosion6);
-    Unit explosion7 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 1, width: 1, height: 1);
+    Unit explosion7 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 1, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion7.value_2 = 2;
     gameMap.addUnit(explosion7);
-    Unit explosion8 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 1, width: 1, height: 1);
+    Unit explosion8 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 1, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion8.value_2 = 3;
     gameMap.addUnit(explosion8);
 
-    Unit explosion9 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 2, width: 1, height: 1);
+    Unit explosion9 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 2, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion9.value_2 = 7;
     gameMap.addUnit(explosion9);
-    Unit explosion10 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 2, width: 1, height: 1);
+    Unit explosion10 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 2, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion10.value_2 = 6;
     gameMap.addUnit(explosion10);
-    Unit explosion11 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 2, width: 1, height: 1);
+    Unit explosion11 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 2, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion11.value_2 = 4;
     gameMap.addUnit(explosion11);
-    Unit explosion12 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 2, width: 1, height: 1);
+    Unit explosion12 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 2, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion12.value_2 = 3;
     gameMap.addUnit(explosion12);
 
     // Unit explosion13 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 0, offsetY: 3, width: 1, height: 1);
     // explosion13.value_2 = 6;
     // gameMap.addUnit(explosion13);
-    Unit explosion14 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 1, height: 1);
+    Unit explosion14 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 1, offsetY: 3, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion14.value_2 = 5;
     gameMap.addUnit(explosion14);
-    Unit explosion15 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 3, width: 1, height: 1);
+    Unit explosion15 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 2, offsetY: 3, width: 1 * (kCellSize ~/ 4), height: 1 * (kCellSize ~/ 4));
     explosion15.value_2 = 5;
     gameMap.addUnit(explosion15);
     // Unit explosion16 = Unit(type: "explosion", x: unit.x, y: unit.y, offsetX: 3, offsetY: 3, width: 1, height: 1);
@@ -711,64 +714,85 @@ class GameController  extends ChangeNotifier{
   }
 
   void spriteMonsterLeft(Unit unit){
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
-    switch (spriteBelow.type) {
-      case "player":
-        gameOver = true;
-        gameOverText = "You got eaten :(";
-        break;
-      case "-1":
-        gameMap.removeSprite(unit);
-        return;
-      case "air":
-        gameMap.moveUnitDown(unit);
-        return;
-      default:
+    bool unitMoved = false;
+    for(int i = 0; i < kCellSize / 4; i++) {
+      Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
+      switch (spriteBelow.type) {
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          break;
+        case "-1":
+          gameMap.removeSprite(unit);
+          unitMoved = true;
+          break;
+        case "air":
+          gameMap.moveUnitDown(unit);
+          unitMoved = true;
+          break;
+        default:
+      }
+    }
+    if(unitMoved){
+      return;
     }
 
-    Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
-    switch (spriteLeft.type) {
-      case "player":
-        gameOver = true;
-        gameOverText = "You got eaten :(";
-        break;
-      case "air":
-        gameMap.moveUnitLeft(unit);
-        break;
-      default:
-        unit.type = "monster_right";
+
+    for(int i = 0; i < kCellSize / 4; i++) {
+      Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
+      switch (spriteLeft.type) {
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          break;
+        case "air":
+          gameMap.moveUnitLeft(unit);
+          break;
+        default:
+          unit.type = "monster_right";
+      }
     }
     
   }
 
   void spriteMonsterRight(Unit unit){
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
-    switch (spriteBelow.type) {
-      case "player":
-        gameOver = true;
-        gameOverText = "You got eaten :(";
-        break;
-      case "-1":
-        gameMap.removeSprite(unit);
-        return;
-      case "air":
-        gameMap.moveUnitDown(unit);
-        return;
-      default:
+    
+    bool unitMoved = false;
+    for(int i = 0; i < kCellSize / 4; i++) {
+      Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", playerPriority: "low");
+      switch (spriteBelow.type) {
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          break;
+        case "-1":
+          gameMap.removeSprite(unit);
+          unitMoved = true;
+          break;
+        case "air":
+          gameMap.moveUnitDown(unit);
+          unitMoved = true;
+          break;
+        default:
+      }
+    }
+    if(unitMoved){
+      return;
     }
     
-
-    Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
-    switch (spriteLeft.type) {
-      case "player":
-        gameOver = true;
-        gameOverText = "You got eaten :(";
-        break;
-      case "air":
-        gameMap.moveUnitRight(unit);
-        break;
-      default:
-        unit.type = "monster_left";
+    for(int i = 0; i < kCellSize / 4; i++) {
+      Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
+      switch (spriteLeft.type) {
+        case "player":
+          gameOver = true;
+          gameOverText = "You got eaten :(";
+          break;
+        case "air":
+          gameMap.moveUnitRight(unit);
+          break;
+        default:
+          unit.type = "monster_left";
+      }
     }
     
   }
@@ -788,11 +812,6 @@ class GameController  extends ChangeNotifier{
         gameMap.moveUnitDown(unit);
         return;
       default:
-    }
-
-    unit.value_1 ++;
-    if(unit.value_1.isOdd){
-      return;
     }
 
     Unit spriteLeft = gameMap.getPotentialCollision(unit, "LEFT", playerPriority: "low");
@@ -826,12 +845,6 @@ class GameController  extends ChangeNotifier{
       default:
     }
 
-    
-    unit.value_1 ++;
-    if(unit.value_1.isOdd){
-      return;
-    }
-
     Unit spriteLeft = gameMap.getPotentialCollision(unit, "RIGHT", playerPriority: "low");
     switch (spriteLeft.type) {
       case "player":
@@ -860,7 +873,7 @@ class GameController  extends ChangeNotifier{
       return;
     }
 
-    // for(int i = 0; i < accelerationCalc(unit.value_1); i++){
+    for(int i = 0; i < kCellSize / 4; i++){
       Unit spriteAbove = gameMap.getPotentialCollision(unit, "UP");
       switch (spriteAbove.type) {
         case "air":
@@ -870,7 +883,7 @@ class GameController  extends ChangeNotifier{
           gameMap.changeUnitType(unit, "jumper_falling");
           return;
       }
-    // }
+    }
     unit.value_1 ++;
   }
 
@@ -897,7 +910,7 @@ class GameController  extends ChangeNotifier{
       unit.value_1 = 1;
     }
 
-    for(int i = 0; i < accelerationCalc(unit.value_1); i++){
+    for(int i = 0; i < accelerationCalc(unit.value_1) * (kCellSize / 4); i++){
       Unit spriteAbove = gameMap.getPotentialCollision(unit, "DOWN");
       switch (spriteAbove.type) {
         case "player":
@@ -918,25 +931,25 @@ class GameController  extends ChangeNotifier{
 
   void updateViewMap(){
 
-    if(viewMapRight - (gameMap.player.x * 4 + gameMap.player.offsetX) < 5 * 4){
-      viewMapRight = (gameMap.player.x * 4 + gameMap.player.offsetX) + 5 * 4;
-      if(viewMapRight > (gameMap.map[0].length * 4)-1){
-        viewMapRight = (gameMap.map[0].length * 4)-1;
+    if(viewMapRight - (gameMap.player.x * kCellSize + gameMap.player.offsetX) < 5 * kCellSize){
+      viewMapRight = (gameMap.player.x * kCellSize + gameMap.player.offsetX) + 5 * kCellSize;
+      if(viewMapRight > (gameMap.map[0].length * kCellSize)-1){
+        viewMapRight = (gameMap.map[0].length * kCellSize)-1;
       }
-      viewMapLeft = viewMapRight - (viewMapWidth * 4);
+      viewMapLeft = viewMapRight - (viewMapWidth * kCellSize);
     }
 
-    if(gameMap.player.x * 4 + gameMap.player.offsetX - viewMapLeft < 5 * 4){
-      viewMapLeft = gameMap.player.x * 4 + gameMap.player.offsetX - (5 * 4);
+    if(gameMap.player.x * kCellSize + gameMap.player.offsetX - viewMapLeft < 5 * kCellSize){
+      viewMapLeft = gameMap.player.x * kCellSize + gameMap.player.offsetX - (5 * kCellSize);
       if(viewMapLeft < 0){
         viewMapLeft = 0;
       }
-      viewMapRight = viewMapLeft + (viewMapWidth * 4);
+      viewMapRight = viewMapLeft + (viewMapWidth * kCellSize);
     }
   }
 
   void moveRight(){
-    for(int i = 0; i < movingSpeed; i++) {
+    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++) {
     Unit spriteRight = gameMap.getPotentialCollision(gameMap.player, "RIGHT");
     switch (spriteRight.type) {
       case "air":
@@ -953,7 +966,7 @@ class GameController  extends ChangeNotifier{
   }
 
   void moveLeft(){
-    for(int i = 0; i < movingSpeed; i++){
+    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++){
       Unit spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
       switch (spriteLeft.type) {
         case "air":
@@ -1011,7 +1024,7 @@ class GameController  extends ChangeNotifier{
         spacesToJump = 1;
       }
 
-      for(int i = 0; i < spacesToJump; i++){
+      for(int i = 0; i < spacesToJump * (kCellSize / 4); i++){
         Unit spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
         switch (spriteAbove.type) {
           case "monster_left":
@@ -1027,7 +1040,7 @@ class GameController  extends ChangeNotifier{
             gameMap.moveUnitUp(gameMap.player);
             break;
           default:
-            i = spacesToJump;
+            i = 100;
             break;
         }
       }
@@ -1108,8 +1121,10 @@ class GameController  extends ChangeNotifier{
         Unit monster = gameMap.map[unit.y+1][unit.x-1+i][k];
         if((monster.type == "monster_left" || monster.type == "monster_right") && gameMap.isUnitOnUnit(unit, monster)){
           gameMap.changeUnitType(monster, "monster_dead");
-          monster.height = 3;
-          gameMap.moveUnitDown(monster);
+          monster.height = kCellSize * 3 ~/ 4;
+          for(int j = 0; j < kCellSize / 4; j++) {
+            gameMap.moveUnitDown(monster);
+          }
         }
       }
     }
