@@ -206,8 +206,8 @@ class _GameScreenState extends State<GameScreen> {
                     _gameController.gameStarted = false;
                     _menuPressed = true;
                   });}, child: const Icon(Icons.menu)),
-                  Text("Distance: ${_gameController.distanceTraveled.toString().padLeft(3, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
-                  Text("\tTime: ${(_duration / 20).toStringAsFixed(2).padLeft(8, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("Distance: ${_gameController.distanceTraveled.toString()}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("\tTime: ${(_duration / 20).toStringAsFixed(2)}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
                   
                 ]
               ),
@@ -426,15 +426,16 @@ class _GameScreenState extends State<GameScreen> {
                               SnackBar(content: Text('copied to clipboard')),
                             );
                           },
-                           child: Icon(Icons.share),
-                          // child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
+                          //  child: Icon(Icons.share),
+                          child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
                         ),
                       ),
                     ],
                   ),
                   content: Stack(
                     children: [
-                      Text(_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
+
+                      Text("${_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"}\n\nClick the share button at the top to share your results!"),
                     ],
                   ),
                   actions: [

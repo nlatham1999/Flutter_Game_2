@@ -8,6 +8,8 @@ import 'package:my_app/models/level.dart';
 
 class LevelDynamic extends Level { 
 
+
+  String startingText = "Reach the end as fast as you can!";
   bool useSeed;
   int seed;
 
