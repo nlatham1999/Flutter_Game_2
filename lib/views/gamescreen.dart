@@ -426,7 +426,8 @@ class _GameScreenState extends State<GameScreen> {
                               SnackBar(content: Text('copied to clipboard')),
                             );
                           },
-                          child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
+                           child: Icon(Icons.share),
+                          // child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
                         ),
                       ),
                     ],
@@ -442,7 +443,7 @@ class _GameScreenState extends State<GameScreen> {
                         
                         restartGame(startGame: true);
                       },
-                      child: Text("Restart", style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),),
+                      child: Text("Restart"), //, style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),),
                     ),
                     TextButton(
                       onPressed: (){
@@ -451,7 +452,7 @@ class _GameScreenState extends State<GameScreen> {
                           MaterialPageRoute(builder: (context) => MyHomePage(title: "Cube World", initialOpen: false,)),
                         );
                       },
-                      child: Text("Main Menu", style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),)
+                      child: Text("Main Menu"), //, style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),)
                     ),
                     Spacer(),
                     
