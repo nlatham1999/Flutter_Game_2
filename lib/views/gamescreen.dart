@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:my_app/constants.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
@@ -389,57 +390,70 @@ class _GameScreenState extends State<GameScreen> {
               visible: _gameOver,
               child:Center(
                 child: AlertDialog(
-                  title: const Text("Game Over"),
-                  content: Text(_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
+                  title: Stack(
+                    children: [
+                      Text("Game Over"),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: ElevatedButton(
+                          onPressed: () {
+
+                            String text = kSiteName;
+                            if(_gameController.level.isUsingDailyLevel()){
+                              DateTime now = DateTime.now();
+                              String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+                              text += " ${formattedDate}";
+                            }
+                            text += "\ndistance: ${_gameController.distanceTraveled}\ntime: ${(_duration / 20).toStringAsFixed(2)}";
+                            text += "\n\n🟦🟦🟦🟦🟦\n🟦🟦🟦⬜🟦\n🟥🟦🟨🟦🟦\n🟩🟩🟦⚫🟦\n🟩🟩🟩🟩🟩";
+                            text += "\n${kWebUrl}";
+                            Share.share(text);
+
+                            // Copy the text to the clipboard
+                            Clipboard.setData(ClipboardData(text: text));
+
+                            // Show a toast notification
+                            // Fluttertoast.showToast(
+                            //   msg: 'copied to clipboard',
+                            //   toastLength: Toast.LENGTH_SHORT,
+                            //   gravity: ToastGravity.BOTTOM,
+                            //   backgroundColor: Colors.black.withOpacity(0.8),
+                            //   textColor: Colors.white,
+                            // );
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('copied to clipboard')),
+                            );
+                          },
+                          child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
+                        ),
+                      ),
+                    ],
+                  ),
+                  content: Stack(
+                    children: [
+                      Text(_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"),
+                    ],
+                  ),
                   actions: [
-                    ElevatedButton(
+                    TextButton(
                       onPressed: () {
                         
                         restartGame(startGame: true);
                       },
-                      child: const Text("Restart Game"),
+                      child: Text("Restart", style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),),
                     ),
-                    ElevatedButton(
+                    TextButton(
                       onPressed: (){
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => MyHomePage(title: "Cube World", initialOpen: false,)),
                         );
                       },
-                      child: const Text("Return to main menu")
+                      child: Text("Main Menu", style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),)
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-
-                        String text = "cubeworld";
-                        if(_gameController.level.isUsingDailyLevel()){
-                          DateTime now = DateTime.now();
-                          String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-                          text += " ${formattedDate}";
-                        }
-                        text += "\ndistance: ${_gameController.distanceTraveled}\ntime: ${(_duration / 20).toStringAsFixed(2)}";
-                        text += "\n\n🟦🟦🟦🟦🟦\n🟦🟦🟦⬜🟦\n🟥🟦🟨🟦🟦\n🟩🟩🟦⚫🟦\n🟩🟩🟩🟩🟩";
-                        Share.share(text);
-
-                        // Copy the text to the clipboard
-                        Clipboard.setData(ClipboardData(text: text));
-
-                        // Show a toast notification
-                        // Fluttertoast.showToast(
-                        //   msg: 'copied to clipboard',
-                        //   toastLength: Toast.LENGTH_SHORT,
-                        //   gravity: ToastGravity.BOTTOM,
-                        //   backgroundColor: Colors.black.withOpacity(0.8),
-                        //   textColor: Colors.white,
-                        // );
-
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('copied to clipboard')),
-                        );
-                      },
-                      child: Icon(Icons.share),
-                    )
-
+                    Spacer(),
                     
                   ],
                 )
