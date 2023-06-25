@@ -454,7 +454,6 @@ class _GameScreenState extends State<GameScreen> {
                       },
                       child: Text("Main Menu"), //, style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),)
                     ),
-                    Spacer(),
                     
                   ],
                 )
