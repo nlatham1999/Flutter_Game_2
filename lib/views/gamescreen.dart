@@ -392,10 +392,10 @@ class _GameScreenState extends State<GameScreen> {
                 child: AlertDialog(
                   title: Stack(
                     children: [
-                      Text("Game Over"),
+                      Text("Game Over\n"),
                       Positioned(
-                        top: 0,
-                        right: 0,
+                        top: -2,
+                        right: -2,
                         child: ElevatedButton(
                           onPressed: () {
 
@@ -426,8 +426,8 @@ class _GameScreenState extends State<GameScreen> {
                               SnackBar(content: Text('copied to clipboard')),
                             );
                           },
-                          //  child: Icon(Icons.share),
-                          child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
+                           child: Icon(Icons.share),
+                          // child: Icon(Icons.share, size: size.height < size.width ? 20 : size.width / 30,),
                         ),
                       ),
                     ],

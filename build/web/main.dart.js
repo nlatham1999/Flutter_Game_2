@@ -48991,32 +48991,31 @@ j=f.x.CW
 j===$&&A.e()
 i=A.m5(A.pa(B.wF,j*(r?2:1)),h,new A.a_4(f),new A.a_5())
 s=A.ek(h,A.AS(A.a([s,new A.ru(h),new A.ru(h),A.NG(A.KM(A.a([i,A.m5(A.pa(B.wM,j*(r?2:1)),h,new A.ZO(f),new A.ZP())],k),B.dt,B.ay),1)],k),B.p3,B.ay),h,h,0,h,l,o)
-l=f.f
-j=A.kC("Game Over",h,h,h)
-r=A.fW(B.a8,A.a([j,A.ek(h,A.eI(A.pa(B.wJ,p<o?20:o/30),new A.ZQ(f,a)),h,h,h,0,0,h)],k),B.al)
-o=f.d
-o===$&&A.e()
-if(o.d){o=o.gAJ()
+o=f.f
+l=A.fW(B.a8,A.a([A.kC("Game Over\n",h,h,h),A.ek(h,A.eI(A.pa(B.wJ,h),new A.ZQ(f,a)),h,h,h,-2,-2,h)],k),B.al)
+r=f.d
+r===$&&A.e()
+if(r.d){r=r.gAJ()
 j=f.x.fr
 j===$&&A.e()
-j=o+g+j
-o=j}else{o=f.x
-j=o.dx
-o=o.fr
-o===$&&A.e()
-o=" "+j+g+o}o=A.fW(B.a8,A.a([A.kC(o+"\n\nClick the share button at the top to share your results!",h,h,h)],k),B.al)
-l=A.t0(A.jw(A.nO(A.a([A.a98(A.kC("Restart",h,h,h),new A.ZR(f)),A.a98(A.kC("Main Menu",h,h,h),new A.ZS(a))],k),o,r),h,h),l)
-r=f.ax
+j=r+g+j
+r=j}else{r=f.x
+j=r.dx
+r=r.fr
+r===$&&A.e()
+r=" "+j+g+r}r=A.fW(B.a8,A.a([A.kC(r+"\n\nClick the share button at the top to share your results!",h,h,h)],k),B.al)
+o=A.t0(A.jw(A.nO(A.a([A.a98(A.kC("Restart",h,h,h),new A.ZR(f)),A.a98(A.kC("Main Menu",h,h,h),new A.ZS(a))],k),r,l),h,h),o)
+l=f.ax
 p=A.ro(A.KM(A.a([A.eI(B.GV,new A.ZT(f)),A.eI(B.H0,new A.ZU(a))],k),B.ca,B.ay),p/2,h)
-r=A.t0(A.jw(A.nO(A.a([A.eI(B.il,new A.ZV(f))],k),p,B.H_),h,h),r)
+l=A.t0(A.jw(A.nO(A.a([A.eI(B.il,new A.ZV(f))],k),p,B.H_),h,h),l)
 p=f.r
-o=A.kC(f.d.gvz(),h,h,h)
-p=A.t0(A.jw(A.nO(A.a([A.eI(B.rX,new A.ZW(f))],k),o,B.rV),h,h),p)
-o=f.w
+r=A.kC(f.d.gvz(),h,h,h)
+p=A.t0(A.jw(A.nO(A.a([A.eI(B.rX,new A.ZW(f))],k),r,B.rV),h,h),p)
+r=f.w
 j=A.a5n(h,h)
 j.ac=new A.ZX()
 j=A.T4(h,h,B.aC,h,h,!0,h,A.kF(A.a([B.rS,A.kF(h,j,B.rT,"Nick Latham"),B.rR],t.nO),h,h,h),B.an,h,h,1,B.a6)
-return A.a8T(B.bc,A.fW(B.a8,A.a([e,d,n,q,m,s,l,r,p,A.t0(A.jw(A.nO(A.a([A.eI(B.il,new A.ZZ(f))],k),j,B.rW),h,h),o)],k),B.al))},
+return A.a8T(B.bc,A.fW(B.a8,A.a([e,d,n,q,m,s,o,l,p,A.t0(A.jw(A.nO(A.a([A.eI(B.il,new A.ZZ(f))],k),j,B.rW),h,h),r)],k),B.al))},
 $S:322}
 A.ZL.prototype={
 $2(a,b){var s,r=this
