@@ -7,12 +7,26 @@ import 'package:my_app/models/chunk.dart';
 import 'package:my_app/models/level.dart';
 
 class LevelDynamic extends Level { 
-  LevelDynamic(){
 
+  bool useSeed;
+  int seed;
+
+  LevelDynamic({required this.useSeed, required this.seed}){
+
+    if(!useSeed){
+      Random random = Random();
+      seed = random.nextInt(1000000);
+    }
     //our abstract syntaxt tree for generating levels
     //takes the format of [difficulty][map type][altitude]
     constructLevels();
 
+  }
+
+  
+  @override
+  bool isUsingDailyLevel(){
+    return useSeed;
   }
 
   List<String> constructLevels() {
@@ -233,12 +247,12 @@ class LevelDynamic extends Level {
     String difficulty = "easy";
     String type = "regular";
     int altitude = 1;
-    Random random = Random();
-    for(int i = 0; i < 15; i++){
-      if(i >= 5 && i < 10){
+    Random random = Random(seed);
+    for(int i = 0; i < 8; i++){
+      if(i >= 3 && i < 6){
         difficulty = "moderate";
       }
-      if(i >= 10){
+      if(i >= 6){
         difficulty = "hard";
       }
 

@@ -3,11 +3,14 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/home.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart'; 
 
 import '../models/level.dart';
@@ -128,6 +131,7 @@ class _GameScreenState extends State<GameScreen> {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
+      _level.finished = false;
       if(startGame){
         _gameController.gameStarted = true;
       }
@@ -201,8 +205,8 @@ class _GameScreenState extends State<GameScreen> {
                     _gameController.gameStarted = false;
                     _menuPressed = true;
                   });}, child: const Icon(Icons.menu)),
-                  Text("Distance: ${_gameController.distanceTraveled}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
-                  Text("\tTime: ${_duration ~/ 20}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("Distance: ${_gameController.distanceTraveled.toString().padLeft(3, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
+                  Text("\tTime: ${(_duration / 20).toStringAsFixed(2).padLeft(8, '0')}", style: TextStyle(decoration: TextDecoration.none, color: Colors.white, fontSize: _gameController.cellHeight / 2),),
                   
                 ]
               ),
@@ -227,7 +231,7 @@ class _GameScreenState extends State<GameScreen> {
             Positioned(
               top: _gameController.offsetY + (_gameController.cellHeight * 17),
               width: size.width,
-              // left: -_gameController.cellWidth / 2,
+              left: 0,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -280,7 +284,9 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                       ),
                     ],
-                  ),), 
+                  ),),
+                  Spacer(),
+                  Spacer(), 
                   Expanded(
                     flex: 1,
                     child: Column (
@@ -400,7 +406,37 @@ class _GameScreenState extends State<GameScreen> {
                           MaterialPageRoute(builder: (context) => MyHomePage(title: "Cube World", initialOpen: false,)),
                         );
                       },
-                      child: const Text("Return to main menu")),
+                      child: const Text("Return to main menu")
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+
+                        String text = "cubeworld";
+                        if(_gameController.level.isUsingDailyLevel()){
+                          DateTime now = DateTime.now();
+                          String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+                          text += " ${formattedDate}";
+                        }
+                        text += "\ndistance: ${_gameController.distanceTraveled}\ntime: ${(_duration / 20).toStringAsFixed(2)}";
+                        text += "\n\n🟦🟦🟦🟦🟦\n🟦🟦🟦⬜🟦\n🟥🟦🟨🟦🟦\n🟩🟩🟦⚫🟦\n🟩🟩🟩🟩🟩";
+                        Share.share(text);
+
+                        // Copy the text to the clipboard
+                        Clipboard.setData(ClipboardData(text: text));
+
+                        // Show a toast notification
+                        Fluttertoast.showToast(
+                          msg: 'copied to clipboard',
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          backgroundColor: Colors.black.withOpacity(0.8),
+                          textColor: Colors.white,
+                        );
+                      },
+                      child: Icon(Icons.share),
+                    )
+
+                    
                   ],
                 )
               ),

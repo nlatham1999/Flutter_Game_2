@@ -6,7 +6,9 @@ import 'package:my_app/painters/deadmonsterpainter.dart';
 import 'package:my_app/painters/jumperpainter.dart';
 import 'package:my_app/painters/monsterpainter.dart';
 import 'package:my_app/painters/playerpainter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../constants.dart';
 import '../../painters/grasspainter.dart';
 import '../../painters/traingelpainter.dart';
 import '../../util/util.dart';
@@ -26,20 +28,23 @@ class ViewUtils {
       //   left: offsetX,
       //   bottom: offsetY,
       //   child: Container(
-      //     width: width * numCellsToDisplay + width / 4,
+      //     width: width * numCellsToDisplay + width / kCellSize,
       //     height: height * map.length,
       //     color: Colors.blue,
       //   ),
       // )
     ];
 
-    int vL = viewMapLeft ~/ 4;
+    int vL = viewMapLeft ~/ kCellSize;
     // if(vL > 0){
     //   vL --;
     // print("minusing");
     // }
-    int vLo = viewMapLeft % 4;
-    int vR = viewMapRight ~/ 4 + 1;
+    int vLo = viewMapLeft % kCellSize;
+    int vR = viewMapRight ~/ kCellSize + (kCellSize ~/ 4);
+    if(vR > map[0].length){
+      vR = map[0].length;
+    }
 
     for (int i = 0; i < map.length; i++) {
       for (int j = vL; j < vR; j++) {
@@ -48,18 +53,18 @@ class ViewUtils {
           if (unit.type == "air") {
             continue;
           }
-          double left = width * (j - vL - (vLo / 4)) +
+          double left = width * (j - vL - (vLo / kCellSize)) +
               offsetX +
-              (width * unit.offsetX / 4);
-          double top = height * i + offsetY + (height * unit.offsetY / 4);
-          double boxWidth = width * unit.width / 4;
+              (width * unit.offsetX / kCellSize);
+          double top = height * i + offsetY + (height * unit.offsetY / kCellSize);
+          double boxWidth = width * unit.width / kCellSize;
           positions.add(
             Positioned(
               left: left,
               top: top,
               child: SizedBox(
                 width: boxWidth,
-                height: height * unit.height / 4,
+                height: height * unit.height / kCellSize,
                 child: Image.asset(
                   getPositionedImage(
                       unit), // Replace with the actual image path
@@ -74,11 +79,11 @@ class ViewUtils {
     }
 
     positions.add(Positioned(
-      left: offsetX - (width * 3 / 2),
-      top: offsetY - (width * 3 / 2),
+      left: offsetX - (width * (3) / 2),
+      top: offsetY - (width * (3) / 2),
       child: Container(
-        width: width * (numCellsToDisplay + 2) + width * 3 / 4,
-        height: height * map.length + width * 3,
+        width: width * (numCellsToDisplay + 2) + width * 2,
+        height: height * map.length + width * (kCellSize -1),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.blue,

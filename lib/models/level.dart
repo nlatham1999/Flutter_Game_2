@@ -24,4 +24,8 @@ class Level {
   bool finished = false;
 
   int level = 0;
+
+  bool isUsingDailyLevel(){
+    return false;
+  }
 }
