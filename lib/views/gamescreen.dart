@@ -425,12 +425,16 @@ class _GameScreenState extends State<GameScreen> {
                         Clipboard.setData(ClipboardData(text: text));
 
                         // Show a toast notification
-                        Fluttertoast.showToast(
-                          msg: 'copied to clipboard',
-                          toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.BOTTOM,
-                          backgroundColor: Colors.black.withOpacity(0.8),
-                          textColor: Colors.white,
+                        // Fluttertoast.showToast(
+                        //   msg: 'copied to clipboard',
+                        //   toastLength: Toast.LENGTH_SHORT,
+                        //   gravity: ToastGravity.BOTTOM,
+                        //   backgroundColor: Colors.black.withOpacity(0.8),
+                        //   textColor: Colors.white,
+                        // );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('copied to clipboard')),
                         );
                       },
                       child: Icon(Icons.share),
