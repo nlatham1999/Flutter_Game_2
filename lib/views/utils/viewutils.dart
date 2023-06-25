@@ -6,6 +6,7 @@ import 'package:my_app/painters/deadmonsterpainter.dart';
 import 'package:my_app/painters/jumperpainter.dart';
 import 'package:my_app/painters/monsterpainter.dart';
 import 'package:my_app/painters/playerpainter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
 import '../../painters/grasspainter.dart';

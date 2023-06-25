@@ -11,6 +11,9 @@ import 'package:my_app/views/gamescreen.dart';
 import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:intl/intl.dart';
+
 
 import '../constants.dart';
 import '../models/basicmap.dart';
@@ -32,17 +35,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   
   bool _showAboutGame = false;
+  bool _showStats = false;
   bool _initialLoad = true;
   Level sampleLevel = Level();
   late BasicMap sampleMap;
   Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
   late int numSampleCells;
+  int _dateNum = 0;
   
   @override
   void initState() {
+    
     super.initState();
     sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
     numSampleCells = size.width ~/ 32;
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    _dateNum =  int.parse(formattedDate.replaceAll('-', ''));
   }
 
   int getLevel(){
@@ -63,9 +72,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Stack(
               children: [
+                
                 Positioned(
                   top: size.height / 15,
-                  right: size.height / 15,
+                  right: size.width / 20 * 2,
+                  width: size.width / 8,
                   child: MaterialButton(
                     highlightColor: Colors.transparent,
                     child: const Icon(Icons.info_outline, color: Colors.white), 
@@ -74,17 +85,45 @@ class _MyHomePageState extends State<MyHomePage> {
                     });},
                   ),
                 ),
+                // Positioned(
+                //   top: size.height / 15,
+                //   right: size.width / 20 * 5,
+                //   width: size.width / 8,
+                //   child: MaterialButton(
+                //     focusColor: Colors.transparent,
+                //     highlightColor: Colors.transparent,
+                //     hoverColor: Colors.transparent,
+                //     child: const Icon(Icons.bar_chart, color: Colors.white), 
+                //     onPressed: () { setState(() {
+                //       _showStats = true;
+                //     });},
+                //   ),
+                // ),
                 Positioned(
-                  top: size.height / 10,
-                  left: size.width / 5,
+                  top: size.height * 2 / 10,
+                  left: size.width / 6,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(),)),
+                        MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: true, seed: _dateNum),)),
                       );
                     } : null,
-                    child: const Text("Play Game", style: TextStyle(color: Colors.white, fontSize: 24),),
+                    child: const Text("Play Daily Challenge", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  )
+                ),
+
+                Positioned(
+                  top: size.height * 3 / 10,
+                  left: size.width / 6,
+                  child: ElevatedButton(
+                    onPressed: getLevel() >= 0 ? () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: false, seed: 0),)),
+                      );
+                    } : null,
+                    child: const Text("Play Random Game", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
                 // Positioned(
@@ -101,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   )
                 // ),
                 Positioned(
-                  top: size.height * 2 / 10,
-                  left: size.width / 5,
+                  top: size.height * 4 / 10,
+                  left: size.width / 6,
                   child: ElevatedButton(
                     onPressed: () { 
                       Navigator.pushReplacement(
@@ -110,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
                       );
                     },
-                    child: const Text("Test Level", style: TextStyle(color: Colors.white, fontSize: 24),),
+                    child: const Text("Test Level", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
               ],
@@ -184,6 +223,26 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ),
             ),
+            
+        //     Visibility (
+        //       visible: _showStats,
+        //       child:Center(
+        //         child: AlertDialog(
+        //           title: const Text("Stats"),
+        //           content: getStats(),
+        //           actions: [
+        //             ElevatedButton(
+        //               onPressed: () {
+        //                 setState(() {
+        //                   _showStats = false;
+        //                 });
+        //               },
+        //               child: const Text("Ok"),
+        //             ),
+        //           ],
+        //         )
+        //       ),
+        //     ),
           ],
         ),
     );

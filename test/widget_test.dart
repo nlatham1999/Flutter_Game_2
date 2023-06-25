@@ -32,7 +32,7 @@ void main() {
 
 
   testWidgets('Dynamic Level Test', (WidgetTester tester) async {
-    LevelDynamic level = LevelDynamic();
+    LevelDynamic level = LevelDynamic(useSeed: false, seed: 0);
     
     Map<String, int> occurances = {};
     
