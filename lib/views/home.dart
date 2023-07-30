@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _initialLoad = true;
   Level sampleLevel = Level();
   late BasicMap sampleMap;
-  Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+  late Size size;
   late int numSampleCells;
   int _dateNum = 0;
   
@@ -47,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     
     super.initState();
+    size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
     numSampleCells = size.width ~/ 32;
     DateTime now = DateTime.now();
@@ -159,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: const Text("Welcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.",),
+                  content: Text("version 1.0.2\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {

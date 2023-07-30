@@ -33,7 +33,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _initialLoad = true;
   bool _showAboutGame = false;
   late GameController _gameController;
-  Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+  late Size size;
   bool shiftPressed = false;
   int _duration = 0;
   bool _rightTapDown = false;
@@ -46,6 +46,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
+    size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     _level = widget.level;
     _gameController = GameController(offsetY: 40, screenSize: size, level: _level);
     mapAsString = _gameController.level.mapTemplate.join("\n");

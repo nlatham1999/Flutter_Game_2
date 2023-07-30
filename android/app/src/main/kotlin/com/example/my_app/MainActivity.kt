@@ -1,4 +1,4 @@
-package com.example.my_app
+package nick.latham.cubeworld
 
 import io.flutter.embedding.android.FlutterActivity
 
