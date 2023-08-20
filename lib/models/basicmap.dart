@@ -6,6 +6,7 @@ import 'package:my_app/models/unit.dart';
 
 class BasicMap extends GameMap {
 
+  //1: fireball powerup
   //a: air
   //b: bomb (inert)
   //B: bomb (about to go off)
@@ -14,6 +15,8 @@ class BasicMap extends GameMap {
   //d: dead monster
   //e: explosion
   //E: explosion 2
+  //f: fire monster left
+  //F: fire monster right
   //g: grass
   //G: grass large block
   //Ĝ: grass skinny
@@ -65,6 +68,10 @@ class BasicMap extends GameMap {
       for(int j = 0; j < mapTemplate[i].length; j++){
         List<Unit> cell = [];
         switch (mapTemplate[i][j]) {
+          
+          case "1":
+            cell.add(Unit(type: "fireball_powerup", x: j, y: i, offsetX: 2, offsetY: 4, width: kCellSize ~/ 2, height: kCellSize ~/ 2));
+            break;
           case "b":
             cell.add(Unit(type: "bomb", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
@@ -75,10 +82,10 @@ class BasicMap extends GameMap {
             cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize ~/ 4));
             break;
           case "f":
-            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
+            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "F":
-            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
+            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "g":
             Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
@@ -197,7 +204,7 @@ class BasicMap extends GameMap {
       for(int j = 0; j < map[i].length; j++){
         for(int k = 0; k < map[i][j].length; k++){
           Unit unit = map[i][j][k];
-          if(unit.type == "signage"){
+          if(unit.type == "signage" || unit.type == "fireball_powerup"){
             continue; //we don't want to add signage to the collision map
           }
           for(int m = 0; m < unit.height; m++){

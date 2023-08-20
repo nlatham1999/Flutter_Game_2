@@ -39,17 +39,14 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _initialLoad = true;
   Level sampleLevel = Level();
   late BasicMap sampleMap;
-  late Size size;
-  late int numSampleCells;
   int _dateNum = 0;
   
   @override
   void initState() {
     
     super.initState();
-    size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
-    numSampleCells = size.width ~/ 32;
+   
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     _dateNum =  int.parse(formattedDate.replaceAll('-', ''));
@@ -62,7 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+     
+    Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+    int numSampleCells = size.width ~/ 32;
+
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Stack(
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   left: size.width / 6,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: true, seed: _dateNum),)),
                       );
@@ -160,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: Text("version 1.0.2\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
+                  content: Text("version 1.0.5\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {

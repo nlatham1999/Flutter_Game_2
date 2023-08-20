@@ -108,30 +108,37 @@ class ViewUtils {
         return 'assets/brick.png';
       case "explosion":
         return 'assets/explosion_tiny.png';
+      case "player_fireball":
+        return 'assets/player_fireball.png';
+      case "fireball_powerup":
+        return 'assets/powerup_fireball_${unit.value_1 ~/ 3}.png';
       case "fireball":
         return 'assets/fireball.png';
       case "fire_monster_left":
-        if(unit.value_1 == 28){
-          return 'assets/fire_monster_left_phase_2.png';
-        }
-        // if(unit.value_1 == 9){
-        //   return 'assets/fire_monster_left_phase_3.png';
+        return 'assets/fire_monster_small_left.png';
+        // if(unit.value_1 == 28){
+        //   return 'assets/fire_monster_left_phase_2.png';
         // }
-        if(unit.value_2 == 1){
-          return 'assets/fire_monster_left_looking_up.png';
-        }
-        return 'assets/fire_monster_left.png';
+        // // if(unit.value_1 == 9){
+        // //   return 'assets/fire_monster_left_phase_3.png';
+        // // }
+        // if(unit.value_2 == 1){
+        //   return 'assets/fire_monster_left_looking_up.png';
+        // }
+        // return 'assets/fire_monster_left.png';
       case "fire_monster_right":
-        if(unit.value_1 == 28){
-          return 'assets/fire_monster_right_phase_2.png';
-        }
-        if(unit.value_2 == 1){
-          return 'assets/fire_monster_right_looking_up.png';
-        }
+      
+        return 'assets/fire_monster_small_right.png';
+        // if(unit.value_1 == 28){
+        //   return 'assets/fire_monster_right_phase_2.png';
+        // }
+        // if(unit.value_2 == 1){
+        //   return 'assets/fire_monster_right_looking_up.png';
+        // }
         // if(unit.value_1 == 9){
         //   return 'assets/fire_monster_right_phase_3.png';
         // }
-        return 'assets/fire_monster_right.png';
+        // return 'assets/fire_monster_right.png';
       case "grass":
         if(unit.value_1 == 0){
           return 'assets/grass1x1.png';
@@ -159,11 +166,28 @@ class ViewUtils {
       case "jumper_falling":
         return 'assets/jumper.png';
       case "monster_dead":
+        if(unit.value_2 == 1){
+          return 'assets/ghost_dead.png';
+        }else if(unit.value_2 == 2){
+          return 'assets/fire_monster_small_dead.png';
+        }else if(unit.value_2 == 3){
+          return 'assets/jumper_dead.png';
+        }else if(unit.value_2 == 4){
+          return 'assets/bomb_dead.png';
+        }
         return 'assets/monster_dead.png';
       case "monster_left":
-        return 'assets/monster_left_small.png';
+        if (unit.value_1 < 2){
+          return 'assets/monster_left_small.png';
+        }else{
+          return 'assets/monster_left_small_2.png';
+        }
       case "monster_right":
-        return 'assets/monster_right_small.png';
+        if (unit.value_1 < 2){
+          return 'assets/monster_right_small.png';
+        }else{
+          return 'assets/monster_right_small_2.png';
+        }
       case "player":
         if (unit.direction == 0) {
           return 'assets/player_right_small.png';
@@ -175,7 +199,11 @@ class ViewUtils {
       case "spiked_monster_right":
         return 'assets/spiked_monster_right_small.png';
       case "winged_monster":
-        return 'assets/ghost.png';
+        if((unit.value_1 == 0 && unit.value_3 == 0) || (unit.value_1 == 1 && unit.value_3 == 1)){
+          return 'assets/ghost_2.png';
+        }else{
+          return 'assets/ghost_3.png';
+        }
       default:
         return "";
     }

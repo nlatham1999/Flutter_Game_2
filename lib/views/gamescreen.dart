@@ -10,6 +10,7 @@ import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/home.dart';
+import 'package:my_app/views/utils/buttonpositions.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart'; 
@@ -40,6 +41,7 @@ class _GameScreenState extends State<GameScreen> {
   bool _leftTapDown = false;
   bool _menuPressed = false;
   bool pause = false;
+  late ButtonsPositions _buttonsPositions;
 
   String mapAsString = "";
 
@@ -50,6 +52,7 @@ class _GameScreenState extends State<GameScreen> {
     _level = widget.level;
     _gameController = GameController(offsetY: 40, screenSize: size, level: _level);
     mapAsString = _gameController.level.mapTemplate.join("\n");
+    _buttonsPositions = ButtonsPositions(_gameController.offsetY + (_gameController.cellHeight * 17), _gameController.offsetX, (_gameController.viewMapWidth + 1) * _gameController.cellWidth, size);
     _startTimer();
   }
 
@@ -88,8 +91,16 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
+  void fire(){
+    _gameController.fireTrigger = true;
+  }
+
   void jump(){
-    _gameController.jumpTrigger = true;
+    _gameController.jumpPressed = true;
+  }
+
+  void jumpReleased(){
+    _gameController.jumpPressed = false;
   }
 
   void moveRight(){
@@ -157,7 +168,9 @@ class _GameScreenState extends State<GameScreen> {
               autofocus: true,
               onKey: (node, event) {
                 if (event is RawKeyUpEvent) {
-                  if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+                  if (event.logicalKey == LogicalKeyboardKey.space) {
+                    jumpReleased();
+                  }else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
                     moveLeftReleased();
                   } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
                     moveRightReleased();
@@ -168,6 +181,8 @@ class _GameScreenState extends State<GameScreen> {
                 if (event is RawKeyDownEvent) {
                   if (event.logicalKey == LogicalKeyboardKey.space) {
                     jump();
+                  } else if (event.logicalKey == LogicalKeyboardKey.keyS) {
+                    fire();
                   }else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
                       moveLeft();
                   }else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
@@ -214,134 +229,159 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
             Positioned(
-              top:  _gameController.offsetY + (_gameController.cellHeight * 17),
-              left: size.width / 3,
-              width: size.width / 3,
+              top:  _buttonsPositions.positions["jump"]!.top,
+              left: _buttonsPositions.positions["jump"]!.left,
+              width: _buttonsPositions.positions["jump"]!.width,
+              height: _buttonsPositions.positions["jump"]!.height,
               child: MaterialButton(
                 onPressed: (){},
                 onHighlightChanged: (isHighlighted) {
                     if (isHighlighted) {
                       jump();
+                    }else{
+                      jumpReleased();
                     }
                   },
                   child: Icon(
-                    size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
+                    size: _buttonsPositions.positions["jump"]!.iconSize,
                     Icons.arrow_upward_outlined
                   ),
                 ),
             ),
             Positioned(
-              top: _gameController.offsetY + (_gameController.cellHeight * 17),
-              width: size.width,
-              left: 0,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Column (
-                    children: [
-                      MaterialButton(
-                        onPressed: (){}, 
-                        onHighlightChanged: (isHighlighted) {
-                          if (!isHighlighted) {
-                            moveLeftReleased();
-                            _leftTapDown = false;
-                            if(_rightTapDown){
-                              walkingMode();
-                              moveRight();
-                            }
-                          }else{
-                            moveRightReleased();
-                            walkingMode();
-                            moveLeft();
-                            _leftTapDown = true;
-                          }
-                        },
-                        child: Icon(
-                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
-                          Icons.arrow_back
-                        ),
-                      ),
-                      MaterialButton(
-                        onPressed: (){}, 
-                        onHighlightChanged: (isHighlighted) {
-                          if (!isHighlighted) {
-                            moveLeftReleased();
-                            _leftTapDown = false;
-                            if(_rightTapDown){
-                              walkingMode();
-                              moveRight();
-                            }
-                          }else{
-                            moveRightReleased();
-                            sprintMode();
-                            moveLeft();
-                            _leftTapDown = true;
-                          }
-                        },
-                        child: Icon(
-                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
-                          Icons.keyboard_double_arrow_left
-                        ),
-                      ),
-                    ],
-                  ),),
-                  Spacer(),
-                  Spacer(), 
-                  Expanded(
-                    flex: 1,
-                    child: Column (
-                    children: [
-                      MaterialButton(
-                        onPressed: (){}, 
-                        onHighlightChanged: (isHighlighted) {
-                          if (!isHighlighted) {
-                            moveRightReleased();
-                            _rightTapDown = false;
-                            if(_leftTapDown){
-                              walkingMode();
-                              moveLeft();
-                            }
-                          }else{
-                            moveLeftReleased();
-                            walkingMode();
-                            moveRight();
-                            _rightTapDown = true;
-                          }
-                        },
-                        child: Icon(
-                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
-                          Icons.arrow_forward
-                        ),
-                      ),
-                      MaterialButton(
-                        onPressed: (){}, 
-                        onHighlightChanged: (isHighlighted) {
-                          if (!isHighlighted) {
-                            moveRightReleased();
-                            _rightTapDown = false;
-                            if(_leftTapDown){
-                              moveLeftReleased();
-                              walkingMode();
-                              moveLeft();
-                            }
-                          }else{
-                            sprintMode();
-                            moveRight();
-                            _rightTapDown = true;
-                          }
-                        },
-                        child: Icon(
-                          size: _gameController.cellHeight * (size.height > size.width ? 2 : 1),
-                          Icons.keyboard_double_arrow_right
-                        ),
-                      ),
-                    ],
-                  ),),
-                ],
-              )
+              top:  _buttonsPositions.positions["fire"]!.top,
+              left: _buttonsPositions.positions["fire"]!.left,
+              width: _buttonsPositions.positions["fire"]!.width,
+              height: _buttonsPositions.positions["fire"]!.height,
+              child: MaterialButton(
+                onPressed: (){},
+                onHighlightChanged: (isHighlighted) {
+                    if (isHighlighted) {
+                      fire();
+                    }
+                  },
+                  child: Icon(
+                    size: _buttonsPositions.positions["fire"]!.iconSize,
+                    Icons.circle
+                  ),
+                ),
             ),
+            Positioned(
+              top:  _buttonsPositions.positions["left_walk"]!.top,
+              left: _buttonsPositions.positions["left_walk"]!.left,
+              width: _buttonsPositions.positions["left_walk"]!.width,
+              height: _buttonsPositions.positions["left_walk"]!.height,
+              child: MaterialButton(
+                onPressed: (){}, 
+                onHighlightChanged: (isHighlighted) {
+                  if (!isHighlighted) {
+                    moveLeftReleased();
+                    _leftTapDown = false;
+                    if(_rightTapDown){
+                      walkingMode();
+                      moveRight();
+                    }
+                  }else{
+                    moveRightReleased();
+                    walkingMode();
+                    moveLeft();
+                    _leftTapDown = true;
+                  }
+                },
+                child: Icon(
+                  size: _buttonsPositions.positions["left_walk"]!.iconSize,
+                  Icons.arrow_back
+                ),
+              ),
+            ),
+            Positioned(
+              top:  _buttonsPositions.positions["left_sprint"]!.top,
+              left: _buttonsPositions.positions["left_sprint"]!.left,
+              width: _buttonsPositions.positions["left_sprint"]!.width,
+              height: _buttonsPositions.positions["left_sprint"]!.height,
+              child: MaterialButton(
+                onPressed: (){}, 
+                onHighlightChanged: (isHighlighted) {
+                  if (!isHighlighted) {
+                    moveLeftReleased();
+                    _leftTapDown = false;
+                    if(_rightTapDown){
+                      walkingMode();
+                      moveRight();
+                    }
+                  }else{
+                    moveRightReleased();
+                    sprintMode();
+                    moveLeft();
+                    _leftTapDown = true;
+                  }
+                },
+                child: Icon(
+                  size: _buttonsPositions.positions["left_sprint"]!.iconSize,
+                  Icons.keyboard_double_arrow_left
+                ),
+              ),
+            ),
+            Positioned(
+              top:  _buttonsPositions.positions["right_walk"]!.top,
+              left: _buttonsPositions.positions["right_walk"]!.left,
+              width: _buttonsPositions.positions["right_walk"]!.width,
+              height: _buttonsPositions.positions["right_walk"]!.height,
+              child: MaterialButton(
+                onPressed: (){}, 
+                onHighlightChanged: (isHighlighted) {
+                  if (!isHighlighted) {
+                    moveRightReleased();
+                    _rightTapDown = false;
+                    if(_leftTapDown){
+                      walkingMode();
+                      moveLeft();
+                    }
+                  }else{
+                    moveLeftReleased();
+                    walkingMode();
+                    moveRight();
+                    _rightTapDown = true;
+                  }
+                },
+                child: Icon(
+                  size: _buttonsPositions.positions["right_walk"]!.iconSize,
+                  Icons.arrow_forward
+                ),
+              ),
+            ),
+            Positioned(
+              top:  _buttonsPositions.positions["right_sprint"]!.top,
+              left: _buttonsPositions.positions["right_sprint"]!.left,
+              width: _buttonsPositions.positions["right_sprint"]!.width,
+              height: _buttonsPositions.positions["right_sprint"]!.height,
+              child: MaterialButton(
+                onPressed: (){}, 
+                onHighlightChanged: (isHighlighted) {
+                  if (!isHighlighted) {
+                    moveRightReleased();
+                    _rightTapDown = false;
+                    if(_leftTapDown){
+                      moveLeftReleased();
+                      walkingMode();
+                      moveLeft();
+                    }
+                  }else{
+                    sprintMode();
+                    moveRight();
+                    _rightTapDown = true;
+                  }
+                },
+                child: Icon(
+                  size: _buttonsPositions.positions["right_sprint"]!.iconSize,
+                  Icons.keyboard_double_arrow_right
+                ),
+              ),
+            ),
+                
+                
+            
+            
             // Positioned(
             //   top: 0,
             //   width: 300,
@@ -436,7 +476,7 @@ class _GameScreenState extends State<GameScreen> {
                   content: Stack(
                     children: [
 
-                      Text("${_level.finished ? "${_level.endingText} \n Distance Travelled: ${_gameController.distanceTraveled}" : " ${_gameController.gameOverText} \n Distance Travelled: ${_gameController.distanceTraveled}"}\n\nClick the share button at the top to share your results!"),
+                      Text("${_level.finished ? "${_level.endingText} \nDistance Travelled: ${_gameController.distanceTraveled}\nTime: ${(_duration / 20).toStringAsFixed(2)}" : "${_gameController.gameOverText} \nDistance Travelled: ${_gameController.distanceTraveled}"}\n\nClick the share button at the top to share your results!"),
                     ],
                   ),
                   actions: [
