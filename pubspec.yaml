@@ -117,6 +117,8 @@ flutter:
     - assets/log.png
     - assets/spiked_monster_left_small.png
     - assets/spiked_monster_right_small.png
+    - assets/spiked_monster_left_small_2.png
+    - assets/spiked_monster_right_small_2.png
     - assets/fire_monster_left.png
     - assets/fire_monster_right.png
     - assets/fire_monster_left_phase_2.png

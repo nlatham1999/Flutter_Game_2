@@ -24,7 +24,7 @@ class ButtonsPositions {
     positions["jump"] = ButtonPositions(left: jumpLeft, top: jumpTop, width: jumpWidth, height: jumpHeight);
 
     double fireLeft = size.width / 3;
-    double fireTop = top + ((size.height - top) / 2);
+    double fireTop = jumpTop + jumpHeight;
     double fireWidth = size.width / 3;
     double fireHeight = (size.height - top) / 2;
     fireHeight = min(fireHeight, fireWidth); 
@@ -38,7 +38,7 @@ class ButtonsPositions {
     positions["left_walk"] = ButtonPositions(left: lwLeft, top: lwTop, width: lwWidth, height: lwHeight);
     
     double lsLeft = 0;
-    double lsTop = top + ((size.height - top) / 2);
+    double lsTop = lwTop + lwHeight;
     double lsWidth = size.width / 3;
     double lsHeight = (size.height - top) / 2;
     lsHeight = min(lsHeight, lsWidth); 
@@ -52,7 +52,7 @@ class ButtonsPositions {
     positions["right_walk"] = ButtonPositions(left: rwLeft, top: rwTop, width: rwWidth, height: rwHeight);
     
     double rsLeft = size.width * 2 / 3;
-    double rsTop = top + ((size.height - top) / 2);
+    double rsTop = rwTop + rwHeight;
     double rsWidth = size.width / 3;
     double rsHeight = (size.height - top) / 2;
     rsHeight = min(rsHeight, rsWidth); 

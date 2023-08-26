@@ -8,6 +8,7 @@ import 'package:my_app/models/leveldynamic.dart';
 import 'package:my_app/models/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
+import 'package:my_app/views/utils/homescreenbuttonpositions.dart';
 import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -50,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     _dateNum =  int.parse(formattedDate.replaceAll('-', ''));
+
   }
 
   int getLevel(){
@@ -62,6 +64,8 @@ class _MyHomePageState extends State<MyHomePage> {
      
     Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     int numSampleCells = size.width ~/ 32;
+
+    HomeScreenButtonPositions buttonpos = HomeScreenButtonPositions(size);
 
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -101,8 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   ),
                 // ),
                 Positioned(
-                  top: size.height * 2 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_1"]!.top,
+                  left: buttonpos.positions["button_1"]!.left,
+                  width: buttonpos.positions["button_1"]!.width,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
                       Navigator.push(
@@ -115,11 +120,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 Positioned(
-                  top: size.height * 3 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_2"]!.top,
+                  left: buttonpos.positions["button_2"]!.left,
+                  width: buttonpos.positions["button_2"]!.width,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: false, seed: 0),)),
                       );
@@ -141,11 +147,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   )
                 // ),
                 Positioned(
-                  top: size.height * 4 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_3"]!.top,
+                  left: buttonpos.positions["button_3"]!.left,
+                  width: buttonpos.positions["button_3"]!.width,
                   child: ElevatedButton(
                     onPressed: () { 
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
                       );

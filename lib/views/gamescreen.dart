@@ -253,9 +253,11 @@ class _GameScreenState extends State<GameScreen> {
               left: _buttonsPositions.positions["fire"]!.left,
               width: _buttonsPositions.positions["fire"]!.width,
               height: _buttonsPositions.positions["fire"]!.height,
-              child: MaterialButton(
-                onPressed: (){},
-                onHighlightChanged: (isHighlighted) {
+              child: Visibility(
+                visible: _gameController.isPlayerInFireState(),
+                child: MaterialButton(
+                  onPressed: (){},
+                  onHighlightChanged: (isHighlighted) {
                     if (isHighlighted) {
                       fire();
                     }
@@ -265,6 +267,7 @@ class _GameScreenState extends State<GameScreen> {
                     Icons.circle
                   ),
                 ),
+              )
             ),
             Positioned(
               top:  _buttonsPositions.positions["left_walk"]!.top,
@@ -506,29 +509,27 @@ class _GameScreenState extends State<GameScreen> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Menu"),
-                  content: SizedBox(
-                      height: size.height / 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              restartGame();
-                            },
-                            child: const Text("Restart Game"),
-                          ),
-                          ElevatedButton(
-                            onPressed: (){
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(builder: (context) => const MyHomePage(title: "Cube World", initialOpen: false,)),
-                              );
-                            },
-                            child: const Text("Return to main menu"),
-                          ),
-                        ],
-                      ),
-                    
+                  content: IntrinsicHeight(
+                    child:Column(
+                      children: [
+
+                        TextButton(
+                          onPressed: () {
+                            restartGame();
+                          },
+                          child: const Text("Restart Game"),
+                        ),
+                        TextButton(
+                          onPressed: (){
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const MyHomePage(title: "Cube World", initialOpen: false,)),
+                            );
+                          },
+                          child: const Text("Return to main menu"),
+                        ),
+                      ],             
+                    ),
                   ),
                   actions: [
                     ElevatedButton(

@@ -35,6 +35,8 @@ class ViewUtils {
       // )
     ];
 
+    offsetX -= width / 2;
+
     int vL = viewMapLeft ~/ kCellSize;
     // if(vL > 0){
     //   vL --;
@@ -79,15 +81,16 @@ class ViewUtils {
     }
 
     positions.add(Positioned(
-      left: offsetX - (width * (3) / 2),
+      left: offsetX,
       top: offsetY - (width * (3) / 2),
       child: Container(
-        width: width * (numCellsToDisplay + 2) + width * 2,
+        width: width * (numCellsToDisplay + 1),
         height: height * map.length + width * (kCellSize -1),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.blue,
-            width: width + width / 2,
+            width: width + width,
+            strokeAlign: BorderSide.strokeAlignOutside,
           ),
         ),
       ),
@@ -195,9 +198,17 @@ class ViewUtils {
           return 'assets/player_left_small.png';
         }
       case "spiked_monster_left":
-        return 'assets/spiked_monster_left_small.png';
+        if (unit.value_1 < 4){
+          return 'assets/spiked_monster_left_small.png';
+        }else{
+          return 'assets/spiked_monster_left_small_2.png';
+        }
       case "spiked_monster_right":
-        return 'assets/spiked_monster_right_small.png';
+        if (unit.value_1 < 4){
+          return 'assets/spiked_monster_right_small.png';
+        }else{
+          return 'assets/spiked_monster_right_small_2.png';
+        }
       case "winged_monster":
         if((unit.value_1 == 0 && unit.value_3 == 0) || (unit.value_1 == 1 && unit.value_3 == 1)){
           return 'assets/ghost_2.png';

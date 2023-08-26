@@ -660,7 +660,7 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
-    "paaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
     "ĞĞaaaaaaaaaaaaĞĞ",
     "aaaaaalaaaaalaaa",
     "aaalaaaaalaaaaaa",
