@@ -9,6 +9,9 @@ class LogHorizontal extends Unit {
   LogHorizontal({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  bool get isSolidGround => true;
+  
+  @override
   void doAction(GameController gameController){
     // unit.value_4 = (unit.value_4 + 1) % 2;
     // if(unit.value_4 == 1){

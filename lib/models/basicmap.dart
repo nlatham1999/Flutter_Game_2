@@ -231,8 +231,16 @@ class BasicMap extends GameMap {
     }
   }
 
-  Unit getPotentialCollision(Unit unit, String direction, {String playerPriority = "neutral"}){
+  Unit getPotentialCollision(Unit unit, String direction, {String playerPriority = "neutral", String groundPriority = "neutral"}){
     
+    if(playerPriority != "neutral" && groundPriority != "neutral"){
+      throw Exception("both priorities cannot be set");
+    }
+
+    if(groundPriority != "neutral" && direction != "DOWN"){
+      throw Exception("ground priority is only enabled for down");
+    }
+
     Unit found = airUnit;
 
     switch (direction) {
@@ -285,7 +293,9 @@ class BasicMap extends GameMap {
             Unit collision = collisionMap[bottom][left+i];
             if(playerPriority == "low" && collision.type == "player"){
               found = collision;
-            }else{
+            }else if(groundPriority == "solid" && !collision.isSolidGround){
+              found = collision;
+            } else{
               return collision;
             }
           }

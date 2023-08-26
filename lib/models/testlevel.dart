@@ -16,10 +16,10 @@ class TestLevel extends Level {
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaagaaaagaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaagaaaaaaaaaaaaaaaaa",
-    "aaagaaaaasaagaaaaaaaaaaaaaaa",
-    "p1gaaaaaaaagaaagaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaagggggggaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "pagaaaamaaagaaaaaaaaaaaaaaaa",
     "gggggggggggggggggggggggggggg",
   ];
 

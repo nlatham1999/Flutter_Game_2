@@ -155,7 +155,7 @@ class GameController  extends ChangeNotifier{
     
 
     //fall down is before jump so we can jump on descending logs
-    if(!jumpState && !isOnSolidGround(gameMap.player)){
+    if(!jumpState && !isOnSolidGround(gameMap.player, groundPriority: "solid")){
       fallDown();
     }
 
@@ -367,18 +367,9 @@ class GameController  extends ChangeNotifier{
   }
 
 
-  bool isOnSolidGround(Unit unit){
-    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN");
-    switch (spriteBelow.type) {
-      case "grass":
-      case "monster_dead":
-      case "brick":
-      case "log":
-      case "log_horizontal":
-        return true;
-      default:
-        return false;
-    }
+  bool isOnSolidGround(Unit unit, {String groundPriority = "neutral"}){
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", groundPriority: groundPriority);
+    return spriteBelow.isSolidGround;
   }
 
   void jump(){

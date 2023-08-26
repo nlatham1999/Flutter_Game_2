@@ -4,6 +4,9 @@ import 'package:my_app/models/unit.dart';
 class MonsterDead extends Unit {
   MonsterDead({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
+  @override
+  bool get isSolidGround => true;
+
   @override 
   void doAction(GameController gameController) {
     value_1++;

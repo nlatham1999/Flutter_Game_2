@@ -23,6 +23,8 @@ class Unit {
 
   int direction = 0;
 
+  bool isSolidGround = false;
+
   Unit({
     required this.type,
     required this.x,
