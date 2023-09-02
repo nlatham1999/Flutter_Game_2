@@ -1,5 +1,6 @@
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/models/units/fireballmonster.dart';
 
 import '../../constants.dart';
 
@@ -22,7 +23,7 @@ class FireMonsterLeft extends Unit {
     value_1 = (value_1 + 1) % 30;
     if(value_1 == 29){
       int lx = x * kCellSize + offsetX - 1;
-      Unit fireball = Unit(type: "fireball", x: lx ~/ kCellSize, y: y, offsetX: lx % kCellSize, offsetY: kCellSize ~/ 4, width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));
+      Unit fireball = FireballMonster(type: "fireball", x: lx ~/ kCellSize, y: y, offsetX: lx % kCellSize, offsetY: kCellSize ~/ 4, width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));
       fireball.value_2 = 1;
       gameController.gameMap.addUnit(fireball);
     }

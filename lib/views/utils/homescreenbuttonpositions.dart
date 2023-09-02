@@ -29,6 +29,16 @@ class HomeScreenButtonPositions {
     double left3 = size.width / 10;
     double width3 = size.width / 3;
     positions["button_3"] = ButtonPositions(left: left3, top: top3, width: width3, height: 0);
+    
+    double top4 = size.height * 5 / 10;
+    double left4 = size.width / 10;
+    double width4 = size.width / 3;
+    positions["button_4"] = ButtonPositions(left: left4, top: top4, width: width4, height: 0);
+    
+    double top5 = size.height * 6 / 10;
+    double left5 = size.width / 10;
+    double width5 = size.width / 3;
+    positions["button_5"] = ButtonPositions(left: left5, top: top5, width: width5, height: 0);
   }
 
   void setButtonsPotraitMode(Size size){
@@ -46,6 +56,16 @@ class HomeScreenButtonPositions {
     double left3 = size.width / 8;
     double width3 = size.width / 8 * 6;
     positions["button_3"] = ButtonPositions(left: left3, top: top3, width: width3, height: 0);
+    
+    double top4 = size.height * 5 / 10;
+    double left4 = size.width / 8;
+    double width4 = size.width / 8 * 6;
+    positions["button_4"] = ButtonPositions(left: left4, top: top4, width: width4, height: 0);
+    
+    double top5 = size.height * 6 / 10;
+    double left5 = size.width / 8;
+    double width5 = size.width / 8 * 6;
+    positions["button_5"] = ButtonPositions(left: left5, top: top5, width: width5, height: 0);
 
   }
 }

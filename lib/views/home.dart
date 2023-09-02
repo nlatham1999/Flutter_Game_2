@@ -2,10 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/models/level.dart';
-import 'package:my_app/models/level1.dart';
-import 'package:my_app/models/level2.dart';
+import 'package:my_app/models/levels/level1.dart';
+import 'package:my_app/models/levels/level2.dart';
 import 'package:my_app/models/leveldynamic.dart';
-import 'package:my_app/models/testlevel.dart';
+import 'package:my_app/models/levels/spookycave.dart';
+import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
 import 'package:my_app/views/utils/homescreenbuttonpositions.dart';
@@ -18,8 +19,8 @@ import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import '../models/basicmap.dart';
-import '../models/level3.dart';
-import '../models/level4.dart';
+import '../models/levels/level3.dart';
+import '../models/levels/level4.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -157,7 +158,37 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
                       );
                     },
-                    child: const Text("Test Level", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: const Text("Scenario 1", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  )
+                ),
+                
+                Positioned(
+                  top: buttonpos.positions["button_4"]!.top,
+                  left: buttonpos.positions["button_4"]!.left,
+                  width: buttonpos.positions["button_4"]!.width,
+                  child: ElevatedButton(
+                    onPressed: () { 
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: SpookyCave(),)),
+                      );
+                    },
+                    child: const Text("Scenario 2", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  )
+                ),
+                
+                Positioned(
+                  top: buttonpos.positions["button_5"]!.top,
+                  left: buttonpos.positions["button_5"]!.left,
+                  width: buttonpos.positions["button_5"]!.width,
+                  child: ElevatedButton(
+                    onPressed: () { 
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
+                      );
+                    },
+                    child: const Text("Scenario 3", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
               ],
