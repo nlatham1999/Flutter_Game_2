@@ -230,7 +230,7 @@ class GameController  extends ChangeNotifier{
         for(int k = 0; k < gameMap.map[i][j].length; k++){
           Unit unit = gameMap.map[i][j][k];
 
-          if(unit.type == 'grass'){
+          if(!unit.needsActionRan){
             continue;
           }
           if(unit.alreadyUpdated){
@@ -312,12 +312,10 @@ class GameController  extends ChangeNotifier{
       case "air":
         gameMap.moveUnitRight(gameMap.player);
         break;
-      case "spiked_monster_left":
-      case "spiked_monster_right":
-        gameOver = true;
-        gameOverText = "You ran into a monster :(";
-        return;
       default:
+        if (spriteRight.playerHittingFromSideAction(this)){
+          return;
+        }
     }
     }
   }
@@ -329,12 +327,10 @@ class GameController  extends ChangeNotifier{
         case "air":
           gameMap.moveUnitLeft(gameMap.player);
           break;
-        case "spiked_monster_left":
-        case "spiked_monster_right":
-          gameOver = true;
-          gameOverText = "You ran into a monster :(";
-          return;
         default:
+          if (spriteLeft.playerHittingFromSideAction(this)){
+            return;
+          }
       }
     }
   }
@@ -390,32 +386,27 @@ class GameController  extends ChangeNotifier{
       
       int spacesToJump = 4;
       if(jumpCount == 2){
-        spacesToJump = 3;
+        spacesToJump = 2;
       }
       if(jumpCount == 3){
         spacesToJump = 2;
       }
       if(jumpCount == 4){
-        spacesToJump = 1;
+        spacesToJump = 2;
       }
 
       for(int i = 0; i < spacesToJump * (kCellSize / 4); i++){
         Unit spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
         switch (spriteAbove.type) {
-          case "monster_left":
-          case "monster_right":
-            gameOver = true;
-            gameOverText = "You got eaten :(";
-            break;
-          case "fireball":
-            gameOver = true;
-            gameOverText = "You hit a fireball :(";
-            return;
           case "air":
             gameMap.moveUnitUp(gameMap.player);
             break;
           default:
+            if (spriteAbove.playerHittingFromBelowAction(this)){
+              return;
+            }
             i = 100;
+            jumpCount = 5;
             break;
         }
       }
@@ -451,7 +442,7 @@ class GameController  extends ChangeNotifier{
     if(gameMap.player.fall == 0){
       gameMap.player.fall = 1;
     }
-    for(int i = 0; i < gameMap.player.fall; i++){
+    for(int i = 0; i < 2 * (kCellSize / 4); i++){
       Unit spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
       switch (spriteBelow.type) {
         case "spiked_monster_left":

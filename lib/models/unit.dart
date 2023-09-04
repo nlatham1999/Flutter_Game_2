@@ -25,6 +25,8 @@ class Unit {
 
   bool isSolidGround = false;
 
+  bool needsActionRan = true; //whether the do action function needs to run
+
   Unit({
     required this.type,
     required this.x,
@@ -37,6 +39,19 @@ class Unit {
 
   void doAction(GameController gameController){
     throw Exception("not implemented ${{type}}");
+  }
+
+  //action to run when the player encounters the unit from the side
+  //only really used for spiked monsters
+  //return true if should exit early
+  bool playerHittingFromSideAction(GameController gameController){
+    return false;
+  }
+
+  //action to run when the player encounters the unit from below
+  //return true if should exit early
+  bool playerHittingFromBelowAction(GameController gameController){
+    return false;
   }
 
   //makes more sense to implement this function here instead of for each unit implementation

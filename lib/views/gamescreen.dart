@@ -7,7 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/testlevel.dart';
+import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/home.dart';
 import 'package:my_app/views/utils/buttonpositions.dart';

@@ -8,12 +8,19 @@ class MonsterLeft extends Unit {
   MonsterLeft({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+   bool playerHittingFromBelowAction(GameController gameController){
+    gameController.gameOver = true;
+    gameController.gameOverText = "You got eaten :(";
+    return true;
+  }
+
+  @override
   void doAction(GameController gameController){
 
     value_1 = (value_1 + 1) % 4;
 
     bool unitMoved = false;
-    for(int i = 0; i < kCellSize / 4; i++) {
+    for(int i = 0; i < 2 * (kCellSize / 4); i++) {
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
       switch (spriteBelow.type) {
         case "player_fireball":

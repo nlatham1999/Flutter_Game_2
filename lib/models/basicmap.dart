@@ -614,7 +614,26 @@ class BasicMap extends GameMap {
 
     switch (newType) {
       case "monster_dead":
-        return MonsterDead(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+        int value2 = 0;
+        switch (unit.type) {
+          case "winged_monster":
+            value2 = 1;
+            break;
+          case "fire_monster_left":
+          case "fire_monster_right":
+            value2 = 2;
+            break;
+          case "jumper_rising":
+          case "jumper_falling":
+            value2 = 3;
+            break;
+          case "bomb":
+          case "bomb_charged":
+            value2 = 4;
+        }
+        Unit monsterDead = MonsterDead(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+        monsterDead.value_2 = value2;
+        return monsterDead;
       case "monster_left":
         return MonsterLeft(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
       case "monster_right":

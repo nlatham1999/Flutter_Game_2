@@ -12,7 +12,7 @@ class MonsterRight extends Unit {
     value_1 = (value_1 + 1) % 4;
     
     bool unitMoved = false;
-    for(int i = 0; i < kCellSize / 4; i++) {
+    for(int i = 0; i < 2 * (kCellSize / 4); i++) {
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
       switch (spriteBelow.type) {
         case "player_fireball":

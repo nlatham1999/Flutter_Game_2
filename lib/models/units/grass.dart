@@ -9,6 +9,9 @@ class Grass extends Unit {
   bool get isSolidGround => true;
 
   @override
+  bool get needsActionRan => false;
+
+  @override
   void doAction(GameController gameController) {
   }
 }
