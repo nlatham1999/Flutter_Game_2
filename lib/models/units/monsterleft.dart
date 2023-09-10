@@ -13,6 +13,13 @@ class MonsterLeft extends Unit {
     gameController.gameOverText = "You got eaten :(";
     return true;
   }
+  
+  @override
+  bool playerHittingFromAboveAction(GameController gameController){
+    gameController.squashMonsters(gameController.gameMap.player);
+    return false;
+  }
+  
 
   @override
   void doAction(GameController gameController){

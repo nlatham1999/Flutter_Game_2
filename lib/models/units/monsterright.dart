@@ -7,6 +7,19 @@ class MonsterRight extends Unit {
   MonsterRight({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+   bool playerHittingFromBelowAction(GameController gameController){
+    gameController.gameOver = true;
+    gameController.gameOverText = "You got eaten :(";
+    return true;
+  }
+  
+  @override
+  bool playerHittingFromAboveAction(GameController gameController){
+    gameController.squashMonsters(gameController.gameMap.player);
+    return false;
+  }
+  
+  @override
   void doAction(GameController gameController) {
     
     value_1 = (value_1 + 1) % 4;

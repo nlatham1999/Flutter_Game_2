@@ -54,6 +54,14 @@ class Unit {
     return false;
   }
 
+  //action to run when the player encounters a unit from above (is falling)
+  //return true if should exit early
+  //default behaviour is to stop falling
+  bool playerHittingFromAboveAction(GameController gameController){
+    gameController.gameMap.player.fall = 0;
+    return true;
+  }
+
   //makes more sense to implement this function here instead of for each unit implementation
   //  since many units share the same implementation
   void die(GameController gameController){

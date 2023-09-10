@@ -5,6 +5,20 @@ class SpikedMonsterRight extends Unit {
   SpikedMonsterRight({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
 
   @override
+  bool playerHittingFromSideAction(GameController gameController){
+    gameController.gameOver = true;
+    gameController.gameOverText = "You ran into a monster :(";
+    return true;
+  }
+
+  @override
+  bool playerHittingFromAboveAction(GameController gameController){
+    gameController.gameOver = true;
+    gameController.gameOverText = "You fell onto a monster :(";
+    return true;
+  }
+
+  @override
   void doAction(GameController gameController) {
     value_1 = (value_1 + 1) % 8;
 

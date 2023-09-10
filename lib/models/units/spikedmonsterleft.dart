@@ -10,6 +10,13 @@ class SpikedMonsterLeft extends Unit {
     gameController.gameOverText = "You ran into a monster :(";
     return true;
   }
+
+  @override
+  bool playerHittingFromAboveAction(GameController gameController){
+    gameController.gameOver = true;
+    gameController.gameOverText = "You fell onto a monster :(";
+    return true;
+  }
   
   @override
   void doAction(GameController gameController) {

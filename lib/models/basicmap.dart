@@ -3,12 +3,14 @@
 import 'package:my_app/constants.dart';
 import 'package:my_app/models/map.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/models/units/airunit.dart';
 import 'package:my_app/models/units/bombcharged.dart';
 import 'package:my_app/models/units/jumperdown.dart';
 import 'package:my_app/models/units/jumperup.dart';
 import 'package:my_app/models/units/monsterdead.dart';
 import 'package:my_app/models/units/monsterleft.dart';
 import 'package:my_app/models/units/monsterright.dart';
+import 'package:my_app/models/units/outofbounds.dart';
 import 'package:my_app/models/units/player.dart';
 import 'package:my_app/models/units/spikedmonsterleft.dart';
 import 'package:my_app/models/units/spikedmonsterright.dart';
@@ -70,8 +72,8 @@ class BasicMap extends GameMap {
 
   List<List<Unit>> collisionMap = [];
 
-  Unit airUnit = Unit(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
-  Unit outOfBoundsUnit = Unit(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
+  Unit airUnit = Air(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
+  Unit outOfBoundsUnit = OutOfBounds(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
 
   BasicMap({required this.mapTemplate }){
     buildMapFromTemplate();

@@ -399,7 +399,7 @@ class GameController  extends ChangeNotifier{
         Unit spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
         switch (spriteAbove.type) {
           case "air":
-            gameMap.moveUnitUp(gameMap.player);
+            spriteAbove.playerHittingFromBelowAction(this);
             break;
           default:
             if (spriteAbove.playerHittingFromBelowAction(this)){
@@ -444,30 +444,9 @@ class GameController  extends ChangeNotifier{
     }
     for(int i = 0; i < 2 * (kCellSize / 4); i++){
       Unit spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
-      switch (spriteBelow.type) {
-        case "spiked_monster_left":
-        case "spiked_monster_right":
-          gameOver = true;
-          gameOverText = "You fell onto a monster :(";
-          return;
-        case "monster_left":
-        case "monster_right":
-          squashMonsters(gameMap.player);
-          break;
-        case "fireball":
-          gameOver = true;
-          gameOverText = "You fell onto a fireball :(";
-          return;
-        case "air":
-          gameMap.moveUnitDown(gameMap.player);
-          break;
-        case "-1":
-          gameOver = true;
-          gameOverText = "You fell off the edge of the map :(";
-          return;
-        default:
-          gameMap.player.fall = 0;
-          return;
+      bool exitEarly = spriteBelow.playerHittingFromAboveAction(this);
+      if(exitEarly){
+        return;
       }
     }
     if(gameMap.player.fall < 5){
