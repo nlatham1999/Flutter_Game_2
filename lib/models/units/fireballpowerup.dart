@@ -10,7 +10,7 @@ class FireballPowerup extends Unit {
   @override
   void doAction(GameController gameController){
 
-    value_1 = (value_1 + 1) % 9;
+    value_1 = (value_1 + 1) % 27;
 
     if(gameController.gameMap.isSpriteInVicinity(gameController.gameMap.player, this, 0)){
         gameController.gameMap.removeSprite(this);

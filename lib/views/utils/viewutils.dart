@@ -114,7 +114,15 @@ class ViewUtils {
       case "player_fireball":
         return 'assets/player_fireball.png';
       case "fireball_powerup":
-        return 'assets/powerup_fireball_${unit.value_1 ~/ 3}.png';
+        if(unit.value_1 < 21){
+          return 'assets/powerup_fireball_3.png';
+        } else if(unit.value_1 < 23) {
+          return 'assets/powerup_fireball_0.png';
+        } else if(unit.value_1 < 25) {
+          return 'assets/powerup_fireball_1.png';
+        } else {
+          return 'assets/powerup_fireball_2.png';
+        }
       case "fireball":
         return 'assets/fireball.png';
       case "fire_monster_left":

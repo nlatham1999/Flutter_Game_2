@@ -15,7 +15,7 @@ class MonsterRight extends Unit {
   
   @override
   bool playerHittingFromAboveAction(GameController gameController){
-    gameController.squashMonsters(gameController.gameMap.player);
+    gameController.squashMonsters(gameController.gameMap.player, this);
     return false;
   }
   

@@ -455,20 +455,8 @@ class GameController  extends ChangeNotifier{
   }  
 
   //this assumes that monsters are 4x4 
-  void squashMonsters(Unit unit){
-    for(int i = 0; i < 3; i++){
-      int x = unit.x-1+i;
-      int y = unit.y+1;
-      if(x < 0 || x > gameMap.map[0].length - 1 || y > gameMap.map.length){
-        continue;
-      }
-      for(int k = 0; k < gameMap.map[y][x].length; k++){
-        Unit monster = gameMap.map[unit.y+1][unit.x-1+i][k];
-        if((monster.type == "monster_left" || monster.type == "monster_right") && gameMap.isUnitOnUnit(unit, monster)){
-          queueUnitTypeChange(monster, "monster_dead");
-          monster.value_1 = 0;
-        }
-      }
-    }
+  void squashMonsters(Unit unit, Unit unitToSquash){
+    queueUnitTypeChange(unitToSquash, "monster_dead");
+    unitToSquash.value_1 = 0;
   }
 }

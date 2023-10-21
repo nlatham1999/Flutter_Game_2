@@ -138,6 +138,7 @@ flutter:
     - assets/powerup_fireball_0.png
     - assets/powerup_fireball_1.png
     - assets/powerup_fireball_2.png
+    - assets/powerup_fireball_3.png
     - assets/fire_monster_small_left.png
     - assets/fire_monster_small_right.png
     - assets/fire_monster_small_dead.png
