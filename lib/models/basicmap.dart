@@ -3,9 +3,31 @@
 import 'package:my_app/constants.dart';
 import 'package:my_app/models/map.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/models/units/airunit.dart';
+import 'package:my_app/models/units/bombcharged.dart';
+import 'package:my_app/models/units/jumperdown.dart';
+import 'package:my_app/models/units/jumperup.dart';
+import 'package:my_app/models/units/monsterdead.dart';
+import 'package:my_app/models/units/monsterleft.dart';
+import 'package:my_app/models/units/monsterright.dart';
+import 'package:my_app/models/units/outofbounds.dart';
+import 'package:my_app/models/units/player.dart';
+import 'package:my_app/models/units/spikedmonsterleft.dart';
+import 'package:my_app/models/units/spikedmonsterright.dart';
+import 'package:my_app/models/units/firemonsterleft.dart';
+import 'package:my_app/models/units/firemonsterright.dart';
+import 'package:my_app/models/units/fireballpowerup.dart';
+import 'package:my_app/models/units/iciclefalling.dart';
+import 'package:my_app/models/units/icicleinert.dart';
+import 'package:my_app/models/units/bombinert.dart';
+import 'package:my_app/models/units/grass.dart';
+import 'package:my_app/models/units/loghorizontal.dart';
+import 'package:my_app/models/units/logvertical.dart';
+import 'package:my_app/models/units/wingedmonster.dart';
 
 class BasicMap extends GameMap {
 
+  //1: fireball powerup
   //a: air
   //b: bomb (inert)
   //B: bomb (about to go off)
@@ -14,6 +36,8 @@ class BasicMap extends GameMap {
   //d: dead monster
   //e: explosion
   //E: explosion 2
+  //f: fire monster left
+  //F: fire monster right
   //g: grass
   //G: grass large block
   //Ĝ: grass skinny
@@ -24,7 +48,6 @@ class BasicMap extends GameMap {
   //I: icicle row
   //j: jumper (going up)
   //J: jumper (going down)
-  //Ĵ: slightly faster jumper
   //l log (vertical movement)
   //L: log (horizontal movement)
   //m: monster (moving left)
@@ -49,8 +72,8 @@ class BasicMap extends GameMap {
 
   List<List<Unit>> collisionMap = [];
 
-  Unit airUnit = Unit(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
-  Unit outOfBoundsUnit = Unit(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
+  Unit airUnit = Air(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
+  Unit outOfBoundsUnit = OutOfBounds(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
 
   BasicMap({required this.mapTemplate }){
     buildMapFromTemplate();
@@ -65,8 +88,12 @@ class BasicMap extends GameMap {
       for(int j = 0; j < mapTemplate[i].length; j++){
         List<Unit> cell = [];
         switch (mapTemplate[i][j]) {
+          
+          case "1":
+            cell.add(FireballPowerup(type: "fireball_powerup", x: j, y: i, offsetX: 2, offsetY: 4, width: kCellSize ~/ 2, height: kCellSize ~/ 2));
+            break;
           case "b":
-            cell.add(Unit(type: "bomb", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            cell.add(BombInert(type: "bomb", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "c":
             cell.add(Unit(type: "crate", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
@@ -75,86 +102,79 @@ class BasicMap extends GameMap {
             cell.add(Unit(type: "coin", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize ~/ 4));
             break;
           case "f":
-            cell.add(Unit(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
+            cell.add(FireMonsterLeft(type: "fire_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "F":
-            cell.add(Unit(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize * 2));
+            cell.add(FireMonsterRight(type: "fire_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "g":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 0;
             cell.add(grass);
             break;
           case "G":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 4, height: kCellSize * 4);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 4, height: kCellSize * 4);
             grass.value_1 = 1;
             cell.add(grass);
             break;
           case "Ĝ":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 2;
             cell.add(grass);
             break;
           case "Ğ":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
             grass.value_1 = 3;
             cell.add(grass);
             break;
           case "h":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize * 4);
             grass.value_1 = 4;
             cell.add(grass);
             break;
           case "H":
-            Unit grass = Unit(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
+            Unit grass = Grass(type: "grass", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             grass.value_1 = 5;
             cell.add(grass);
             break;
           case "i":
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(IcicleInert(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
             break;
           case "I":
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 2, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
-            cell.add(Unit(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 3, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(IcicleInert(type: "icicle", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(IcicleInert(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(IcicleInert(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 2, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
+            cell.add(IcicleInert(type: "icicle", x: j, y: i, offsetX: kCellSize ~/ 4 * 3, offsetY: 0, width: kCellSize ~/ 4, height: kCellSize));
             break;
           case "j":
-            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
-            jumper.value_2 = 16;
+            Unit jumper = JumperUp(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             cell.add(jumper);
             break;
           case "J":
-            Unit jumper = Unit(type: "jumper_falling", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
-            jumper.value_2 = 16;
-            cell.add(jumper);
-            break;
-          case "Ĵ":
-            Unit jumper = Unit(type: "jumper_rising", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
-            jumper.value_2 = 12;
+            Unit jumper = JumperDown(type: "jumper_falling", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
             cell.add(jumper);
             break;
           case "l":
-            cell.add(Unit(type: "log", x: j, y: i, offsetX: 0, offsetY: kCellSize * 3 ~/ 4, width: kCellSize * 2, height: kCellSize ~/ 4));
+            cell.add(LogVertical(type: "log", x: j, y: i, offsetX: 0, offsetY: kCellSize * 3 ~/ 4, width: kCellSize * 2, height: kCellSize ~/ 4));
             break;
           case "L":
-            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
+            Unit log = LogHorizontal(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
             log.value_3 = 24;
             cell.add(log);
             break;
           case "Ĺ":
-            Unit log = Unit(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
+            Unit log = LogHorizontal(type: "log_horizontal", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 2, height: kCellSize ~/ 4);
             log.value_3 = 12;
             cell.add(log);
             break;
           case "m":
-            cell.add(Unit(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            cell.add(MonsterLeft(type: "monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "M":
-            cell.add(Unit(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            cell.add(MonsterRight(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "p":
-            player = Unit(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
+            player = Player(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
             cell.add(player);
             playerX = j;
             playerY = i;
@@ -163,13 +183,13 @@ class BasicMap extends GameMap {
             cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "s":
-            cell.add(Unit(type: "spiked_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
+            cell.add(SpikedMonsterLeft(type: "spiked_monster_left", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
             break;
           case "S":
-            cell.add(Unit(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
+            cell.add(SpikedMonsterRight(type: "spiked_monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize * 5 ~/ 4, height: kCellSize * 5 ~/ 4));
             break;
           case "w":
-            cell.add(Unit(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            cell.add(WingedMonster(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "α":
             cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
@@ -197,7 +217,7 @@ class BasicMap extends GameMap {
       for(int j = 0; j < map[i].length; j++){
         for(int k = 0; k < map[i][j].length; k++){
           Unit unit = map[i][j][k];
-          if(unit.type == "signage"){
+          if(unit.type == "signage" || unit.type == "fireball_powerup"){
             continue; //we don't want to add signage to the collision map
           }
           for(int m = 0; m < unit.height; m++){
@@ -213,8 +233,16 @@ class BasicMap extends GameMap {
     }
   }
 
-  Unit getPotentialCollision(Unit unit, String direction, {String playerPriority = "neutral"}){
+  Unit getPotentialCollision(Unit unit, String direction, {String playerPriority = "neutral", String groundPriority = "neutral"}){
     
+    if(playerPriority != "neutral" && groundPriority != "neutral"){
+      throw Exception("both priorities cannot be set");
+    }
+
+    if(groundPriority != "neutral" && direction != "DOWN"){
+      throw Exception("ground priority is only enabled for down");
+    }
+
     Unit found = airUnit;
 
     switch (direction) {
@@ -267,7 +295,9 @@ class BasicMap extends GameMap {
             Unit collision = collisionMap[bottom][left+i];
             if(playerPriority == "low" && collision.type == "player"){
               found = collision;
-            }else{
+            }else if(groundPriority == "solid" && !collision.isSolidGround){
+              found = collision;
+            } else{
               return collision;
             }
           }
@@ -577,14 +607,58 @@ class BasicMap extends GameMap {
     return a.y * kCellSize + a.offsetY > b.y * kCellSize + b.offsetY;
   }
 
-  void changeUnitType(Unit unit, String newType){
+  Unit changeUnitType(Unit unit, String newType){
     // for(int i = 0; i < unit.height; i++){
     //   for(int j = 0; j < unit.width; j++){
     //     collisionMap[unit.y * 4 + unit.offsetY + i][unit.x * 4 + unit.offsetX + j] = newType;
     //   }
     // }
 
-    unit.type = newType;
+    switch (newType) {
+      case "monster_dead":
+        int value2 = 0;
+        switch (unit.type) {
+          case "winged_monster":
+            value2 = 1;
+            break;
+          case "fire_monster_left":
+          case "fire_monster_right":
+            value2 = 2;
+            break;
+          case "jumper_rising":
+          case "jumper_falling":
+            value2 = 3;
+            break;
+          case "bomb":
+          case "bomb_charged":
+            value2 = 4;
+        }
+        Unit monsterDead = MonsterDead(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+        monsterDead.value_2 = value2;
+        return monsterDead;
+      case "monster_left":
+        return MonsterLeft(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "monster_right":
+        return MonsterRight(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "spiked_monster_left":
+        return SpikedMonsterLeft(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "spiked_monster_right":
+        return SpikedMonsterRight(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "fire_monster_left":
+        return FireMonsterLeft(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "fire_monster_right":
+        return FireMonsterRight(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "icicle_falling":
+        return IcicleFalling(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "bomb_charged":
+        return BombCharged(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "jumper_falling":
+        return JumperDown(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      case "jumper_rising":
+        return JumperUp(type: newType, x: unit.x, y: unit.y, offsetX: unit.offsetX, offsetY: unit.offsetY, width: unit.width, height: unit.height);
+      default:
+        throw Exception("Got unkown change type ${{newType}}");
+    }
   }
 
   //is sprite b within th radius of sprite a?
