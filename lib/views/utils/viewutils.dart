@@ -35,6 +35,8 @@ class ViewUtils {
       // )
     ];
 
+    offsetX -= width / 2;
+
     int vL = viewMapLeft ~/ kCellSize;
     // if(vL > 0){
     //   vL --;
@@ -79,15 +81,16 @@ class ViewUtils {
     }
 
     positions.add(Positioned(
-      left: offsetX - (width * (3) / 2),
+      left: offsetX,
       top: offsetY - (width * (3) / 2),
       child: Container(
-        width: width * (numCellsToDisplay + 2) + width * 2,
+        width: width * (numCellsToDisplay + 1),
         height: height * map.length + width * (kCellSize -1),
         decoration: BoxDecoration(
           border: Border.all(
             color: Colors.blue,
-            width: width + width / 2,
+            width: width + width,
+            strokeAlign: BorderSide.strokeAlignOutside,
           ),
         ),
       ),
@@ -97,88 +100,11 @@ class ViewUtils {
   }
 
   static String getPositionedImage(Unit unit) {
-    switch (unit.type) {
-      case "signage":
-        return "assets/sign_ghosts.png";
-      case "bomb":
-        return 'assets/bomb.png';
-      case "bomb_charged":
-        return 'assets/bomb_charged.png';
-      case "brick":
-        return 'assets/brick.png';
-      case "explosion":
-        return 'assets/explosion_tiny.png';
-      case "fireball":
-        return 'assets/fireball.png';
-      case "fire_monster_left":
-        if(unit.value_1 == 28){
-          return 'assets/fire_monster_left_phase_2.png';
-        }
-        // if(unit.value_1 == 9){
-        //   return 'assets/fire_monster_left_phase_3.png';
-        // }
-        if(unit.value_2 == 1){
-          return 'assets/fire_monster_left_looking_up.png';
-        }
-        return 'assets/fire_monster_left.png';
-      case "fire_monster_right":
-        if(unit.value_1 == 28){
-          return 'assets/fire_monster_right_phase_2.png';
-        }
-        if(unit.value_2 == 1){
-          return 'assets/fire_monster_right_looking_up.png';
-        }
-        // if(unit.value_1 == 9){
-        //   return 'assets/fire_monster_right_phase_3.png';
-        // }
-        return 'assets/fire_monster_right.png';
-      case "grass":
-        if(unit.value_1 == 0){
-          return 'assets/grass1x1.png';
-        }else if(unit.value_1 == 1){
-          return 'assets/grass4x4.png';
-        }else if(unit.value_1 == 2){
-          return 'assets/grass4x1.png';
-        } else if(unit.value_1 == 3){
-          return 'assets/grass1x4.png';
-        } else if(unit.value_1 == 4){
-          return 'assets/marble_column1x4.png';
-        }else if(unit.value_1 == 5){
-          return 'assets/marble_arch1x1.png';
-        }else{
-          return 'assets/grass1x1.png';
-        }
-      case "icicle":
-      case "icicle_falling":
-        return 'assets/icicle.png';
-      case "log":
-        return 'assets/log.png';
-      case "log_horizontal":
-        return 'assets/log.png';
-      case "jumper_rising":
-      case "jumper_falling":
-        return 'assets/jumper.png';
-      case "monster_dead":
-        return 'assets/monster_dead.png';
-      case "monster_left":
-        return 'assets/monster_left_small.png';
-      case "monster_right":
-        return 'assets/monster_right_small.png';
-      case "player":
-        if (unit.direction == 0) {
-          return 'assets/player_right_small.png';
-        } else {
-          return 'assets/player_left_small.png';
-        }
-      case "spiked_monster_left":
-        return 'assets/spiked_monster_left_small.png';
-      case "spiked_monster_right":
-        return 'assets/spiked_monster_right_small.png';
-      case "winged_monster":
-        return 'assets/ghost.png';
-      default:
-        return "";
-    }
+    return unit.getImage();
+      // case "signage":
+      //   return "assets/sign_ghosts.png";
+      // case "brick":
+      //   return 'assets/brick.png';
   }
 
   static CustomPaint getPaintedCell(Unit unit) {

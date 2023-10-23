@@ -43,6 +43,8 @@ class LevelDynamic extends Level {
             easy_d1, 
             easy_e1,
 
+            easy_a_powerup,
+
             going_up_1_to_2_easy, 
             going_up_1_to_2_easy_b, 
             going_up_1_to_3_easy, 
@@ -64,6 +66,7 @@ class LevelDynamic extends Level {
             going_up_2_to_4_easy, 
             going_up_2_to_4_easy_b,
             going_down_2_to_1_easy,
+            going_down_2_to_1_easy_powerup,
             going_down_2_to_1_easy_b,                                       
             cave_entrance_from_2_easy
           ],
@@ -84,7 +87,8 @@ class LevelDynamic extends Level {
             easy_d4, 
             going_down_4_to_3_easy, 
             going_down_4_to_2_easy, 
-            going_down_4_to_1_easy,
+            going_down_4_to_1_easy, 
+            going_down_4_to_1_easy_powerup,
             going_down_4_to_1_easy_b,
           ]
         },
@@ -118,7 +122,8 @@ class LevelDynamic extends Level {
             moderate_d1, 
             moderate_e1,    
             going_up_1_to_2_moderate, 
-            going_up_1_to_3_moderate,  
+            going_up_1_to_3_moderate, 
+            going_up_1_to_3_moderate_powerup,  
             going_up_1_to_4_moderate,                                
             cave_entrance_from_1_moderate,    
             sky_entrance_from_1_moderate, 
@@ -133,7 +138,8 @@ class LevelDynamic extends Level {
             going_up_2_to_3_moderate,   
             going_up_2_to_3_moderate_b,
             going_down_2_to_1_moderate, 
-            going_down_2_to_1_moderate_b,        
+            going_down_2_to_1_moderate_b,  
+            going_down_2_to_1_moderate_b_powerup,        
             cave_entrance_from_2_medium
           ],
           3: [
@@ -186,6 +192,8 @@ class LevelDynamic extends Level {
             hard_c, 
             hard_d1, 
             moderate_e1, 
+
+            hard_a_powerup,
 
             going_up_1_to_2_hard, 
             going_up_1_to_3_hard, 
@@ -360,6 +368,25 @@ class LevelDynamic extends Level {
     "aaJaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
+    "gggggggggggggggg",
+  ]);
+
+  Chunk easy_a_powerup = Chunk(description: "easy_a_powerup", slope: "flat", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaJa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaJaaaa",
+    "aaaaaJaaaaaaaaaa",
+    "aaaaaaaaJaaaaaaa",
+    "aaJaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaa1aaaaa",
     "gggggggggggggggg",
   ]);
 
@@ -633,7 +660,7 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
-    "paaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
     "ĞĞaaaaaaaaaaaaĞĞ",
     "aaaaaalaaaaalaaa",
     "aaalaaaaalaaaaaa",
@@ -1006,6 +1033,25 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
+    "gagagagagagagagg",
+  ]);
+
+  Chunk hard_a_powerup = Chunk(description: "hard_a_powerup", slope: "flat", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "gggggggggggggggg",
+    "iiiiiiiiiiiiiiii",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aa1aaaaaaaaaaaaa",
     "gagagagagagagagg",
   ]);
 
@@ -1446,6 +1492,25 @@ class LevelDynamic extends Level {
     "ggggggggggggggga", //1
   ]);
 
+  Chunk going_up_1_to_3_moderate_powerup = Chunk(description: "going_up_1_to_3_moderate_powerup", slope: "up2", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa", 
+    "aaaaaaaaaaaaaaaa",  //4
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaagĞ", //3
+    "aggaaggaaggaagga",
+    "aaaaaaaaaaajaaaa",
+    "aaggaaggaaggaaga",
+    "aaaaaaabaaaajaaĞ", //2
+    "aaaggaaggaaggaaa",
+    "aaaaa1aaaaaaaaaa",
+    "ggggggggggggggga", //1
+  ]);
+
   Chunk going_up_1_to_3_hard = Chunk(description: "going_up_1_to_3_hard", slope: "up2", level: [
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
@@ -1647,8 +1712,8 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaajaa",
     "aaaaaaaaaaaaĞĞĞĞ",
     "aaaaaaaaaaagaaaa",
-    "aaaaafaaaabgaaaa",
-    "aaaaaaaaaaĞĞĞaaa",
+    "aaaaaaaaaabgaaaa",
+    "aaaaafaaaaĞĞĞaaa",
     "ĞĞĞaaggaagaaaĞĞĞ",
     "aaagaaaaggaaaaaa",
     "aaagggggggaaaaaa",
@@ -2005,7 +2070,26 @@ class LevelDynamic extends Level {
     "Ğaaaaaaaaaaaaaaa",
     "agaaaaaaaaaaaaaa",
     "aggaaaaaaaaaaaaa",
-    "agggaaaaaaaaaaaa",
+    "agggaaaaaaaaaaa",
+    "ĞĞĞĞĞaaaaaaaaaaa",
+    "aaaaaaaggaaaaaaa",
+    "aaaaaaaiaaaagaaa",
+    "aaaaaaaaaaaaiaaa",
+    "ĞĞĞĞĞaaagaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaggggggggggg",
+  ]);
+
+  Chunk going_down_4_to_1_easy_powerup = Chunk(description: "going_down_4_to_1_easy_powerup", slope: "down3", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "Ğaaaaaaaaaaaaaaa",
+    "agaaaaaaaaaaaaaa",
+    "agg1aaaaaaaaaaaa",
+    "agggaaaaaaaaaaa",
     "ĞĞĞĞĞaaaaaaaaaaa",
     "aaaaaaaggaaaaaaa",
     "aaaaaaaiaaaagaaa",
@@ -2159,8 +2243,8 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "ĞĞaaaaaaaaaaaaaa",
-    "aagaaaaaafaaaaaa",
     "aagaaaaaaaaaaaaa",
+    "aagaaaaaafaaaaaa",
     "aagagaaaaggaaaaa",
     "ĞĞĞaĞagmaaaaaĞĞĞ",
     "aaaaaagggggggaaa",
@@ -2263,6 +2347,25 @@ class LevelDynamic extends Level {
     "aaaagggggggggggg",
   ]);
 
+  Chunk going_down_2_to_1_easy_powerup = Chunk(description: "going_down_2_to_1_easy_powerup", slope: "down", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaa1aaaaaaaaaaaa",
+    "ĞĞĞĞaaajaaaaaaaa",
+    "aaaagggggggaaaaa",
+    "aaaaggggggggaaja",
+    "aaaagggggggggggg",
+  ]);
+
   Chunk going_down_2_to_1_easy_b = Chunk(description: "going_down_2_to_1_easy_b", slope: "down", level: [
     "aggggggggggaaaaa",
     "aggaaaaaaggaaaaa",
@@ -2311,9 +2414,28 @@ class LevelDynamic extends Level {
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaafaa",
     "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaafaa",
     "aaaaaaaagaagggga",
+    "ĞĞgaamaggaaaaaaa",
+    "aaggggggggaaaaaa",
+    "aagaaaagggggaaaa",
+    "aaaaaaaagggggggg",
+  ]);
+
+  Chunk going_down_2_to_1_moderate_b_powerup = Chunk(description: "going_down_2_to_1_moderate_b_powerup", slope: "down", level: [
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaafaa",
+    "aa1aaaaagaagggga",
     "ĞĞgaamaggaaaaaaa",
     "aaggggggggaaaaaa",
     "aagaaaagggggaaaa",

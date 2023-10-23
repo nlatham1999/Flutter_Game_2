@@ -2,12 +2,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants.dart';
 import 'package:my_app/models/level.dart';
-import 'package:my_app/models/level1.dart';
-import 'package:my_app/models/level2.dart';
+import 'package:my_app/models/levels/level1.dart';
+import 'package:my_app/models/levels/level2.dart';
 import 'package:my_app/models/leveldynamic.dart';
-import 'package:my_app/models/testlevel.dart';
+import 'package:my_app/models/levels/spookycave.dart';
+import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
+import 'package:my_app/views/utils/homescreenbuttonpositions.dart';
 import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,8 +19,8 @@ import 'package:intl/intl.dart';
 
 import '../constants.dart';
 import '../models/basicmap.dart';
-import '../models/level3.dart';
-import '../models/level4.dart';
+import '../models/levels/level3.dart';
+import '../models/levels/level4.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -39,20 +41,18 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _initialLoad = true;
   Level sampleLevel = Level();
   late BasicMap sampleMap;
-  late Size size;
-  late int numSampleCells;
   int _dateNum = 0;
   
   @override
   void initState() {
     
     super.initState();
-    size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
-    numSampleCells = size.width ~/ 32;
+   
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     _dateNum =  int.parse(formattedDate.replaceAll('-', ''));
+
   }
 
   int getLevel(){
@@ -62,7 +62,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    
+     
+    Size size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
+    int numSampleCells = size.width ~/ 32;
+
+    HomeScreenButtonPositions buttonpos = HomeScreenButtonPositions(size);
+
     return Scaffold(
       backgroundColor: Colors.blue,
       body: Stack(
@@ -101,11 +106,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   ),
                 // ),
                 Positioned(
-                  top: size.height * 2 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_1"]!.top,
+                  left: buttonpos.positions["button_1"]!.left,
+                  width: buttonpos.positions["button_1"]!.width,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: true, seed: _dateNum),)),
                       );
@@ -115,11 +121,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 Positioned(
-                  top: size.height * 3 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_2"]!.top,
+                  left: buttonpos.positions["button_2"]!.left,
+                  width: buttonpos.positions["button_2"]!.width,
                   child: ElevatedButton(
                     onPressed: getLevel() >= 0 ? () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: false, seed: 0),)),
                       );
@@ -141,16 +148,47 @@ class _MyHomePageState extends State<MyHomePage> {
                 //   )
                 // ),
                 Positioned(
-                  top: size.height * 4 / 10,
-                  left: size.width / 6,
+                  top: buttonpos.positions["button_3"]!.top,
+                  left: buttonpos.positions["button_3"]!.left,
+                  width: buttonpos.positions["button_3"]!.width,
                   child: ElevatedButton(
                     onPressed: () { 
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
                       );
                     },
-                    child: const Text("Test Level", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: const Text("Scenario 1", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  )
+                ),
+                
+                Positioned(
+                  top: buttonpos.positions["button_4"]!.top,
+                  left: buttonpos.positions["button_4"]!.left,
+                  width: buttonpos.positions["button_4"]!.width,
+                  child: ElevatedButton(
+                    onPressed: () { 
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: SpookyCave(),)),
+                      );
+                    },
+                    child: const Text("Scenario 2", style: TextStyle(color: Colors.white, fontSize: 20),),
+                  )
+                ),
+                
+                Positioned(
+                  top: buttonpos.positions["button_5"]!.top,
+                  left: buttonpos.positions["button_5"]!.left,
+                  width: buttonpos.positions["button_5"]!.width,
+                  child: ElevatedButton(
+                    onPressed: () { 
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
+                      );
+                    },
+                    child: const Text("Scenario 3", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
               ],
@@ -160,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: Text("version 1.0.2\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
+                  content: Text("version 1.0.5\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {

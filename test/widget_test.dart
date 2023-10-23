@@ -5,6 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -32,11 +34,14 @@ void main() {
 
 
   testWidgets('Dynamic Level Test', (WidgetTester tester) async {
+    Random random = Random();
+
     LevelDynamic level = LevelDynamic(useSeed: false, seed: 0);
     
     Map<String, int> occurances = {};
     
     for(int i = 0; i < 1000; i++){
+      level.seed = random.nextInt(1000000);
 
       if(i % 100 == 0){
         print(i);
@@ -55,7 +60,7 @@ void main() {
 
     List<String> sortedKeys = occurances.keys.toList()..sort();
     for (String key in sortedKeys) {
-      if(occurances[key]! > 150){
+      if(occurances[key]! > 50){
         print("$key, ${occurances[key]!}");
       }
     }
