@@ -7,6 +7,11 @@ class JumperDown extends Unit {
   JumperDown({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
 
   @override
+  String getImage(){
+    return 'assets/jumper.png';
+  }
+
+  @override
   void doAction(GameController gameController) {
     if(value_1 == 0){
       value_1 = 1;

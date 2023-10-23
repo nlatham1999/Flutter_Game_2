@@ -8,7 +8,12 @@ class JumperUp extends Unit {
     value_1 = 1;
     value_2 = 16;
   }
-  
+    
+  @override
+  String getImage(){
+    return 'assets/jumper.png';
+  }
+
   @override
   void doAction(GameController gameController) {
 

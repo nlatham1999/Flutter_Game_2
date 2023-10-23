@@ -5,22 +5,22 @@ import 'package:my_app/models/level.dart';
 class SpookyCave extends Level {
   @override
   List<String> mapTemplate = [
-    "agĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
-    "agaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "agaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aagaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaagĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaagĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
-    "aaaagaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaagaaaaaaaaaaaaaaaaaaaaaaa",
-    "paaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    "ĞĞĞĞaaaaaaaaaaaaĞĞĞĞĞĞĞĞĞĞĞĞ",
-    "aaaagaaaaaaaaaaaaaaaaaaaaaaa",
-    "aaaaggaamaggagagaaaaaaaaaaaa",
-    "aaaaggggggggagagaaaaaaaaaaaa",
+    "aggĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞgggggggggggggggggggĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
+    "aggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggaaaaaagggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggaaagaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ĞĞaaaggĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞaaaggggggggggĞĞĞĞaaagggggggggggggggĞĞĞĞĞĞĞĞĞggggggggg",
+    "aagaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagggggggggggaaaagaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggg",
+    "aaggaagaaaaaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "aagggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaagggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "ĞĞĞĞĞĞaaggggggggggggggĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞggaaagĞĞĞĞĞĞaaaaaaaaaaaaaaaagggggaaaaaaaggggg",
+    "aaaaaagaaaaaaaaaaaggggaaaaaaaaaaaaaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggg",
+    "aaaaaagaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaaaaaaaaaaggggggggggg",
+    "aaaaaaggggggggggggaaaaaaaaaaaaaaaaaaaaaaaaaaaggggaaaaaaaaaaaaaaaaaaaaagggggggggggggggggg",
+    "ĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞaaaaagggggggggggggaaaaaaaĞĞĞĞĞĞĞĞĞĞaaaaaaaaaaaaaaaĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
+    "aaaaaaaaaaaaaaaaaaaaggaaaaaaaaaaaaaaaaaaaagggaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaaggggaaaaaaaaaaaaaagggggggaaaaaaaaaaaaaaaaaaaaaaaagaaaaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaaaaaagggggggggggggggggggggggggaaaaaaaaaagggggggggggggggaaaaaaaaaaaaaaaaaa",
   ];
 
   @override 

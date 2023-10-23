@@ -5,6 +5,15 @@ class SpikedMonsterLeft extends Unit {
   SpikedMonsterLeft({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    if (value_1 < 4){
+      return 'assets/spiked_monster_left_small.png';
+    }else{
+      return 'assets/spiked_monster_left_small_2.png';
+    }
+  }
+
+  @override
   bool playerHittingFromSideAction(GameController gameController){
     gameController.gameOver = true;
     gameController.gameOverText = "You ran into a monster :(";

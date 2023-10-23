@@ -8,6 +8,15 @@ class MonsterLeft extends Unit {
   MonsterLeft({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    if (value_1 < 2){
+      return 'assets/monster_left_small.png';
+    }else{
+      return 'assets/monster_left_small_2.png';
+    }
+  }
+
+  @override
    bool playerHittingFromBelowAction(GameController gameController){
     gameController.gameOver = true;
     gameController.gameOverText = "You got eaten :(";

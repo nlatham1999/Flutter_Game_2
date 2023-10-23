@@ -8,6 +8,11 @@ class FireMonsterLeft extends Unit {
   FireMonsterLeft({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    return 'assets/fire_monster_small_left.png';
+  }
+
+  @override
   void doAction(GameController gameController) {
     if(gameController.gameMap.isUnitSomewherAboveUnit(this, gameController.gameMap.player) && gameController.gameMap.isSpriteInVicinity(this, gameController.gameMap.player, 5)){
       value_2 = 1;

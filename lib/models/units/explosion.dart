@@ -7,6 +7,11 @@ class Explosion extends Unit {
   Explosion({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    return 'assets/explosion_tiny.png';
+  }
+
+  @override
   void doAction(GameController gameController) {
 
     for(int i = 0; i < 2 * (kCellSize / 4); i++){

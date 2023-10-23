@@ -41,6 +41,10 @@ class Unit {
     throw Exception("not implemented ${{type}}");
   }
 
+  String getImage(){
+    throw Exception("not implemented ${{type}}");
+  }
+
   //action to run when the player encounters the unit from the side
   //only really used for spiked monsters
   //return true if should exit early

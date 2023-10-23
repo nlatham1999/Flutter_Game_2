@@ -7,6 +7,15 @@ class MonsterRight extends Unit {
   MonsterRight({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    if (value_1 < 2){
+      return 'assets/monster_right_small.png';
+    }else{
+      return 'assets/monster_right_small_2.png';
+    }
+  }
+
+  @override
    bool playerHittingFromBelowAction(GameController gameController){
     gameController.gameOver = true;
     gameController.gameOverText = "You got eaten :(";

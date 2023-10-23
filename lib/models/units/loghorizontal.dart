@@ -9,6 +9,11 @@ class LogHorizontal extends Unit {
   LogHorizontal({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    return 'assets/log.png';
+  }
+
+  @override
   bool get isSolidGround => true;
   
   @override

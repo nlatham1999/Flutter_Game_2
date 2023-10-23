@@ -8,6 +8,11 @@ class FireballPlayer extends Unit {
   FireballPlayer({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    return 'assets/player_fireball.png';
+  }
+
+  @override
   void doAction(GameController gameController){
     value_2 -= 1;
 

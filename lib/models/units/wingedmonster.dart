@@ -7,6 +7,15 @@ class WingedMonster extends Unit {
   WingedMonster({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
   
   @override
+  String getImage(){
+    if((value_1 == 0 && value_3 == 0) || (value_1 == 1 && value_3 == 1)){
+      return 'assets/ghost_2.png';
+    }else{
+      return 'assets/ghost_3.png';
+    }
+  }
+
+  @override
   void doAction(GameController gameController) {
     if(value_1 == 0){
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
