@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:my_app/models/unit.dart';
-import 'package:my_app/painters/bombpainter.dart';
 import 'package:my_app/painters/deadmonsterpainter.dart';
-import 'package:my_app/painters/jumperpainter.dart';
-import 'package:my_app/painters/monsterpainter.dart';
-import 'package:my_app/painters/playerpainter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constants.dart';
-import '../../painters/grasspainter.dart';
-import '../../painters/traingelpainter.dart';
-import '../../util/util.dart';
 
 class ViewUtils {
   static List<Widget> getMapScreen(
@@ -23,6 +14,8 @@ class ViewUtils {
       int viewMapLeft,
       int viewMapRight,
       {int numCellsToDisplay = 13}) {
+
+    
     List<Widget> positions = [
       // Positioned(
       //   left: offsetX,
@@ -158,7 +151,7 @@ class ViewUtils {
       //     painter: PlayerPainter(color: Colors.red, direction: unit.direction),
       //   );
       default:
-        return CustomPaint();
+        return const CustomPaint();
     }
   }
 

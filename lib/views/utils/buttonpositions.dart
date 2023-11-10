@@ -60,40 +60,41 @@ class ButtonsPositions {
   }
 
   void setButtonsLandscapeMode(double left, double gameWidth, Size size){
+    double margin = size.height / 7.5;
     double jumpLeft = 0;
-    double jumpTop = 0;
+    double jumpTop = margin;
     double jumpWidth = left;
-    double jumpHeight = size.height / 3;
+    double jumpHeight = size.height / 3 - margin;
     positions["jump"] = ButtonPositions(left: jumpLeft, top: jumpTop, width: jumpWidth, height: jumpHeight);
     
     double fireLeft =  left + gameWidth;
-    double fireTop = 0;
+    double fireTop = margin;
     double fireWidth = size.width - left - gameWidth;
-    double fireHeight = size.height / 3;
+    double fireHeight = size.height / 3 - margin;
     positions["fire"] = ButtonPositions(left: fireLeft, top: fireTop, width: fireWidth, height: fireHeight);
 
     double lwLeft = 0;
     double lwTop = size.height / 3;
     double lwWidth = left;
-    double lwHeight = size.height / 3;
+    double lwHeight = size.height / 3 - margin;
     positions["left_walk"] = ButtonPositions(left: lwLeft, top: lwTop, width: lwWidth, height: lwHeight);
     
     double lsLeft = 0;
-    double lsTop = size.height * 2 / 3;
+    double lsTop = size.height * 2 / 3 - margin;
     double lsWidth = left;
-    double lsHeight = size.height / 3;
+    double lsHeight = size.height / 3 - margin;
     positions["left_sprint"] = ButtonPositions(left: lsLeft, top: lsTop, width: lsWidth, height: lsHeight);
     
     double rwLeft = left + gameWidth;
     double rwTop = size.height / 3;
     double rwWidth = size.width - left - gameWidth;
-    double rwHeight = size.height / 3;
+    double rwHeight = size.height / 3 - margin;
     positions["right_walk"] = ButtonPositions(left: rwLeft, top: rwTop, width: rwWidth, height: rwHeight);
     
     double rsLeft = left + gameWidth;
-    double rsTop = size.height * 2 / 3;
+    double rsTop = size.height * 2 / 3 - margin;
     double rsWidth = size.width - left - gameWidth;
-    double rsHeight = size.height / 3;
+    double rsHeight = size.height / 3 - margin;
     positions["right_sprint"] = ButtonPositions(left: rsLeft, top: rsTop, width: rsWidth, height: rsHeight);
   }
 
