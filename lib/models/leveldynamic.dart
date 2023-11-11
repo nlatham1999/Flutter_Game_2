@@ -217,6 +217,7 @@ class LevelDynamic extends Level {
             hard_b3, 
             hard_c3, 
             hard_d3, 
+            hard_d3_b, 
             going_up_3_to_4_hard, 
             going_up_3_to_4_hard_b, 
             going_down_3_to_2_hard, 
@@ -324,6 +325,7 @@ class LevelDynamic extends Level {
       // print(chunk.description);
 
       levelsAdded.add(chunk.description);
+
     }
 
     return levelsAdded;
@@ -1303,16 +1305,35 @@ class LevelDynamic extends Level {
   ]);
 
   Chunk hard_d3 = Chunk(description: "hard_d3", slope: "flat", level: [
-    "ĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞĞ",
-    "iiiiiiiiiiiiiiii",
-    "aaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaa",
+    "gggggggggggggggg",
+    "igggiggggggggigi",
+    "aiiiaiigiigiiaia",
+    "aaaaaaaiaaiaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaja",
     "ĞĞaagaagaagaagĞĞ",
     "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "ĞĞaaaaaaaaaaaaĞĞ",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+  ]);
+
+  Chunk hard_d3_b = Chunk(description: "hard_d3_b", slope: "flat", level: [
+    "gggggggggggggggg",
+    "igggiggggggggigi",
+    "aiiiaiigiigiiaia",
+    "aaaaaaaiaaiaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaaa",
+    "aaaaaaaaaaaaaaja",
+    "ĞĞaagaabaagaagĞĞ",
+    "aaaaaaagaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaa",
     "ĞĞaaaaaaaaaaaaĞĞ",
