@@ -5,6 +5,7 @@ import 'package:my_app/models/level.dart';
 import 'package:my_app/models/levels/level1.dart';
 import 'package:my_app/models/levels/level2.dart';
 import 'package:my_app/models/leveldynamic.dart';
+import 'package:my_app/models/levels/monstermadness.dart';
 import 'package:my_app/models/levels/spookycave.dart';
 import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
@@ -173,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: SpookyCave(),)),
                       );
                     },
-                    child: const Text("Scenario 2", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: const Text("The Spooooky Cave", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
                 
@@ -185,10 +186,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     onPressed: () { 
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => GameScreen(level: TestLevel(),)),
+                        MaterialPageRoute(builder: (context) => GameScreen(level: MonsterMadness(),)),
                       );
                     },
-                    child: const Text("Scenario 3", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: const Text("Monster Madness", style: TextStyle(color: Colors.white, fontSize: 20),),
                   )
                 ),
               ],

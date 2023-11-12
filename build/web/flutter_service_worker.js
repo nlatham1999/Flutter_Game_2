@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "f9a9bb161f1a2de11419486fddb6344a",
+  "assets/AssetManifest.json": "6c9771850a4f616c41806f3411c3441c",
 "assets/assets/bomb.png": "5eee82d2fe8b87a7a1bc9890d4f000a1",
 "assets/assets/bomb_charged.png": "59ec7733a1b41a31520649320ac2b63e",
 "assets/assets/bomb_dead.png": "24f4eb6d2d55cbfe18a3fe65225ab91f",
@@ -51,6 +51,9 @@ const RESOURCES = {
 "assets/assets/powerup_fireball_1.png": "1a4a57c5bf8ceb81c27847689b1b43dc",
 "assets/assets/powerup_fireball_2.png": "94ea3042d0ee545e5801dd09b11f7f16",
 "assets/assets/powerup_fireball_3.png": "6669e432217df4af828bd1de8eaae114",
+"assets/assets/powerup_fireball_static.png": "d08a074f98b41a0b4fb0a33ae33d0ccc",
+"assets/assets/signage_grass.png": "fe5f96ff2c6cd5f63706a1e73241d67e",
+"assets/assets/signage_grass_large.png": "efad6673fa96acc0312b2d8ecc05e40f",
 "assets/assets/sign_ghosts.png": "92493fc4724945cbe7bf54cea81049f5",
 "assets/assets/spiked_monster_left_small.png": "5ebca4605e6ee49c6721d65effe013b4",
 "assets/assets/spiked_monster_left_small_2.png": "6353051fc0384355eb61cfce201a8990",
@@ -74,9 +77,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "04e0da73f545268fde292f3018470578",
-"/": "04e0da73f545268fde292f3018470578",
-"main.dart.js": "9bcdb42995b295b68faaba192407bba7",
+"index.html": "d8ac2e9bb37715b17940c3cd8f5decbd",
+"/": "d8ac2e9bb37715b17940c3cd8f5decbd",
+"main.dart.js": "abb28cc40f1b7045e6bb66dd71ef5bf5",
 "manifest.json": "18b05de58f5aeed2ffa6be1246cc43f1",
 "splash/img/dark-1x.png": "a7a7fac2bfb228f3fe8e2864b6585824",
 "splash/img/dark-2x.png": "fdd1ec63728a198fdd69e35849933666",

@@ -153,7 +153,7 @@ class SpookyCave extends Level {
     "aaaagaaaaaaaaaaaaaaaaaaaaa",
     "aaaaglaaaaaaaaaaSaasaaaaaa",
     "aaaaaaaaaaaaagaaaaaaaaaggg",
-    "paaaaaaaggaaaĞĞĞĞĞĞĞĞĞĞĞĞĞ",
+    "aaaaaaaaggaaaĞĞĞĞĞĞĞĞĞĞĞĞĞ",
     "gaaaaaaaaaaagaaaaaaaaaaaaa",
     "ggaammaggaaagaaaaaaaaaaaaa",
     "gggggggggggggaaaaaaaaaaaaa",

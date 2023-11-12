@@ -41,6 +41,10 @@ class ViewUtils {
       vR = map[0].length;
     }
 
+    List<List<Widget>> zindexes = [
+      []
+    ];
+
     for (int i = 0; i < map.length; i++) {
       for (int j = vL; j < vR; j++) {
         for (int k = 0; k < map[i][j].length; k++) {
@@ -53,8 +57,7 @@ class ViewUtils {
               (width * unit.offsetX / kCellSize);
           double top = height * i + offsetY + (height * unit.offsetY / kCellSize);
           double boxWidth = width * unit.width / kCellSize;
-          positions.add(
-            Positioned(
+          Positioned unitView = Positioned(
               left: left,
               top: top,
               child: SizedBox(
@@ -67,9 +70,21 @@ class ViewUtils {
                       .contain, // Adjust the image within the specified box
                 ),
               ),
-            ),
-          );
+            );
+          if(unit.zindex == -1){
+            positions.add(
+              unitView
+            );
+          }else{
+            zindexes[unit.zindex].add(unitView);
+          }
         }
+      }
+    }
+
+    for(int i = 0; i < zindexes.length; i++){
+      for(int j = 0; j < zindexes[i].length; j++){
+        positions.add(zindexes[i][j]);
       }
     }
 

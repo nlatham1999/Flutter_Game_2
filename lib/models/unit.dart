@@ -19,6 +19,9 @@ class Unit {
   int value_3 = 0;
   int value_4 = 0;
 
+  //position of the element
+  int zindex = -1;
+
   bool alreadyUpdated = false;
 
   int direction = 0;

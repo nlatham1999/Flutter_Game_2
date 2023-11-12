@@ -9,15 +9,16 @@ class FireballPowerup extends Unit {
   
   @override
   String getImage(){
-    if(value_1 < 21){
-      return 'assets/powerup_fireball_3.png';
-    } else if(value_1 < 23) {
-      return 'assets/powerup_fireball_0.png';
-    } else if(value_1 < 25) {
-      return 'assets/powerup_fireball_1.png';
-    } else {
-      return 'assets/powerup_fireball_2.png';
-    }
+    // if(value_1 < 21){
+    //   return 'assets/powerup_fireball_3.png';
+    // } else if(value_1 < 23) {
+    //   return 'assets/powerup_fireball_0.png';
+    // } else if(value_1 < 25) {
+    //   return 'assets/powerup_fireball_1.png';
+    // } else {
+    //   return 'assets/powerup_fireball_2.png';
+    // }
+    return 'assets/powerup_fireball_static.png';
   }
 
   @override

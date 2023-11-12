@@ -12,6 +12,7 @@ import 'package:my_app/models/units/monsterleft.dart';
 import 'package:my_app/models/units/monsterright.dart';
 import 'package:my_app/models/units/outofbounds.dart';
 import 'package:my_app/models/units/player.dart';
+import 'package:my_app/models/units/signage.dart';
 import 'package:my_app/models/units/spikedmonsterleft.dart';
 import 'package:my_app/models/units/spikedmonsterright.dart';
 import 'package:my_app/models/units/firemonsterleft.dart';
@@ -191,8 +192,14 @@ class BasicMap extends GameMap {
           case "w":
             cell.add(WingedMonster(type: "winged_monster", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
-          case "α":
-            cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+          // case "α":
+          //   cell.add(Unit(type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+          //   break;
+          case "^":
+            cell.add(Signage(signageType: "grass", type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            break;
+          case "&":
+            cell.add(Signage(signageType: "grass_large", type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           default:
         }
