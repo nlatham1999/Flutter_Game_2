@@ -4,7 +4,12 @@ import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/unit.dart';
 
 class WingedMonster extends Unit {
-  WingedMonster({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
+
+  late Random random;
+
+  WingedMonster({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height}){
+    random = Random(x * y);
+  }
   
   @override
   String getImage(){
@@ -55,7 +60,6 @@ class WingedMonster extends Unit {
 
     value_2 = (value_2 + 1) % 6;
     if(value_2 == 0){
-      Random random = Random();
       value_3 = random.nextInt(2);
     }
 
