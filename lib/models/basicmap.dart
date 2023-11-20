@@ -63,13 +63,7 @@ class BasicMap extends GameMap {
   @override
   List<List<List<Unit>>> map = [];
 
-  @override
-  int playerX = 0;
-
-  @override
-  int playerY = 13;
-
-  late Unit player;
+  late Player player;
 
   List<List<Unit>> collisionMap = [];
 
@@ -177,8 +171,6 @@ class BasicMap extends GameMap {
           case "p":
             player = Player(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
             cell.add(player);
-            playerX = j;
-            playerY = i;
             break;
           case "r":
             cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));

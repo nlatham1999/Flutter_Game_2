@@ -23,6 +23,7 @@ class IcicleFalling extends Unit {
         case "player":
           gameController.gameOver = true;
           gameController.gameOverText = "You got spiked :(";
+          spriteBelow.die(gameController);
           return;
         default:
           gameController.gameMap.removeSprite(this);

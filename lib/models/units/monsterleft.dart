@@ -1,5 +1,6 @@
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/basicmap.dart';
+import 'package:my_app/models/units/player.dart';
 
 import '../../constants.dart';
 import '../unit.dart';
@@ -24,8 +25,8 @@ class MonsterLeft extends Unit {
   }
   
   @override
-  bool playerHittingFromAboveAction(GameController gameController){
-    gameController.squashMonsters(gameController.gameMap.player, this);
+  bool playerHittingFromAboveAction(GameController gameController, Player player){
+    die(gameController);
     return false;
   }
   
@@ -46,6 +47,7 @@ class MonsterLeft extends Unit {
         case "player":
           gameController.gameOver = true;
           gameController.gameOverText = "You got eaten :(";
+          spriteBelow.die(gameController);
           break;
         case "-1":
           gameController.gameMap.removeSprite(this);

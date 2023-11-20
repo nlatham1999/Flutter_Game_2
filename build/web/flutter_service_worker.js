@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "6c9771850a4f616c41806f3411c3441c",
+  "assets/AssetManifest.json": "58a654b996df893170efac191b62bf3e",
 "assets/assets/bomb.png": "5eee82d2fe8b87a7a1bc9890d4f000a1",
 "assets/assets/bomb_charged.png": "59ec7733a1b41a31520649320ac2b63e",
 "assets/assets/bomb_dead.png": "24f4eb6d2d55cbfe18a3fe65225ab91f",
@@ -42,6 +42,7 @@ const RESOURCES = {
 "assets/assets/monster_right.png": "5e17d2746ed6b3372c52ebd03291436b",
 "assets/assets/monster_right_small.png": "e106ea8a75c8dc8b0c624e517203a0df",
 "assets/assets/monster_right_small_2.png": "0a98a21f06ed95d6def6805ae28a0f03",
+"assets/assets/player_dead_small.png": "5aac6f809555c1d53d331b680277f4db",
 "assets/assets/player_fireball.png": "b52aac5e3ade38ad33e8c33d3aaa09ff",
 "assets/assets/player_left.png": "e84fa81bb7061c22bfc0603200a3135a",
 "assets/assets/player_left_small.png": "f1c3390de3e6be1562c7e8997c513d9e",
@@ -77,9 +78,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "17d67a9a54d316c5a3ce9dc4f90a921d",
-"/": "17d67a9a54d316c5a3ce9dc4f90a921d",
-"main.dart.js": "2f22c2650338769b7d1c4edcbb4a52e9",
+"index.html": "515f0ad43550bf6c294e3eaa35a5bc5a",
+"/": "515f0ad43550bf6c294e3eaa35a5bc5a",
+"main.dart.js": "5e6007f16a459d0bbab9077134190fa7",
 "manifest.json": "18b05de58f5aeed2ffa6be1246cc43f1",
 "splash/img/dark-1x.png": "a7a7fac2bfb228f3fe8e2864b6585824",
 "splash/img/dark-2x.png": "fdd1ec63728a198fdd69e35849933666",

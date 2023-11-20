@@ -95,6 +95,7 @@ class WingedMonster extends Unit {
         case "player":
           gameController.gameOver = true;
           gameController.gameOverText = "You got eaten :(";
+          spriteDown.die(gameController);
           return;
         default:
           value_3 = 0;

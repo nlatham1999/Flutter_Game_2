@@ -14,5 +14,6 @@ class IcicleInert extends Unit {
     if(gameController.gameMap.isUnitBelowUnit(this, gameController.gameMap.player)){
       gameController.queueUnitTypeChange(this, "icicle_falling");
     }
+
   }
 }

@@ -1,4 +1,5 @@
 import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:my_app/models/units/player.dart';
 
 import '../unit.dart';
 
@@ -12,8 +13,8 @@ class Air extends Unit {
   }
 
   @override
-  bool playerHittingFromAboveAction(GameController gameController){
-    gameController.gameMap.moveUnitDown(gameController.gameMap.player);
+  bool playerHittingFromAboveAction(GameController gameController, Player player){
+    gameController.gameMap.moveUnitDown(player);
     return false;
   }
 

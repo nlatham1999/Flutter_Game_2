@@ -14,6 +14,8 @@ class MonsterDead extends Unit {
       return 'assets/jumper_dead.png';
     }else if(value_2 == 4){
       return 'assets/bomb_dead.png';
+    }else if (value_2 == 5){
+      return 'assets/player_dead_small.png'; 
     }
     return 'assets/monster_dead.png';
   }

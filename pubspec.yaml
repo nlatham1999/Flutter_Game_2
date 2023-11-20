@@ -111,6 +111,7 @@ flutter:
     - assets/monster_right_small_2.png
     - assets/player_left_small.png
     - assets/player_right_small.png
+    - assets/player_dead_small.png
     - assets/player_left.png
     - assets/player_right.png
     - assets/monster_dead.png

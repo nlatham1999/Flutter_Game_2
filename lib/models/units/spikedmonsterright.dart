@@ -1,5 +1,6 @@
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/models/units/player.dart';
 
 class SpikedMonsterRight extends Unit {
   SpikedMonsterRight({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
@@ -21,7 +22,7 @@ class SpikedMonsterRight extends Unit {
   }
 
   @override
-  bool playerHittingFromAboveAction(GameController gameController){
+  bool playerHittingFromAboveAction(GameController gameController, Player player){
     gameController.gameOver = true;
     gameController.gameOverText = "You fell onto a monster :(";
     return true;
@@ -40,6 +41,7 @@ class SpikedMonsterRight extends Unit {
       case "player":
         gameController.gameOver = true;
         gameController.gameOverText = "You got eaten :(";
+        spriteBelow.die(gameController);
         break;
       case "-1":
         gameController.gameMap.removeSprite(this);
@@ -59,6 +61,7 @@ class SpikedMonsterRight extends Unit {
       case "player":
         gameController.gameOver = true;
         gameController.gameOverText = "You got eaten :(";
+        spriteLeft.die(gameController);
         break;
       case "air":
         gameController.gameMap.moveUnitRight(this);

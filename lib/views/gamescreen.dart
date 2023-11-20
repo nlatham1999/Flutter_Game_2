@@ -92,41 +92,52 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void fire(){
-    _gameController.fireTrigger = true;
+    // _gameController.gameMap.player.fireTrigger = true;
+    _gameController.keyPressed.add("fire_trigger");
   }
 
   void jump(){
-    _gameController.jumpPressed = true;
+    // _gameController.gameMap.player.jumpPressed = true;
+    _gameController.keyPressed.add("jump_pressed");
   }
 
   void jumpReleased(){
-    _gameController.jumpPressed = false;
+    // _gameController.gameMap.player.jumpPressed = false;
+    _gameController.keyPressed.remove("jump_pressed");
   }
 
   void moveRight(){
-    _gameController.rightTrigger = true;
-    _gameController.rightPressed = true;
+    // _gameController.gameMap.player.rightTrigger = true;
+    _gameController.keyPressed.add("right_trigger");
+    // _gameController.gameMap.player.rightPressed = true;
+    _gameController.keyPressed.add("right_pressed");
   }
 
   void moveRightReleased(){
-    _gameController.rightPressed = false;
+    // _gameController.gameMap.player.rightPressed = false;
+    _gameController.keyPressed.remove("right_pressed");
   }
 
   void moveLeft(){
-    _gameController.leftTrigger = true;
-    _gameController.leftPressed = true;
+    // _gameController.gameMap.player.leftTrigger = true;
+    _gameController.keyPressed.add("left_trigger");
+    // _gameController.gameMap.player.leftPressed = true;
+    _gameController.keyPressed.add("left_pressed");
   }
 
   void moveLeftReleased(){
-    _gameController.leftPressed = false;
+    // _gameController.gameMap.player.leftPressed = false;
+    _gameController.keyPressed.remove("left_pressed");
   }
 
   void sprintMode(){
-    _gameController.movingSpeed = 2;
+    // _gameController.movingSpeed = 2;
+    _gameController.keyPressed.add("sprint_mode");
   }
 
   void walkingMode(){
-    _gameController.movingSpeed = 1;
+    // _gameController.movingSpeed = 1;
+    _gameController.keyPressed.remove("sprint_mode");
   }
 
   void checkForGameEnd(){
@@ -296,7 +307,7 @@ class _GameScreenState extends State<GameScreen> {
       width: _buttonsPositions.positions["fire"]!.width,
       height: _buttonsPositions.positions["fire"]!.height,
       child: Visibility(
-        visible: _gameController.isPlayerInFireState(),
+        visible: _gameController.gameMap.player.isPlayerInFireState(),
         child: MaterialButton(
           onPressed: (){},
           onHighlightChanged: (isHighlighted) {
@@ -304,9 +315,15 @@ class _GameScreenState extends State<GameScreen> {
               fire();
             }
           },
-          child: Icon(
-            size: _buttonsPositions.positions["fire"]!.iconSize,
-            Icons.circle
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Icon(
+                size: _buttonsPositions.positions["fire"]!.iconSize,
+                Icons.circle
+              ),
+              Text( _gameController.gameMap.player.value_1.toString(), style: TextStyle(color: Colors.white, fontSize: _buttonsPositions.positions["fire"]!.iconSize * 3 / 4),),
+            ],
           ),
         ),
       )

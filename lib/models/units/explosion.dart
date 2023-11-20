@@ -81,6 +81,7 @@ class Explosion extends Unit {
       if(s.type == "player"){
         gameController.gameOver = true;
         gameController.gameOverText = "You got bombed :(";
+        s.die(gameController);
         return;
       }
       if(s.type != "air"){

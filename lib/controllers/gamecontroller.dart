@@ -14,18 +14,6 @@ import '../util/util.dart';
 
 class GameController  extends ChangeNotifier{
   late BasicMap gameMap;
-  late bool jumpState;
-  late int jumpCount;
-
-  late bool jumpTrigger;
-  late bool leftTrigger;
-  late bool rightTrigger;
-  late bool fireTrigger;
-
-  late bool leftPressed;
-  late bool rightPressed;
-  late bool jumpPressed;
-  int movingSpeed = 1;
   int numCellsToDisplay = 13;
 
   late int viewMapLeft;
@@ -54,7 +42,11 @@ class GameController  extends ChangeNotifier{
   
   List<Unit> unitsUpdated = [];
 
+  List<Unit> unitsToProcessLater = [];
+
   Map<Unit, String> changeToTypeQueue = {};
+
+  Set<String> keyPressed = {};
 
   GameController({
     required this.offsetY,
@@ -112,17 +104,6 @@ class GameController  extends ChangeNotifier{
     gameStarted = false;
     distanceTraveled = 0;
     gameMap = BasicMap(mapTemplate: level.mapTemplate);
-    jumpState = false;
-    jumpCount = 0;
-
-    jumpTrigger = false;
-    leftTrigger = false;
-    rightTrigger = false;
-    fireTrigger = false;
-
-    leftPressed = false;
-    rightPressed = false;
-    jumpPressed = false;
 
 
     viewMapLeft = 0;
@@ -152,52 +133,8 @@ class GameController  extends ChangeNotifier{
     if(gameOver){
       return;
     }
-    
 
-    //fall down is before jump so we can jump on descending logs
-    if(!jumpState && !isOnSolidGround(gameMap.player, groundPriority: "solid")){
-      fallDown();
-    }
-
-
-    //if the jump button is still being pressed and we are ok for a jump then jump
-    if (jumpPressed) {
-      if (!jumpState && isOnSolidGround(gameMap.player)){
-        jumpTrigger = true;
-      }
-    }
-
-    if(jumpTrigger){
-      jump();
-      jumpTrigger = false;
-    }
-
-    if(leftTrigger){
-      moveLeft();
-      if(!leftPressed){
-        leftTrigger = false;
-      }
-      gameMap.player.direction = 1;
-    }
-
-    if(rightTrigger){
-      moveRight();
-      if(!rightPressed){
-        rightTrigger = false;
-      }
-      gameMap.player.direction = 0;
-    }
-
-    if(jumpState){
-      updateJump();
-    }
-
-    if(fireTrigger){
-      fireFireball();
-      fireTrigger = false;
-    }
-
-    goThroughChangeQueue();
+    // goThroughChangeQueue();
 
     updateViewMap();
 
@@ -215,6 +152,7 @@ class GameController  extends ChangeNotifier{
     // }
 
     unitsUpdated = [];
+    unitsToProcessLater = [];
 
     int startLeft = gameMap.player.x - numCellsToDisplay;
     if(startLeft < 0){
@@ -224,6 +162,8 @@ class GameController  extends ChangeNotifier{
     if(startRight > gameMap.map[0].length - 1){
       startRight = gameMap.map[0].length - 1;
     }
+
+    
 
     for(int i = 0; i < gameMap.map.length; i++){
       for(int j = startLeft; j <= startRight; j++){
@@ -240,10 +180,25 @@ class GameController  extends ChangeNotifier{
             unitsUpdated.add(unit);
           }
 
-          unit.doAction(this);
+          if(unit.processingIndex == -1){
+            unit.doAction(this);
+            goThroughChangeQueue();     
+          }else{
+            unitsToProcessLater.add(unit);
+          }
 
-          goThroughChangeQueue();          
+          if(gameOver){
+            return;
+          }
         }
+      }
+    }
+
+    for(Unit unit in unitsToProcessLater){
+      unit.doAction(this);
+      goThroughChangeQueue();   
+      if(gameOver){
+        return;
       }
     }
 
@@ -256,6 +211,7 @@ class GameController  extends ChangeNotifier{
     if(changeToTypeQueue.isNotEmpty){
       for (MapEntry<Unit, String> entry in changeToTypeQueue.entries){
         Unit newUnit = gameMap.changeUnitType(entry.key, entry.value);
+        newUnit.value_2 = entry.key.value_2;
         if(entry.key.alreadyUpdated){
           newUnit.alreadyUpdated = true;
           unitsUpdated.add(newUnit);
@@ -305,62 +261,8 @@ class GameController  extends ChangeNotifier{
     }
   }
 
-  void moveRight(){
-    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++) {
-    Unit spriteRight = gameMap.getPotentialCollision(gameMap.player, "RIGHT");
-    switch (spriteRight.type) {
-      case "air":
-        gameMap.moveUnitRight(gameMap.player);
-        break;
-      default:
-        if (spriteRight.playerHittingFromSideAction(this)){
-          return;
-        }
-    }
-    }
-  }
-
-  void moveLeft(){
-    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++){
-      Unit spriteLeft = gameMap.getPotentialCollision(gameMap.player, "LEFT");
-      switch (spriteLeft.type) {
-        case "air":
-          gameMap.moveUnitLeft(gameMap.player);
-          break;
-        default:
-          if (spriteLeft.playerHittingFromSideAction(this)){
-            return;
-          }
-      }
-    }
-  }
-
-  bool isPlayerInFireState(){
-    return gameMap.player.value_1 > 0;
-  }
-
-  void fireFireball(){
-    if(gameMap.player.value_1 > 0){
-      gameMap.player.value_1 -= 1;
-    }else{
-      return;
-    }
-
-    //find the proper x
-    int x = 0;
-    if(gameMap.player.direction == 0){
-      x = gameMap.player.x * kCellSize + gameMap.player.offsetX;
-      x += kCellSize;
-    } else {
-      x = gameMap.player.x * kCellSize + gameMap.player.offsetX - 1;
-    }
 
 
-    Unit fireball = FireballPlayer(type: "player_fireball", x: x ~/ kCellSize, y: gameMap.player.y, offsetX: x % kCellSize, offsetY: kCellSize ~/ 2, width: 2, height: 2);
-    fireball.value_1 = gameMap.player.direction;
-    fireball.value_2 = 10;
-    gameMap.addUnit(fireball);
-  }
 
 
   bool isOnSolidGround(Unit unit, {String groundPriority = "neutral"}){
@@ -368,61 +270,6 @@ class GameController  extends ChangeNotifier{
     return spriteBelow.isSolidGround;
   }
 
-  void jump(){
-
-    if(!isOnSolidGround(gameMap.player)){
-      return;
-    }
-
-    if(jumpState){
-      return;
-    }
-
-    jumpState = true;
-  }
-
-  void updateJump(){
-    if(jumpCount < 5 && jumpCount > 0){
-      
-      int spacesToJump = 4;
-      if(jumpCount == 2){
-        spacesToJump = 2;
-      }
-      if(jumpCount == 3){
-        spacesToJump = 2;
-      }
-      if(jumpCount == 4){
-        spacesToJump = 2;
-      }
-
-      for(int i = 0; i < spacesToJump * (kCellSize / 4); i++){
-        Unit spriteAbove = gameMap.getPotentialCollision(gameMap.player, "UP");
-        switch (spriteAbove.type) {
-          case "air":
-            spriteAbove.playerHittingFromBelowAction(this);
-            break;
-          default:
-            if (spriteAbove.playerHittingFromBelowAction(this)){
-              return;
-            }
-            i = 100;
-            jumpCount = 5;
-            break;
-        }
-      }
-
-      jumpCount++;
-      return; 
-    }
-
-    if(jumpCount == 0){
-      jumpCount = 1;
-      return;
-    }
-
-    jumpCount = 0;
-    jumpState = false;
-  } 
 
   // bool isOnJumpableSprite(){
   //   switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX])) {
@@ -437,26 +284,4 @@ class GameController  extends ChangeNotifier{
   //       return false;
   //   }
   // }
-
-  void fallDown(){
-    if(gameMap.player.fall == 0){
-      gameMap.player.fall = 1;
-    }
-    for(int i = 0; i < 2 * (kCellSize / 4); i++){
-      Unit spriteBelow = gameMap.getPotentialCollision(gameMap.player, "DOWN");
-      bool exitEarly = spriteBelow.playerHittingFromAboveAction(this);
-      if(exitEarly){
-        return;
-      }
-    }
-    if(gameMap.player.fall < 5){
-      gameMap.player.fall++;
-    }
-  }  
-
-  //this assumes that monsters are 4x4 
-  void squashMonsters(Unit unit, Unit unitToSquash){
-    queueUnitTypeChange(unitToSquash, "monster_dead");
-    unitToSquash.value_1 = 0;
-  }
 }

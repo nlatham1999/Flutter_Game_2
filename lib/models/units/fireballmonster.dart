@@ -1,5 +1,6 @@
 import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/unit.dart';
+import 'package:my_app/models/units/player.dart';
 
 class FireballMonster extends Unit {
   FireballMonster({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});
@@ -17,7 +18,7 @@ class FireballMonster extends Unit {
   }
   
   @override
-  bool playerHittingFromAboveAction(GameController gameController){
+  bool playerHittingFromAboveAction(GameController gameController, Player player){
     gameController.gameOver = true;
     gameController.gameOverText = "You fell onto a fireball :(";
     return true;

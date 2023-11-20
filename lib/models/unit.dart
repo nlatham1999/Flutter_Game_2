@@ -1,4 +1,5 @@
 import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:my_app/models/units/player.dart';
 
 import 'basicmap.dart';
 
@@ -21,6 +22,8 @@ class Unit {
 
   //position of the element
   int zindex = -1;
+
+  int processingIndex = -1;
 
   bool alreadyUpdated = false;
 
@@ -64,8 +67,8 @@ class Unit {
   //action to run when the player encounters a unit from above (is falling)
   //return true if should exit early
   //default behaviour is to stop falling
-  bool playerHittingFromAboveAction(GameController gameController){
-    gameController.gameMap.player.fall = 0;
+  bool playerHittingFromAboveAction(GameController gameController, Player player){
+    player.fall = 0;
     return true;
   }
 
@@ -103,6 +106,11 @@ class Unit {
         gameController.queueUnitTypeChange(this, "monster_dead");
         value_1 = 0;
         value_2 = 4; //ghost type
+        return;
+      case "player":
+        gameController.queueUnitTypeChange(this, "monster_dead");
+        value_1 = 0;
+        value_2 = 5;
         return;
       default:
         return;

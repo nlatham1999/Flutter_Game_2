@@ -27,6 +27,7 @@ class JumperDown extends Unit {
         case "player":
           gameController.gameOver = true;
           gameController.gameOverText = "You got smushed";
+          spriteAbove.die(gameController);
           return;
         case "air":
           gameController.gameMap.moveUnitDown(this);
