@@ -44,10 +44,11 @@ class Player extends Unit {
 
 
     //if the jump button is still being pressed and we are ok for a jump then jump
-    if (gameController.keyPressed.contains("jump_pressed")) {
+    if (gameController.keyPressed.contains("jump_pressed") || gameController.keyPressed.contains("jump_clicked")) {
       if (!jumpState && gameController.isOnSolidGround(this)){
         jumpTrigger = true;
       }
+      gameController.keyPressed.remove("jump_clicked");
     }
 
     if(jumpTrigger){

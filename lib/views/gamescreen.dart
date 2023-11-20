@@ -99,6 +99,7 @@ class _GameScreenState extends State<GameScreen> {
   void jump(){
     // _gameController.gameMap.player.jumpPressed = true;
     _gameController.keyPressed.add("jump_pressed");
+    _gameController.keyPressed.add("jump_clicked");
   }
 
   void jumpReleased(){
