@@ -54,7 +54,7 @@ class SpikedMonsterRight extends Unit {
       }
     }
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedSpeedy(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "RIGHT", playerPriority: "low");
       switch (spriteLeft.type) {
         case "player_fireball":

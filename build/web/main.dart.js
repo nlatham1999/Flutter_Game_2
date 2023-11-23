@@ -56601,7 +56601,7 @@ break
 case"-1":a.a.bx(o)
 return
 case"air":a.a.el(o)
-return}++s}for(s=0;r=a.a,s<4;++s){p=r.hO(o,"RIGHT","low")
+return}++s}for(s=0;r=a.a,s<1;++s){p=r.hO(o,"RIGHT","low")
 switch(p.a){case"player_fireball":o.by(a)
 a.a.bx(p)
 return
