@@ -26,47 +26,49 @@ class LogVertical extends Unit {
       value_2 = 0;
     }
 
-    if(value_1 == 0){
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      if(value_1 == 0){
 
-      List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this);
-      
-      if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
-        value_1 = 1;
-        return;
-      }
-
-      for(int i = 0; i < spritesAbove.length; i++){
-        Unit spriteAbove = gameController.gameMap.getPotentialCollision(spritesAbove[i], "UP");
-        if(spriteAbove.type != "air"){
+        List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this);
+        
+        if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
+          value_1 = 1;
           return;
         }
-      }
 
-      for(int i = 0; i < spritesAbove.length; i++){
-        gameController.gameMap.moveUnitUp(spritesAbove[i]);
-      }
+        for(int i = 0; i < spritesAbove.length; i++){
+          Unit spriteAbove = gameController.gameMap.getPotentialCollision(spritesAbove[i], "UP");
+          if(spriteAbove.type != "air"){
+            return;
+          }
+        }
 
-      gameController.gameMap.moveUnitUp(this);
+        for(int i = 0; i < spritesAbove.length; i++){
+          gameController.gameMap.moveUnitUp(spritesAbove[i]);
+        }
 
-    }else{
-      Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
-      switch (spriteBelow.type) {
-        case "air":
-          // List<Unit> spritesAbove = gameMap.getUnitsAbove(unit);
-      
-          // if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
-          //   unit.value_2 = 1;
-          //   return;
-          // }
+        gameController.gameMap.moveUnitUp(this);
 
-          // for(int i = 0; i < spritesAbove.length; i++){
-          //   gameMap.moveUnitDown(spritesAbove[i]);
-          // }
+      }else{
+        Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
+        switch (spriteBelow.type) {
+          case "air":
+            // List<Unit> spritesAbove = gameMap.getUnitsAbove(unit);
+        
+            // if(spritesAbove.length == 1 && spritesAbove[0].type == "-1"){
+            //   unit.value_2 = 1;
+            //   return;
+            // }
 
-          gameController.gameMap.moveUnitDown(this);
-          break;
-        default:
-          return;
+            // for(int i = 0; i < spritesAbove.length; i++){
+            //   gameMap.moveUnitDown(spritesAbove[i]);
+            // }
+
+            gameController.gameMap.moveUnitDown(this);
+            break;
+          default:
+            return;
+        }
       }
     }
     value_2++;

@@ -24,7 +24,7 @@ class LogHorizontal extends Unit {
     // }
 
     value_2++;
-    if(value_2 > value_3 * (kCellSize / 4)){
+    if(value_2 > value_3 *  gameController.gameMap.unitOfSpeed()){
       if(value_1 == 0){
         value_1 = 1;
       }else{
@@ -33,45 +33,48 @@ class LogHorizontal extends Unit {
       value_2 = 0;
     }
 
-    if(value_1 == 0){
-      Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
-      switch (spriteLeft.type) {
-        case "air":
-          gameController.gameMap.moveUnitLeft(this);
-          List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this, onlyOnUnit: true);
-          for(Unit spriteAbove in spritesAbove){
-            Unit spriteAboveLeft = gameController.gameMap.getPotentialCollision(spriteAbove, "LEFT");
-            switch (spriteAboveLeft.type) {
-              case "air":
-                gameController.gameMap.moveUnitLeft(spriteAbove);
-                break;
-              default:
+
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      if(value_1 == 0){
+        Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
+        switch (spriteLeft.type) {
+          case "air":
+            gameController.gameMap.moveUnitLeft(this);
+            List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this, onlyOnUnit: true);
+            for(Unit spriteAbove in spritesAbove){
+              Unit spriteAboveLeft = gameController.gameMap.getPotentialCollision(spriteAbove, "LEFT");
+              switch (spriteAboveLeft.type) {
+                case "air":
+                  gameController.gameMap.moveUnitLeft(spriteAbove);
+                  break;
+                default:
+              }
             }
-          }
-          break;
-        default:
-          value_1 = 1;
-          value_2 = 0;
-      }
-    }else{
-      Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
-      switch (spriteRight.type) {
-        case "air":
-          gameController.gameMap.moveUnitRight(this);
-          List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this, onlyOnUnit: true);
-          for(Unit spriteAbove in spritesAbove){
-            Unit spriteAboveRight = gameController.gameMap.getPotentialCollision(spriteAbove, "RIGHT");
-            switch (spriteAboveRight.type) {
-              case "air":
-                gameController.gameMap.moveUnitRight(spriteAbove);
-                break;
-              default:
+            break;
+          default:
+            value_1 = 1;
+            value_2 = 0;
+        }
+      }else{
+        Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
+        switch (spriteRight.type) {
+          case "air":
+            gameController.gameMap.moveUnitRight(this);
+            List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this, onlyOnUnit: true);
+            for(Unit spriteAbove in spritesAbove){
+              Unit spriteAboveRight = gameController.gameMap.getPotentialCollision(spriteAbove, "RIGHT");
+              switch (spriteAboveRight.type) {
+                case "air":
+                  gameController.gameMap.moveUnitRight(spriteAbove);
+                  break;
+                default:
+              }
             }
-          }
-          break;
-        default:
-          value_1 = 0;
-          value_2 = 0;
+            break;
+          default:
+            value_1 = 0;
+            value_2 = 0;
+        }
       }
     }
   }

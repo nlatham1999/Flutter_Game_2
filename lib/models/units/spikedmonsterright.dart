@@ -32,42 +32,46 @@ class SpikedMonsterRight extends Unit {
   void doAction(GameController gameController) {
     value_1 = (value_1 + 1) % 8;
 
-    Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
-    switch (spriteBelow.type) {
-      case "player_fireball":
-        die(gameController);
-        gameController.gameMap.removeSprite(spriteBelow);
-        return;
-      case "player":
-        gameController.gameOver = true;
-        gameController.gameOverText = "You got eaten :(";
-        spriteBelow.die(gameController);
-        break;
-      case "-1":
-        gameController.gameMap.removeSprite(this);
-        return;
-      case "air":
-        gameController.gameMap.moveUnitDown(this);
-        return;
-      default:
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
+      switch (spriteBelow.type) {
+        case "player_fireball":
+          die(gameController);
+          gameController.gameMap.removeSprite(spriteBelow);
+          return;
+        case "player":
+          gameController.gameOver = true;
+          gameController.gameOverText = "You got eaten :(";
+          spriteBelow.die(gameController);
+          break;
+        case "-1":
+          gameController.gameMap.removeSprite(this);
+          return;
+        case "air":
+          gameController.gameMap.moveUnitDown(this);
+          return;
+        default:
+      }
     }
 
-    Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "RIGHT", playerPriority: "low");
-    switch (spriteLeft.type) {
-      case "player_fireball":
-        die(gameController);
-        gameController.gameMap.removeSprite(spriteLeft);
-        return;
-      case "player":
-        gameController.gameOver = true;
-        gameController.gameOverText = "You got eaten :(";
-        spriteLeft.die(gameController);
-        break;
-      case "air":
-        gameController.gameMap.moveUnitRight(this);
-        break;
-      default:
-        gameController.queueUnitTypeChange(this, "spiked_monster_left");
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "RIGHT", playerPriority: "low");
+      switch (spriteLeft.type) {
+        case "player_fireball":
+          die(gameController);
+          gameController.gameMap.removeSprite(spriteLeft);
+          return;
+        case "player":
+          gameController.gameOver = true;
+          gameController.gameOverText = "You got eaten :(";
+          spriteLeft.die(gameController);
+          break;
+        case "air":
+          gameController.gameMap.moveUnitRight(this);
+          break;
+        default:
+          gameController.queueUnitTypeChange(this, "spiked_monster_left");
+      }
     }
     
   }

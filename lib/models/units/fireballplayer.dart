@@ -18,7 +18,7 @@ class FireballPlayer extends Unit {
 
     String direction = value_1 == 1 ? "LEFT" : "RIGHT";
     
-    for (int i = 0; i < 2 * (kCellSize / 4); i++){
+    for (int i = 0; i < 2 *  gameController.gameMap.unitOfSpeed(); i++){
     Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, direction);
     switch (spriteLeft.type) {
       case "monster_left":

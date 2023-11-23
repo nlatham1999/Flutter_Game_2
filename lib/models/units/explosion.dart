@@ -14,7 +14,7 @@ class Explosion extends Unit {
   @override
   void doAction(GameController gameController) {
 
-    for(int i = 0; i < 2 * (kCellSize / 4); i++){
+    for(int i = 0; i < 2 * gameController.gameMap.unitOfSpeed(); i++){
 
       if(value_1 > 2 * (kCellSize)){
         gameController.gameMap.removeSprite(this);

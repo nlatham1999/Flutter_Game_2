@@ -30,9 +30,12 @@ class MonsterDead extends Unit {
       gameController.gameMap.removeSprite(this);
     }
 
-    Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
-    if (spriteBelow == gameController.gameMap.airUnit){
-      gameController.gameMap.moveUnitDown(this);
+    
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
+      if (spriteBelow == gameController.gameMap.airUnit){
+        gameController.gameMap.moveUnitDown(this);
+      }
     }
   }
 }

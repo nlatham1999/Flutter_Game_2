@@ -56,14 +56,16 @@ class Player extends Unit {
       jumpTrigger = false;
     }
 
-    if(gameController.keyPressed.contains("left_pressed")){
+    if(gameController.keyPressed.contains("left_pressed") || gameController.keyPressed.contains("left_clicked")){
       moveLeft(gameController);
       direction = 1;
+      gameController.keyPressed.remove("left_clicked");
     }
 
-    if(gameController.keyPressed.contains("right_pressed")){
+    if(gameController.keyPressed.contains("right_pressed") || gameController.keyPressed.contains("right_clicked")){
       moveRight(gameController);
       direction = 0;
+      gameController.keyPressed.remove("right_clicked");
     }
 
     if(jumpState){
@@ -83,7 +85,7 @@ class Player extends Unit {
   }
 
   void moveRight(GameController gameController){
-    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++) {
+    for(int i = 0; i < movingSpeed * gameController.gameMap.unitOfSpeed(); i++) {
     Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
     switch (spriteRight.type) {
       case "air":
@@ -99,7 +101,7 @@ class Player extends Unit {
   }
 
   void moveLeft(GameController gameController){
-    for(int i = 0; i < movingSpeed * (kCellSize / 4); i++){
+    for(int i = 0; i < movingSpeed *  gameController.gameMap.unitOfSpeed(); i++){
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
       switch (spriteLeft.type) {
         case "air":
@@ -134,7 +136,7 @@ class Player extends Unit {
     }
 
 
-    Unit fireball = FireballPlayer(type: "player_fireball", x: x_temp ~/ kCellSize, y: y, offsetX: x_temp % kCellSize, offsetY: kCellSize ~/ 2, width: 2, height: 2);
+    Unit fireball = FireballPlayer(type: "player_fireball", x: x_temp ~/ kCellSize, y: y, offsetX: x_temp % kCellSize, offsetY: kCellSize ~/ 2, width: kCellSize ~/ 4, height: kCellSize ~/ 4);
     fireball.value_1 = direction;
     fireball.value_2 = 10;
     gameController.gameMap.addUnit(fireball);
@@ -155,20 +157,17 @@ class Player extends Unit {
   }
 
   void updateJump(GameController gameController){
-    if(jumpCount < 5 && jumpCount > 0){
+    int jumpMax = 10 ~/ gameController.gameMap.unitOfSpeedHalf();
+    int jumpFirst = 4 ~/ gameController.gameMap.unitOfSpeedHalf();
+    if(jumpCount < jumpMax && jumpCount > 0){
       
       int spacesToJump = 4;
-      if(jumpCount == 2){
-        spacesToJump = 2;
-      }
-      if(jumpCount == 3){
-        spacesToJump = 2;
-      }
-      if(jumpCount == 4){
+      if(jumpCount >= jumpFirst){
         spacesToJump = 2;
       }
 
-      for(int i = 0; i < spacesToJump * (kCellSize / 4); i++){
+      for(int i = 0; i < spacesToJump *  gameController.gameMap.unitOfSpeed(); i++){
+        print("$jumpCount $jumpMax $jumpFirst $i $spacesToJump");
         Unit spriteAbove = gameController.gameMap.getPotentialCollision(gameController.gameMap.player, "UP");
         switch (spriteAbove.type) {
           case "air":
@@ -180,7 +179,7 @@ class Player extends Unit {
               return;
             }
             i = 100;
-            jumpCount = 5;
+            jumpCount = jumpMax;
             break;
         }
       }
@@ -202,7 +201,7 @@ class Player extends Unit {
     if(fall == 0){
       fall = 1;
     }
-    for(int i = 0; i < 2 * (kCellSize / 4); i++){
+    for(int i = 0; i < 2 *  gameController.gameMap.unitOfSpeed(); i++){
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
       bool exitEarly = spriteBelow.playerHittingFromAboveAction(gameController, this);
       if(exitEarly){

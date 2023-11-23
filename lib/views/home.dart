@@ -11,6 +11,7 @@ import 'package:my_app/models/levels/spookycave.dart';
 import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/gamescreen.dart';
+import 'package:my_app/views/utils/aboutinfo.dart';
 import 'package:my_app/views/utils/homescreenbuttonpositions.dart';
 import 'package:my_app/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
@@ -200,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: Text("version 1.0.5\nWelcome to cube world. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
+                  content: Text("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
@@ -216,44 +217,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Visibility (
               visible: _showAboutGame,
-              child:Center(
+              child: Center(
                 child: AlertDialog(
                   title: const Text("About"),
                   content: RichText(
-                  text: TextSpan(
-                    children: [
-                      const TextSpan(
-                        text: "Made by ",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "Nick Latham",
-                        style: const TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                          decoration: TextDecoration.underline,
-                        ),
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            launchUrl(Uri.parse('https://nicholaslatham.com'));
-                          },
-                      ),
-                      const TextSpan(
-                        text: "\n\nBuilt with flutter and hosted on netlify",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
+                  text: getAboutInfo(),
                 ),
                   actions: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: 
+                      () {
                         setState(() {
                           _showAboutGame = false;
                         });

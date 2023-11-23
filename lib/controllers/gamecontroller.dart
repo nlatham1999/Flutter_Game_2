@@ -1,3 +1,8 @@
+//This controls the basic structure of the game
+//it initializes the map and sets the left/right windows
+//calls the updates for each unit type
+//detailed movements within the game that deal with collisions are done through the basic map api
+
 
 import 'dart:math';
 import 'dart:typed_data';
@@ -73,8 +78,20 @@ class GameController  extends ChangeNotifier{
       }
     }
 
+    double size = (minDimension/divisor);
 
-    double cellSize = (minDimension/divisor) - ((minDimension/divisor) % kCellSize);
+    double remainder = size % kCellSize;
+    double missing = kCellSize - remainder;
+
+    double roundDown = size - remainder;
+    double roundUp = size + missing;
+
+    double cellSize;
+    // if (size-roundDown > roundUp-size){
+    //   cellSize = roundUp;
+    // }else{
+      cellSize = roundDown;
+    // }
     cellHeight = cellSize;
     cellWidth = cellSize;
 
@@ -249,7 +266,7 @@ class GameController  extends ChangeNotifier{
       if(viewMapRight > (gameMap.map[0].length * kCellSize)-1){
         viewMapRight = (gameMap.map[0].length * kCellSize)-1;
       }
-      viewMapLeft = viewMapRight - (viewMapWidth * kCellSize);
+      viewMapLeft =  max(viewMapRight - (viewMapWidth * kCellSize), 0);
     }
 
     if(gameMap.player.x * kCellSize + gameMap.player.offsetX - viewMapLeft < 5 * kCellSize){

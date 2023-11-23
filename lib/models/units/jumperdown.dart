@@ -21,7 +21,7 @@ class JumperDown extends Unit {
       value_1 = 1;
     }
 
-    for(int i = 0; i < gameController.accelerationCalc(value_1) * (kCellSize / 4); i++){
+    for(int i = 0; i < gameController.accelerationCalc(value_1) *  gameController.gameMap.unitOfSpeed(); i++){
       Unit spriteAbove = gameController.gameMap.getPotentialCollision(this, "DOWN");
       switch (spriteAbove.type) {
         case "player":

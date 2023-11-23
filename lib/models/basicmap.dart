@@ -453,6 +453,14 @@ class BasicMap extends GameMap {
     return found;
   }
 
+  int unitOfSpeed(){
+    return kCellSize ~/ 8;
+  }
+
+  int unitOfSpeedHalf(){
+    return kCellSize ~/ 16;
+  }
+
   //gets a list of all units above
   //if onlyOnUnit is true, will only grab those soley resting on the unit
   List<Unit> getUnitsAbove(Unit unit, {bool onlyOnUnit = false}){

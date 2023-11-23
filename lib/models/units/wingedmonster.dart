@@ -22,39 +22,42 @@ class WingedMonster extends Unit {
 
   @override
   void doAction(GameController gameController) {
-    if(value_1 == 0){
-      Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
-      switch (spriteLeft.type) {
-        case "player_fireball":
-          die(gameController);
-          gameController.gameMap.removeSprite(spriteLeft);
-          return;
-        case "air":
-          gameController.gameMap.moveUnitLeft(this);
-          break;
-        case "player":
-          gameController.gameOver = true;
-          gameController.gameOverText = "You got eaten :(";
-          return;
-        default:
-          value_1 = 1;
-      }
-    }else{
-      Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
-      switch (spriteRight.type) {
-        case "player_fireball":
-          die(gameController);
-          gameController.gameMap.removeSprite(spriteRight);
-          return;
-        case "air":
-          gameController.gameMap.moveUnitRight(this);
-          break;
-        case "player":
-          gameController.gameOver = true;
-          gameController.gameOverText = "You got eaten :(";
-          return;
-        default:
-          value_1 = 0;
+    
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+     if(value_1 == 0){
+        Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
+        switch (spriteLeft.type) {
+          case "player_fireball":
+            die(gameController);
+            gameController.gameMap.removeSprite(spriteLeft);
+            return;
+          case "air":
+            gameController.gameMap.moveUnitLeft(this);
+            break;
+          case "player":
+            gameController.gameOver = true;
+            gameController.gameOverText = "You got eaten :(";
+            return;
+          default:
+            value_1 = 1;
+        }
+      }else{
+        Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
+        switch (spriteRight.type) {
+          case "player_fireball":
+            die(gameController);
+            gameController.gameMap.removeSprite(spriteRight);
+            return;
+          case "air":
+            gameController.gameMap.moveUnitRight(this);
+            break;
+          case "player":
+            gameController.gameOver = true;
+            gameController.gameOverText = "You got eaten :(";
+            return;
+          default:
+            value_1 = 0;
+        }
       }
     }
 
@@ -64,41 +67,43 @@ class WingedMonster extends Unit {
     }
 
 
-
-    if(value_3 == 0){
-      Unit spriteUp = gameController.gameMap.getPotentialCollision(this, "UP");
-      switch (spriteUp.type) {
-        case "player_fireball":
-          die(gameController);
-          gameController.gameMap.removeSprite(spriteUp);
-          return;
-        case "air":
-          gameController.gameMap.moveUnitUp(this);
-          break;
-        case "player":
-          gameController.gameOver = true;
-          gameController.gameOverText = "You got eaten :(";
-          return;
-        default:
-          value_3 = 1;
-      }
-    }else{
-      Unit spriteDown = gameController.gameMap.getPotentialCollision(this, "DOWN");
-      switch (spriteDown.type) {
-        case "player_fireball":
-          die(gameController);
-          gameController.gameMap.removeSprite(spriteDown);
-          return;
-        case "air":
-          gameController.gameMap.moveUnitDown(this);
-          break;
-        case "player":
-          gameController.gameOver = true;
-          gameController.gameOverText = "You got eaten :(";
-          spriteDown.die(gameController);
-          return;
-        default:
-          value_3 = 0;
+    
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+      if(value_3 == 0){
+        Unit spriteUp = gameController.gameMap.getPotentialCollision(this, "UP");
+        switch (spriteUp.type) {
+          case "player_fireball":
+            die(gameController);
+            gameController.gameMap.removeSprite(spriteUp);
+            return;
+          case "air":
+            gameController.gameMap.moveUnitUp(this);
+            break;
+          case "player":
+            gameController.gameOver = true;
+            gameController.gameOverText = "You got eaten :(";
+            return;
+          default:
+            value_3 = 1;
+        }
+      }else{
+        Unit spriteDown = gameController.gameMap.getPotentialCollision(this, "DOWN");
+        switch (spriteDown.type) {
+          case "player_fireball":
+            die(gameController);
+            gameController.gameMap.removeSprite(spriteDown);
+            return;
+          case "air":
+            gameController.gameMap.moveUnitDown(this);
+            break;
+          case "player":
+            gameController.gameOver = true;
+            gameController.gameOverText = "You got eaten :(";
+            spriteDown.die(gameController);
+            return;
+          default:
+            value_3 = 0;
+        }
       }
     }
   }

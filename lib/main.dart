@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Cube World',
+      title: 'Monster Maze',
       theme: themeData,
-      home: const MyHomePage(title: "Cube World", initialOpen: true,),
+      home: const MyHomePage(title: "Monster Maze", initialOpen: true,),
     );
   }
 }

@@ -10,6 +10,7 @@ import 'package:my_app/controllers/gamecontroller.dart';
 import 'package:my_app/models/levels/testlevel.dart';
 import 'package:my_app/views/gamecontext.dart';
 import 'package:my_app/views/home.dart';
+import 'package:my_app/views/utils/aboutinfo.dart';
 import 'package:my_app/views/utils/buttonpositions.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -63,7 +64,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _startTimer() {
-    _timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 25), (timer) {
       if(pause){
         return;
       }
@@ -109,7 +110,7 @@ class _GameScreenState extends State<GameScreen> {
 
   void moveRight(){
     // _gameController.gameMap.player.rightTrigger = true;
-    _gameController.keyPressed.add("right_trigger");
+    _gameController.keyPressed.add("right_clicked");
     // _gameController.gameMap.player.rightPressed = true;
     _gameController.keyPressed.add("right_pressed");
   }
@@ -121,7 +122,7 @@ class _GameScreenState extends State<GameScreen> {
 
   void moveLeft(){
     // _gameController.gameMap.player.leftTrigger = true;
-    _gameController.keyPressed.add("left_trigger");
+    _gameController.keyPressed.add("left_clicked");
     // _gameController.gameMap.player.leftPressed = true;
     _gameController.keyPressed.add("left_pressed");
   }
@@ -571,7 +572,7 @@ class _GameScreenState extends State<GameScreen> {
               onPressed: (){
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MyHomePage(title: "Cube World", initialOpen: false,)),
+                  MaterialPageRoute(builder: (context) => MyHomePage(title: "Monster Maze", initialOpen: false,)),
                 );
               },
               child: Text("Main Menu"), //, style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),)
@@ -603,7 +604,7 @@ class _GameScreenState extends State<GameScreen> {
                   onPressed: (){
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage(title: "Cube World", initialOpen: false,)),
+                      MaterialPageRoute(builder: (context) => const MyHomePage(title: "Monster Maze", initialOpen: false,)),
                     );
                   },
                   child: const Text("Return to main menu"),
@@ -651,55 +652,28 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   Visibility aboutGameAlert(){
-    return Visibility (
-      visible: _showAboutGame,
-      child:Center(
-        child: AlertDialog(
-          title: const Text("About"),
-          content: RichText(
-          text: TextSpan(
-            children: [
-              const TextSpan(
-                text: "Made by ",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
-              ),
-              TextSpan(
-                text: "Nick Latham",
-                style: const TextStyle(
-                  color: Colors.blue,
-                  fontSize: 16,
-                  decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    launchUrl(Uri.parse('https://nicholaslatham.com'));
-                  },
-              ),
-              const TextSpan(
-                text: "\n\nBuilt with flutter and hosted on netlify",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                ),
+    return 
+      Visibility (
+        visible: _showAboutGame,
+        child: Center(
+          child: AlertDialog(
+            title: const Text("About"),
+            content: RichText(
+            text: getAboutInfo(),
+          ),
+            actions: [
+              ElevatedButton(
+                onPressed: 
+                () {
+                  setState(() {
+                    _showAboutGame = false;
+                  });
+                },
+                child: const Text("Ok"),
               ),
             ],
-          ),
+          )
         ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _showAboutGame = false;
-                });
-              },
-              child: const Text("Ok"),
-            ),
-          ],
-        )
-      ),
-    );
+      );
   }
 }
