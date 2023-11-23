@@ -26,7 +26,7 @@ class FireMonsterRight extends Unit {
     }
 
     value_1 = (value_1 + 1) % 30;
-    if(value_1 == 29){
+    if(value_1 == 29 * gameController.gameMap.unitOfSpeedNormal()){
       int lx = x * kCellSize + offsetX;
       lx += kCellSize;
       Unit fireball = FireballMonster(type: "fireball", x: lx ~/ kCellSize, y: y, offsetX: lx % kCellSize, offsetY: kCellSize ~/ 4, width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));

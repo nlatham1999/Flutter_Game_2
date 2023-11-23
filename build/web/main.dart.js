@@ -56148,7 +56148,7 @@ bN(a){var s,r=this,q="You got hit with a fireball :(",p=0
 while(!0){s=a.a
 s===$&&A.c()
 if(!(p<3))break
-if(++r.x===40){s.bx(r)
+if(++r.x===80){s.bx(r)
 return}if(r.y===1)switch(s.bD(r,"LEFT").a){case"fire_monster_left":case"air":a.a.fi(r)
 break
 case"player":a.e=!0
@@ -56237,10 +56237,11 @@ s===$&&A.c()
 if(o.Fj(p,s)){p.x=0
 a.CW.l(0,p,"fire_monster_left")}o=B.f.bp(p.x+1,30)
 p.x=o
-if(o===29){r=p.b*16+p.d+16
+s=a.a
+if(o===58){r=p.b*16+p.d+16
 q=new A.qc("fireball",B.f.b5(r,16),p.c,B.f.bp(r,16),4,8,8)
 q.y=2
-a.a.de(q)}}}
+s.de(q)}}}
 A.i4.prototype={
 c1(){var s="assets/grass1x1.png",r=this.x
 if(r===0)return s
