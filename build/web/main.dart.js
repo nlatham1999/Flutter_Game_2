@@ -56450,19 +56450,20 @@ bN(a){}}
 A.Cz.prototype={
 c1(){if(this.ay===0)return"assets/player_right_small.png"
 else return"assets/player_left_small.png"},
-bN(a){var s,r=this,q="jump_clicked",p="left_clicked",o="right_clicked",n="fire_trigger"
-if(!r.cx&&!a.Fe(r,"solid"))r.Ut(a)
-s=a.cx
-if(s.u(0,"jump_pressed")||s.u(0,q)){if(!r.cx&&a.Fd(r))r.db=!0
-s.v(0,q)}if(r.db){r.WJ(a)
-r.db=!1}if(s.u(0,"left_pressed")||s.u(0,p)){r.Xd(a)
-r.ay=1
-s.v(0,p)}if(s.u(0,"right_pressed")||s.u(0,o)){r.Xe(a)
-r.ay=0
-s.v(0,o)}if(r.cx)r.YO(a)
-if(s.u(0,n)){r.US(a)
-s.v(0,n)}if(s.u(0,"sprint_mode"))r.go=2
-else r.go=1},
+bN(a){var s,r,q=this,p="jump_clicked",o="left_clicked",n="right_clicked",m="fire_trigger"
+if(!q.cx&&!a.Fe(q,"solid")){q.Ut(a)
+s=!0}else s=!1
+r=a.cx
+if(r.u(0,"jump_pressed")||r.u(0,p)){if(!q.cx&&a.Fd(q))q.db=!0
+r.v(0,p)}if(q.db){q.WJ(a)
+q.db=!1}if(r.u(0,"left_pressed")||r.u(0,o)){q.Xd(a)
+q.ay=1
+r.v(0,o)}if(r.u(0,"right_pressed")||r.u(0,n)){q.Xe(a)
+q.ay=0
+r.v(0,n)}if(q.cx!==s)q.YO(a)
+if(r.u(0,m)){q.US(a)
+r.v(0,m)}if(r.u(0,"sprint_mode"))q.go=2
+else q.go=1},
 Xe(a){var s,r,q,p=this,o=0
 while(!0){s=p.go
 r=a.a

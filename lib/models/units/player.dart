@@ -37,9 +37,11 @@ class Player extends Unit {
   @override
   void doAction(GameController gameController) {
     
+    bool falling = false;
     //fall down is before jump so we can jump on descending logs
     if(!jumpState && !gameController.isOnSolidGround(this, groundPriority: "solid")){
       fallDown(gameController);
+      falling = true;
     }
 
 
@@ -68,7 +70,7 @@ class Player extends Unit {
       gameController.keyPressed.remove("right_clicked");
     }
 
-    if(jumpState){
+    if(jumpState != falling){
       updateJump(gameController);
     }
 
