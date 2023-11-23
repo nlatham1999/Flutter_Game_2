@@ -56373,7 +56373,7 @@ s=!1
 r=0
 while(!0){q=a.a
 q===$&&A.c()
-if(!(r<4))break
+if(!(r<2))break
 p=q.hO(n,"DOWN","low")
 switch(p.a){case"player_fireball":n.by(a)
 a.a.bx(p)
@@ -56412,7 +56412,7 @@ s=!1
 r=0
 while(!0){q=a.a
 q===$&&A.c()
-if(!(r<4))break
+if(!(r<2))break
 p=q.hO(n,"DOWN","low")
 switch(p.a){case"player_fireball":n.by(a)
 a.a.bx(p)
