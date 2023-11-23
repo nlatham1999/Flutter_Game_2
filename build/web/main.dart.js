@@ -56460,7 +56460,7 @@ q.db=!1}if(r.u(0,"left_pressed")||r.u(0,o)){q.Xd(a)
 q.ay=1
 r.v(0,o)}if(r.u(0,"right_pressed")||r.u(0,n)){q.Xe(a)
 q.ay=0
-r.v(0,n)}if(q.cx!==s)q.YO(a)
+r.v(0,n)}if(q.cx&&!s)q.YO(a)
 if(r.u(0,m)){q.US(a)
 r.v(0,m)}if(r.u(0,"sprint_mode"))q.go=2
 else q.go=1},

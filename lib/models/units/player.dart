@@ -70,7 +70,7 @@ class Player extends Unit {
       gameController.keyPressed.remove("right_clicked");
     }
 
-    if(jumpState != falling){
+    if(jumpState && !falling){
       updateJump(gameController);
     }
 
