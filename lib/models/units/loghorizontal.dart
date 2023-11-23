@@ -24,7 +24,7 @@ class LogHorizontal extends Unit {
     // }
 
     value_2++;
-    if(value_2 > value_3 *  gameController.gameMap.unitOfSpeed()){
+    if(value_2 > value_3 *  gameController.gameMap.unitOfSpeedNormal()){
       if(value_1 == 0){
         value_1 = 1;
       }else{
@@ -34,7 +34,7 @@ class LogHorizontal extends Unit {
     }
 
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
       if(value_1 == 0){
         Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
         switch (spriteLeft.type) {

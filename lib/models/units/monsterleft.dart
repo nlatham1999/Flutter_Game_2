@@ -37,7 +37,7 @@ class MonsterLeft extends Unit {
     value_1 = (value_1 + 1) % 4;
 
     bool unitMoved = false;
-    for(int i = 0; i < gameController.gameMap.unitOfSpeed(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSpeedy(); i++) {
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
       switch (spriteBelow.type) {
         case "player_fireball":
@@ -65,7 +65,7 @@ class MonsterLeft extends Unit {
     }
 
 
-    for(int i = 0; i < kCellSize / 4; i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedNormal(); i++) {
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT", playerPriority: "low");
       switch (spriteLeft.type) {
         case "player_fireball":

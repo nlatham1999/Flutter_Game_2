@@ -23,7 +23,7 @@ class WingedMonster extends Unit {
   @override
   void doAction(GameController gameController) {
     
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
      if(value_1 == 0){
         Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
         switch (spriteLeft.type) {
@@ -68,7 +68,7 @@ class WingedMonster extends Unit {
 
 
     
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
       if(value_3 == 0){
         Unit spriteUp = gameController.gameMap.getPotentialCollision(this, "UP");
         switch (spriteUp.type) {

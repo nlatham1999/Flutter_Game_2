@@ -13,7 +13,7 @@ class IcicleFalling extends Unit {
   
   @override
   void doAction(GameController gameController) {
-    for(int i = 0; i <  gameController.gameMap.unitOfSpeed(); i++){
+    for(int i = 0; i <  gameController.gameMap.unitOfSpeedNormal(); i++){
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
 
       switch (spriteBelow.type) {

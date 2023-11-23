@@ -27,7 +27,7 @@ class JumperUp extends Unit {
       return;
     }
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeed(); i++){
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedNormal(); i++){
       Unit spriteAbove = gameController.gameMap.getPotentialCollision(this, "UP");
       switch (spriteAbove.type) {
         case "air":

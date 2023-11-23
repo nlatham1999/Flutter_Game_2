@@ -453,12 +453,23 @@ class BasicMap extends GameMap {
     return found;
   }
 
-  int unitOfSpeed(){
-    return kCellSize ~/ 8;
+  //pretty fast
+  int unitOfSpeedSpeedy(){
+    return unitOfSpeedSlow() * 4;
   }
 
-  int unitOfSpeedHalf(){
-    return kCellSize ~/ 16;
+  int unitOfSpeedFaster(){
+    return unitOfSpeedSlow() * 3;
+  }
+
+  //normal speed
+  int unitOfSpeedNormal(){
+    return unitOfSpeedSlow() * 2;
+  }
+
+  //slow
+  int unitOfSpeedSlow(){
+    return kCellSize ~/ 16; 
   }
 
   //gets a list of all units above

@@ -26,7 +26,7 @@ class LogVertical extends Unit {
       value_2 = 0;
     }
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
       if(value_1 == 0){
 
         List<Unit> spritesAbove = gameController.gameMap.getUnitsAbove(this);

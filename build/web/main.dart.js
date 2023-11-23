@@ -17471,18 +17471,18 @@ this.b=b
 this.c=c},
 Bc:function Bc(a){this.a=a},
 Ap:function Ap(a,b,c,d,e,f,g,h){var _=this
-_.f=_.e=_.d=_.c=_.a=$
-_.r=!1
-_.z=_.y=_.x=$
-_.Q=a
-_.as=b
-_.at=""
-_.ay=$
-_.ch=c
-_.CW=d
-_.cx=e
-_.cy=f
-_.db=g
+_.e=_.d=_.c=_.b=_.a=$
+_.f=!1
+_.y=_.x=_.w=$
+_.z=a
+_.Q=b
+_.as=""
+_.at=$
+_.ax=c
+_.ay=d
+_.ch=e
+_.CW=f
+_.cx=g
 _.y1$=0
 _.y2$=h
 _.ag$=_.ad$=0
@@ -55549,88 +55549,92 @@ A.Bc.prototype={
 j(a){return"LocaleDataException: "+this.a},
 $ic8:1}
 A.Ap.prototype={
-ds(a){var s=this
-s.r=!1
-s.ay=0
-s.a=A.abU(s.ch.gn2())
-s.c=0
-s.d=44
-s.f=!1},
+ds(a){var s,r=this
+r.f=!1
+r.at=0
+r.a=A.abU(r.ax.gn2())
+r.b=0
+s=r.d
+s===$&&A.c()
+r.c=(s-2)*4
+r.e=!1},
 HJ(){var s,r,q,p=this
-if(!p.r)return
+if(!p.f)return
 s=p.a
 s===$&&A.c()
 r=s.c[0].length
-q=p.ay
+q=p.at
 q===$&&A.c()
-if(r-1===q){p.f=!0
-p.at="YOU WON!!!"
-p.ch.d=!0
+if(r-1===q){p.e=!0
+p.as="YOU WON!!!"
+p.ax.d=!0
 return}s=s.d
 s===$&&A.c()
 s=s.b
-if(s>q)p.ay=s
+if(s>q)p.at=s
 p.YR()
-s=p.f
+s=p.e
 s===$&&A.c()
 if(s)return
 p.GN()},
 YR(){var s,r,q,p,o,n,m,l,k,j,i=this,h=t.in
-i.CW=A.a([],h)
-i.cx=A.a([],h)
+i.ay=A.a([],h)
+i.ch=A.a([],h)
 h=i.a
 h===$&&A.c()
 s=h.d
 s===$&&A.c()
 s=s.b
-r=s-13
-if(r<0)r=0
-q=s+13
-p=h.c[0].length-1
-if(q>p)q=p
-for(o=0;o<i.a.c.length;++o)for(n=r;n<=q;++n)for(m=0;m<J.bl(i.a.c[o][n]);++m){l=J.ah(i.a.c[o][n],m)
-if(!l.gFE())continue
-if(l.ax)continue
-else{l.ax=!0
-i.CW.push(l)}if(l.gFZ()===-1){l.bN(i)
-i.xF()}else i.cx.push(l)
-h=i.f
+r=i.d
+r===$&&A.c()
+q=s-r
+if(q<0)q=0
+p=s+r
+o=h.c[0].length-1
+if(p>o)p=o
+for(n=0;n<i.a.c.length;++n)for(m=q;m<=p;++m)for(l=0;l<J.bl(i.a.c[n][m]);++l){k=J.ah(i.a.c[n][m],l)
+if(!k.gFE())continue
+if(k.ax)continue
+else{k.ax=!0
+i.ay.push(k)}if(k.gFZ()===-1){k.bN(i)
+i.xF()}else i.ch.push(k)
+h=i.e
 h===$&&A.c()
-if(h)return}for(h=i.cx,s=h.length,k=0;k<h.length;h.length===s||(0,A.F)(h),++k){h[k].bN(i)
+if(h)return}for(h=i.ch,s=h.length,j=0;j<h.length;h.length===s||(0,A.F)(h),++j){h[j].bN(i)
 i.xF()
-j=i.f
-j===$&&A.c()
-if(j)return}for(h=i.CW,s=h.length,k=0;k<s;++k)h[k].ax=!1},
-xF(){var s,r,q,p=this,o=p.cy
+r=i.e
+r===$&&A.c()
+if(r)return}for(h=i.ay,s=h.length,j=0;j<s;++j)h[j].ax=!1},
+xF(){var s,r,q,p=this,o=p.CW
 if(o.a!==0){for(o=o.ged(o),o=o.gP(o);o.q();){s=o.gD(o)
 r=p.a
 r===$&&A.c()
 q=r.SX(s.gcz(s),s.gn(s))
 q.y=s.gcz(s).y
 if(s.gcz(s).ax){q.ax=!0
-p.CW.push(q)}p.a.bx(s.gcz(s))
-p.a.de(q)}p.cy=A.x(t.nz,t.N)}},
+p.ay.push(q)}p.a.bx(s.gcz(s))
+p.a.de(q)}p.CW=A.x(t.nz,t.N)}},
 Sr(a){switch(a){case 1:case 2:case 3:case 4:case 5:case 6:return 2
 default:return 1}},
-GN(){var s,r,q=this,p=q.d
+GN(){var s,r,q=this,p=q.c
 p===$&&A.c()
 s=q.a
 s===$&&A.c()
 r=s.d
 r===$&&A.c()
 r=r.b*16+r.d
-if(p-r<80){p=q.d=r+80
+if(p-r<80){p=q.c=r+80
 s=s.c[0].length*16-1
-if(p>s){q.d=s
-p=s}s=q.e
+if(p>s){q.c=s
+p=s}s=q.d
 s===$&&A.c()
-q.c=Math.max(p-s*16,0)}p=q.c
+q.b=Math.max(p-s*16,0)}p=q.b
 p===$&&A.c()
-if(r-p<80){p=q.c=r-80
-if(p<0)p=q.c=0
-s=q.e
+if(r-p<80){p=q.b=r-80
+if(p<0)p=q.b=0
+s=q.d
 s===$&&A.c()
-q.d=p+s*16}},
+q.c=p+s*16}},
 Fe(a,b){var s=this.a
 s===$&&A.c()
 return s.Hf(a,"DOWN",b).gkV()},
@@ -56007,26 +56011,26 @@ l1(a){return!1},
 iJ(a,b){b.w=0
 return!0},
 by(a){var s=this,r="monster_dead"
-switch(s.a){case"monster_left":case"monster_right":case"spiked_monster_left":case"spiked_monster_right":a.cy.l(0,s,r)
+switch(s.a){case"monster_left":case"monster_right":case"spiked_monster_left":case"spiked_monster_right":a.CW.l(0,s,r)
 s.y=s.x=0
 return
-case"winged_monster":a.cy.l(0,s,r)
+case"winged_monster":a.CW.l(0,s,r)
 s.x=0
 s.y=1
 return
-case"fire_monster_left":case"fire_monster_right":a.cy.l(0,s,r)
+case"fire_monster_left":case"fire_monster_right":a.CW.l(0,s,r)
 s.x=0
 s.y=2
 return
-case"jumper_rising":case"jumper_falling":a.cy.l(0,s,r)
+case"jumper_rising":case"jumper_falling":a.CW.l(0,s,r)
 s.x=0
 s.y=3
 return
-case"bomb":case"bomb_charged":a.cy.l(0,s,r)
+case"bomb":case"bomb_charged":a.CW.l(0,s,r)
 s.x=0
 s.y=4
 return
-case"player":a.cy.l(0,s,r)
+case"player":a.CW.l(0,s,r)
 s.x=0
 s.y=5
 return
@@ -56095,7 +56099,7 @@ bN(a){var s,r=a.a
 r===$&&A.c()
 s=r.d
 s===$&&A.c()
-if(r.q5(this,s,2))a.cy.l(0,this,"bomb_charged")}}
+if(r.q5(this,s,2))a.CW.l(0,this,"bomb_charged")}}
 A.dE.prototype={
 c1(){return"assets/explosion_tiny.png"},
 bN(a){var s,r,q=this,p=0
@@ -56128,17 +56132,17 @@ a.a.el(q)}break
 case 7:r=s.bD(q,"LEFT")
 if(r.a==="air")a.a.fi(q)
 break}s=r.a
-if(s==="player"){a.f=!0
-a.at="You got bombed :("
+if(s==="player"){a.e=!0
+a.as="You got bombed :("
 r.by(a)
 return}if(s!=="air")a.a.bx(q);++q.x;++p}}}
 A.qc.prototype={
 c1(){return"assets/fireball.png"},
-l1(a){a.f=!0
-a.at="You hit a fireball :("
+l1(a){a.e=!0
+a.as="You hit a fireball :("
 return!0},
-iJ(a,b){a.f=!0
-a.at="You fell onto a fireball :("
+iJ(a,b){a.e=!0
+a.as="You fell onto a fireball :("
 return!0},
 bN(a){var s,r=this,q="You got hit with a fireball :(",p=0
 while(!0){s=a.a
@@ -56147,14 +56151,14 @@ if(!(p<3))break
 if(++r.x===40){s.bx(r)
 return}if(r.y===1)switch(s.bD(r,"LEFT").a){case"fire_monster_left":case"air":a.a.fi(r)
 break
-case"player":a.f=!0
-a.at=q
+case"player":a.e=!0
+a.as=q
 break
 default:a.a.bx(r)
 return}else switch(s.bD(r,"RIGHT").a){case"fire_monster_right":case"air":a.a.fj(r)
 break
-case"player":a.f=!0
-a.at=q
+case"player":a.e=!0
+a.as=q
 break
 default:a.a.bx(r)
 return}++p}}}
@@ -56208,7 +56212,7 @@ o=a.a
 s=o.d
 s===$&&A.c()
 if(!o.Fj(p,s)){p.x=0
-a.cy.l(0,p,"fire_monster_right")}o=B.f.bp(p.x+1,30)
+a.CW.l(0,p,"fire_monster_right")}o=B.f.bp(p.x+1,30)
 p.x=o
 if(o===29){r=p.b*16+p.d-1
 q=new A.qc("fireball",B.f.b5(r,16),p.c,B.f.bp(r,16),4,8,8)
@@ -56231,7 +56235,7 @@ o=a.a
 s=o.d
 s===$&&A.c()
 if(o.Fj(p,s)){p.x=0
-a.cy.l(0,p,"fire_monster_left")}o=B.f.bp(p.x+1,30)
+a.CW.l(0,p,"fire_monster_left")}o=B.f.bp(p.x+1,30)
 p.x=o
 if(o===29){r=p.b*16+p.d+16
 q=new A.qc("fireball",B.f.b5(r,16),p.c,B.f.bp(r,16),4,8,8)
@@ -56258,8 +56262,8 @@ if(!(q<2))break
 r=s.bD(this,"DOWN")
 switch(r.a){case"air":a.a.el(this)
 break
-case"player":a.f=!0
-a.at="You got spiked :("
+case"player":a.e=!0
+a.as="You got spiked :("
 r.by(a)
 return
 default:a.a.bx(this)
@@ -56270,7 +56274,7 @@ bN(a){var s,r=a.a
 r===$&&A.c()
 s=r.d
 s===$&&A.c()
-if(r.WI(this,s))a.cy.l(0,this,"icicle_falling")}}
+if(r.WI(this,s))a.CW.l(0,this,"icicle_falling")}}
 A.qJ.prototype={
 c1(){return"assets/jumper.png"},
 bN(a){var s,r,q,p=this,o=p.x
@@ -56281,20 +56285,20 @@ r=a.a
 r===$&&A.c()
 if(!(s<o*2))break
 q=r.bD(p,"DOWN")
-switch(q.a){case"player":a.f=!0
-a.at="You got smushed"
+switch(q.a){case"player":a.e=!0
+a.as="You got smushed"
 q.by(a)
 return
 case"air":a.a.el(p)
 break
-default:a.cy.l(0,p,"jumper_rising")
+default:a.CW.l(0,p,"jumper_rising")
 p.x=1
 return}++s}--p.x}}
 A.AV.prototype={
 c1(){return"assets/jumper.png"},
 bN(a){var s,r=this,q="jumper_falling",p=r.x
 if(p===0)p=r.x=1
-if(p===r.y){a.cy.l(0,r,q)
+if(p===r.y){a.CW.l(0,r,q)
 r.x=1
 return}s=0
 while(!0){p=a.a
@@ -56302,7 +56306,7 @@ p===$&&A.c()
 if(!(s<2))break
 switch(p.bD(r,"UP").a){case"air":a.a.iD(r)
 break
-default:a.cy.l(0,r,q)
+default:a.CW.l(0,r,q)
 return}++s}++r.x}}
 A.qZ.prototype={
 c1(){return"assets/log.png"},
@@ -56362,8 +56366,8 @@ if(q===s.f)s.el(p);++r}}}
 A.rf.prototype={
 c1(){if(this.x<2)return"assets/monster_left_small.png"
 else return"assets/monster_left_small_2.png"},
-l1(a){a.f=!0
-a.at="You got eaten :("
+l1(a){a.e=!0
+a.as="You got eaten :("
 return!0},
 iJ(a,b){this.by(a)
 return!1},
@@ -56373,13 +56377,13 @@ s=!1
 r=0
 while(!0){q=a.a
 q===$&&A.c()
-if(!(r<2))break
+if(!(r<4))break
 p=q.hO(n,"DOWN","low")
 switch(p.a){case"player_fireball":n.by(a)
 a.a.bx(p)
 return
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 p.by(a)
 break
 case"-1":a.a.bx(n)
@@ -56388,21 +56392,21 @@ break
 case"air":a.a.el(n)
 s=!0
 break}++r}if(s)return
-for(r=0;r<4;++r){o=a.a.hO(n,"LEFT","low")
+for(r=0;q=a.a,r<2;++r){o=q.hO(n,"LEFT","low")
 switch(o.a){case"player_fireball":n.by(a)
 a.a.bx(o)
 return
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 break
 case"air":a.a.fi(n)
 break
-default:a.cy.l(0,n,"monster_right")}}}}
+default:a.CW.l(0,n,"monster_right")}}}}
 A.rg.prototype={
 c1(){if(this.x<2)return"assets/monster_right_small.png"
 else return"assets/monster_right_small_2.png"},
-l1(a){a.f=!0
-a.at="You got eaten :("
+l1(a){a.e=!0
+a.as="You got eaten :("
 return!0},
 iJ(a,b){this.by(a)
 return!1},
@@ -56412,13 +56416,13 @@ s=!1
 r=0
 while(!0){q=a.a
 q===$&&A.c()
-if(!(r<2))break
+if(!(r<4))break
 p=q.hO(n,"DOWN","low")
 switch(p.a){case"player_fireball":n.by(a)
 a.a.bx(p)
 return
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 p.by(a)
 break
 case"-1":a.a.bx(n)
@@ -56427,20 +56431,20 @@ break
 case"air":a.a.el(n)
 s=!0
 break}++r}if(s)return
-for(r=0;r<4;++r){o=a.a.hO(n,"RIGHT","low")
+for(r=0;q=a.a,r<2;++r){o=q.hO(n,"RIGHT","low")
 switch(o.a){case"player_fireball":n.by(a)
 a.a.bx(o)
 return
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 o.by(a)
 break
 case"air":a.a.fj(n)
 break
-default:a.cy.l(0,n,"monster_left")}}}}
+default:a.CW.l(0,n,"monster_left")}}}}
 A.BX.prototype={
-iJ(a,b){a.f=!0
-a.at="You fell off the edge of the map :("
+iJ(a,b){a.e=!0
+a.as="You fell off the edge of the map :("
 return!0},
 bN(a){}}
 A.Cz.prototype={
@@ -56448,7 +56452,7 @@ c1(){if(this.ay===0)return"assets/player_right_small.png"
 else return"assets/player_left_small.png"},
 bN(a){var s,r=this,q="jump_clicked",p="left_clicked",o="right_clicked",n="fire_trigger"
 if(!r.cx&&!a.Fe(r,"solid"))r.Ut(a)
-s=a.db
+s=a.cx
 if(s.u(0,"jump_pressed")||s.u(0,q)){if(!r.cx&&a.Fd(r))r.db=!0
 s.v(0,q)}if(r.db){r.WJ(a)
 r.db=!1}if(s.u(0,"left_pressed")||s.u(0,p)){r.Xd(a)
@@ -56520,7 +56524,7 @@ s=0
 while(!0){r=a.a
 r===$&&A.c()
 if(!(s<4))break
-if(r.bD(q,"DOWN").iJ(a,q)){r=a.f
+if(r.bD(q,"DOWN").iJ(a,q)){r=a.e
 r===$&&A.c()
 if(r)q.by(a)
 return}++s}r=q.w
@@ -56536,24 +56540,24 @@ gxq(){return 0}}
 A.u_.prototype={
 c1(){if(this.x<4)return"assets/spiked_monster_left_small.png"
 else return"assets/spiked_monster_left_small_2.png"},
-qB(a){a.f=!0
-a.at="You ran into a monster :("
+qB(a){a.e=!0
+a.as="You ran into a monster :("
 return!0},
-iJ(a,b){a.f=!0
-a.at="You fell onto a monster :("
+iJ(a,b){a.e=!0
+a.as="You fell onto a monster :("
 return!0},
 bN(a){var s,r,q,p,o=this,n="You got eaten :("
 o.x=B.f.bp(o.x+1,8)
 s=0
 while(!0){r=a.a
 r===$&&A.c()
-if(!(s<1))break
+if(!(s<4))break
 q=r.hO(o,"DOWN","low")
 switch(q.a){case"player_fireball":o.by(a)
 a.a.bx(q)
 return
-case"player":a.f=!0
-a.at=n
+case"player":a.e=!0
+a.as=n
 q.by(a)
 break
 case"-1":a.a.bx(o)
@@ -56563,21 +56567,21 @@ return}++s}for(s=0;r=a.a,s<1;++s){p=r.hO(o,"LEFT","low")
 switch(p.a){case"player_fireball":o.by(a)
 a.a.bx(p)
 return
-case"player":a.f=!0
-a.at=n
+case"player":a.e=!0
+a.as=n
 p.by(a)
 break
 case"air":a.a.fi(o)
 break
-default:a.cy.l(0,o,"spiked_monster_right")}}}}
+default:a.CW.l(0,o,"spiked_monster_right")}}}}
 A.u0.prototype={
 c1(){if(this.x<4)return"assets/spiked_monster_right_small.png"
 else return"assets/spiked_monster_right_small_2.png"},
-qB(a){a.f=!0
-a.at="You ran into a monster :("
+qB(a){a.e=!0
+a.as="You ran into a monster :("
 return!0},
-iJ(a,b){a.f=!0
-a.at="You fell onto a monster :("
+iJ(a,b){a.e=!0
+a.as="You fell onto a monster :("
 return!0},
 bN(a){var s,r,q,p,o=this,n="You got eaten :("
 o.x=B.f.bp(o.x+1,8)
@@ -56589,24 +56593,24 @@ q=r.hO(o,"DOWN","low")
 switch(q.a){case"player_fireball":o.by(a)
 a.a.bx(q)
 return
-case"player":a.f=!0
-a.at=n
+case"player":a.e=!0
+a.as=n
 q.by(a)
 break
 case"-1":a.a.bx(o)
 return
 case"air":a.a.el(o)
-return}++s}for(s=0;r=a.a,s<1;++s){p=r.hO(o,"RIGHT","low")
+return}++s}for(s=0;r=a.a,s<4;++s){p=r.hO(o,"RIGHT","low")
 switch(p.a){case"player_fireball":o.by(a)
 a.a.bx(p)
 return
-case"player":a.f=!0
-a.at=n
+case"player":a.e=!0
+a.as=n
 p.by(a)
 break
 case"air":a.a.fj(o)
 break
-default:a.cy.l(0,o,"spiked_monster_left")}}}}
+default:a.CW.l(0,o,"spiked_monster_left")}}}}
 A.F1.prototype={
 c1(){var s=this.x
 if(!(s===0&&this.z===0))s=s===1&&this.z===1
@@ -56623,8 +56627,8 @@ a.a.bx(r)
 return
 case"air":a.a.fi(n)
 break
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 return
 default:n.x=1}}else{q=s.bD(n,"RIGHT")
 switch(q.a){case"player_fireball":n.by(a)
@@ -56632,8 +56636,8 @@ a.a.bx(q)
 return
 case"air":a.a.fj(n)
 break
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 return
 default:n.x=0}}++l}s=B.f.bp(n.y+1,6)
 n.y=s
@@ -56645,8 +56649,8 @@ a.a.bx(p)
 return
 case"air":a.a.iD(n)
 break
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 return
 default:n.z=1}}else{o=s.bD(n,"DOWN")
 switch(o.a){case"player_fireball":n.by(a)
@@ -56654,8 +56658,8 @@ a.a.bx(o)
 return
 case"air":a.a.el(n)
 break
-case"player":a.f=!0
-a.at=m
+case"player":a.e=!0
+a.as=m
 o.by(a)
 return
 default:n.z=0}}}}
@@ -56671,7 +56675,7 @@ r=a1.d=a1.a.c
 q=t.in
 p=t.N
 q=new A.Ap(40,s,r,A.a([],q),A.a([],q),A.x(t.nz,p),A.aJ(p),$.bV())
-q.e=13
+q.d=13
 o=s.b
 s=s.a
 n=o<s?18:13
@@ -56679,21 +56683,21 @@ m=Math.min(Math.abs(s),Math.abs(o))
 if(o>s){l=o*2/3
 if(l<s)m=l}k=m/n
 j=k-B.d.bp(k,16)
-q.x=q.y=j
-q.z=(s-j*13)/2
+q.w=q.x=j
+q.y=(s-j*13)/2
 q.ds(0)
 q.GN()
 a1.x=q
 B.b.bj(r.gn2(),"\n")
 s=a1.x
+r=s.x
+r===$&&A.c()
+i=s.z+r*17
 r=s.y
 r===$&&A.c()
-i=s.Q+r*17
-r=s.z
-r===$&&A.c()
-q=s.e
+q=s.d
 q===$&&A.c()
-s=s.x
+s=s.w
 s===$&&A.c()
 s=(q+1)*s
 q=a1.y
@@ -56729,16 +56733,16 @@ this.bh()},
 RN(){this.e=A.aev(B.xe,new A.a2Y(this))},
 Fp(){var s=this.x
 s===$&&A.c()
-s.db.C(0,"jump_pressed")
-this.x.db.C(0,"jump_clicked")},
+s.cx.C(0,"jump_pressed")
+this.x.cx.C(0,"jump_clicked")},
 n7(){var s=this.x
 s===$&&A.c()
-s.db.C(0,"right_clicked")
-this.x.db.C(0,"right_pressed")},
+s.cx.C(0,"right_clicked")
+this.x.cx.C(0,"right_pressed")},
 n5(){var s=this.x
 s===$&&A.c()
-s.db.C(0,"left_clicked")
-this.x.db.C(0,"left_pressed")},
+s.cx.C(0,"left_clicked")
+this.x.cx.C(0,"left_pressed")},
 SY(){var s,r,q=this,p=q.d
 p===$&&A.c()
 if(!p.d)return
@@ -56762,16 +56766,16 @@ l===$&&A.c()
 s=n.x
 s===$&&A.c()
 r=A.f5(B.xV,new A.a3s(n))
-q=s.ay
+q=s.at
 q===$&&A.c()
 q=B.f.j(q)
-p=n.x.y
+p=n.x.x
 p===$&&A.c()
 p=A.iu("Distance: "+q,A.lv(m,m,B.i,m,B.e,m,m,m,m,m,m,p/2,m,m,m,m,m,!0,m,m,m,m,m,m,m,m),m,m)
 q=B.d.O(n.Q/20,2)
-o=n.x.y
+o=n.x.x
 o===$&&A.c()
-return A.d6(m,A.X6(A.a([r,p,A.iu("\tTime: "+q,A.lv(m,m,B.i,m,B.e,m,m,m,m,m,m,o/2,m,m,m,m,m,!0,m,m,m,m,m,m,m,m),m,m)],t.p),B.q8,B.c8),m,m,m,m,l.b/12,s.as.a)},
+return A.d6(m,A.X6(A.a([r,p,A.iu("\tTime: "+q,A.lv(m,m,B.i,m,B.e,m,m,m,m,m,m,o/2,m,m,m,m,m,!0,m,m,m,m,m,m,m,m),m,m)],t.p),B.q8,B.c8),m,m,m,m,l.b/12,s.Q.a)},
 WK(){var s,r,q,p,o=this,n=null,m="jump",l=o.ch
 l===$&&A.c()
 l=l.a.h(0,m).b
@@ -56846,13 +56850,13 @@ l===$&&A.c()
 if(l.d){l=l.gpK()
 s=r.x
 s===$&&A.c()
-s=s.ay
+s=s.at
 s===$&&A.c()
 s=l+p+s+"\nTime: "+B.d.O(r.Q/20,2)
 l=s}else{l=r.x
 l===$&&A.c()
-s=l.at
-l=l.ay
+s=l.as
+l=l.at
 l===$&&A.c()
 l=s+p+l}l=A.fw(B.ah,A.a([A.iu(l+"\n\nClick the share button at the top to share your results!",q,q,q)],n),B.al)
 return A.nR(A.kh(A.oW(A.a([A.a04(A.iu("Restart",q,q,q),new A.a34(r)),A.a04(A.iu("Main Menu",q,q,q),new A.a35(r))],n),l,m),q,q),o)},
@@ -56867,7 +56871,7 @@ return A.nR(A.kh(A.oW(A.a([A.f5(B.jg,new A.a3_(this))],t.p),q,B.tU),s,s),r)}}
 A.a2Y.prototype={
 $1(a){var s=this.a,r=s.x
 r===$&&A.c()
-r=r.f
+r=r.e
 r===$&&A.c()
 if(!r)s.ac(new A.a2W(s))
 else if(!s.f){s.SY()
@@ -56876,7 +56880,7 @@ $S:76}
 A.a2W.prototype={
 $0(){var s=this.a,r=s.x
 r===$&&A.c()
-if(r.r)++s.Q
+if(r.f)++s.Q
 r.HJ()},
 $S:0}
 A.a2X.prototype={
@@ -56892,25 +56896,27 @@ r.f=!1
 s=r.d
 s===$&&A.c()
 s.d=!1
-if(this.b)r.x.r=!0},
+if(this.b)r.x.f=!0},
 $S:0}
 A.a31.prototype={
-$1(a){var s,r,q,p,o,n,m=null,l=this.a,k=l.WM(),j=l.x
-j===$&&A.c()
-s=j.a
+$1(a){var s,r,q,p,o,n,m,l=null,k=this.a,j=k.WM(),i=k.x
+i===$&&A.c()
+s=i.a
 s===$&&A.c()
 s=s.c
-r=j.x
+r=i.w
 r===$&&A.c()
-q=j.y
+q=i.x
 q===$&&A.c()
-p=j.z
+p=i.y
 p===$&&A.c()
-o=j.c
+o=i.b
 o===$&&A.c()
-n=j.d
+n=i.c
 n===$&&A.c()
-return A.ae4(B.br,A.RP(m,A.fw(B.ah,A.a([k,A.fw(B.ah,A.aeG(s,r,q,p,j.Q,o,n,13),B.al),l.Wj(),l.YE(),l.WK(),l.UR(),l.WS(),l.WR(),l.Yk(),l.Yj(),l.Uf(),l.X8(),l.YW(),l.Sp()],t.p),B.al),B.aQ,!1,m,m,m,m,new A.a30(),m,m,m,m,m,m,m,m,m,m,m,m,m))},
+m=i.d
+m===$&&A.c()
+return A.ae4(B.br,A.RP(l,A.fw(B.ah,A.a([j,A.fw(B.ah,A.aeG(s,r,q,p,i.z,o,n,m),B.al),k.Wj(),k.YE(),k.WK(),k.UR(),k.WS(),k.WR(),k.Yk(),k.Yj(),k.Uf(),k.X8(),k.YW(),k.Sp()],t.p),B.al),B.aQ,!1,l,l,l,l,new A.a30(),l,l,l,l,l,l,l,l,l,l,l,l,l))},
 $S:338}
 A.a30.prototype={
 $1(a){if(a.a.a.a>0)A.xd("Swiped to the right")},
@@ -56920,21 +56926,21 @@ $2(a,b){var s,r=this,q="sprint_mode"
 if(b instanceof A.lf){s=b.c
 if(s.gdn().k(0,B.cX)){s=r.a.x
 s===$&&A.c()
-s.db.v(0,"jump_pressed")}else if(s.gdn().k(0,B.a2)){s=r.a.x
+s.cx.v(0,"jump_pressed")}else if(s.gdn().k(0,B.a2)){s=r.a.x
 s===$&&A.c()
-s.db.v(0,"left_pressed")}else if(s.gdn().k(0,B.a3)){s=r.a.x
+s.cx.v(0,"left_pressed")}else if(s.gdn().k(0,B.a3)){s=r.a.x
 s===$&&A.c()
-s.db.v(0,"right_pressed")}else if(s.gdn().k(0,B.b_)||s.gdn().k(0,B.bq)){s=r.a.x
+s.cx.v(0,"right_pressed")}else if(s.gdn().k(0,B.b_)||s.gdn().k(0,B.bq)){s=r.a.x
 s===$&&A.c()
-s.db.v(0,q)}}if(b instanceof A.fq){s=b.c
+s.cx.v(0,q)}}if(b instanceof A.fq){s=b.c
 if(s.gdn().k(0,B.cX))r.a.Fp()
 else if(s.gdn().k(0,B.ll)){s=r.a.x
 s===$&&A.c()
-s.db.C(0,"fire_trigger")}else if(s.gdn().k(0,B.a2))r.a.n5()
+s.cx.C(0,"fire_trigger")}else if(s.gdn().k(0,B.a2))r.a.n5()
 else if(s.gdn().k(0,B.a3))r.a.n7()
 else if(s.gdn().k(0,B.b_)||s.gdn().k(0,B.bq)){s=r.a.x
 s===$&&A.c()
-s.db.C(0,q)}}return B.bm},
+s.cx.C(0,q)}}return B.bm},
 $S:61}
 A.a39.prototype={
 $0(){var s=this.a
@@ -56950,7 +56956,7 @@ $S:0}
 A.a3r.prototype={
 $0(){var s=this.a,r=s.x
 r===$&&A.c()
-r.r=!1
+r.f=!1
 s.ax=!0},
 $S:0}
 A.a3b.prototype={
@@ -56961,7 +56967,7 @@ $1(a){var s=this.a
 if(a)s.Fp()
 else{s=s.x
 s===$&&A.c()
-s.db.v(0,"jump_pressed")}},
+s.cx.v(0,"jump_pressed")}},
 $S:6}
 A.a37.prototype={
 $0(){},
@@ -56970,7 +56976,7 @@ A.a36.prototype={
 $1(a){var s
 if(a){s=this.a.x
 s===$&&A.c()
-s.db.C(0,"fire_trigger")}},
+s.cx.C(0,"fire_trigger")}},
 $S:6}
 A.a3g.prototype={
 $0(){},
@@ -56978,12 +56984,12 @@ $S:0}
 A.a3f.prototype={
 $1(a){var s="sprint_mode",r=this.a,q=r.x
 if(!a){q===$&&A.c()
-q.db.v(0,"left_pressed")
+q.cx.v(0,"left_pressed")
 r.at=!1
-if(r.as){r.x.db.v(0,s)
+if(r.as){r.x.cx.v(0,s)
 r.n7()}}else{q===$&&A.c()
-q.db.v(0,"right_pressed")
-r.x.db.v(0,s)
+q.cx.v(0,"right_pressed")
+r.x.cx.v(0,s)
 r.n5()
 r.at=!0}},
 $S:6}
@@ -56993,12 +56999,12 @@ $S:0}
 A.a3d.prototype={
 $1(a){var s="sprint_mode",r=this.a,q=r.x
 if(!a){q===$&&A.c()
-q.db.v(0,"left_pressed")
+q.cx.v(0,"left_pressed")
 r.at=!1
-if(r.as){r.x.db.v(0,s)
+if(r.as){r.x.cx.v(0,s)
 r.n7()}}else{q===$&&A.c()
-q.db.v(0,"right_pressed")
-r.x.db.C(0,s)
+q.cx.v(0,"right_pressed")
+r.x.cx.C(0,s)
 r.n5()
 r.at=!0}},
 $S:6}
@@ -57008,12 +57014,12 @@ $S:0}
 A.a3p.prototype={
 $1(a){var s="sprint_mode",r=this.a,q=r.x
 if(!a){q===$&&A.c()
-q.db.v(0,"right_pressed")
+q.cx.v(0,"right_pressed")
 r.as=!1
-if(r.at){r.x.db.v(0,s)
+if(r.at){r.x.cx.v(0,s)
 r.n5()}}else{q===$&&A.c()
-q.db.v(0,"left_pressed")
-r.x.db.v(0,s)
+q.cx.v(0,"left_pressed")
+r.x.cx.v(0,s)
 r.n7()
 r.as=!0}},
 $S:6}
@@ -57023,21 +57029,21 @@ $S:0}
 A.a3n.prototype={
 $1(a){var s="sprint_mode",r=this.a,q=r.x
 if(!a){q===$&&A.c()
-q.db.v(0,"right_pressed")
+q.cx.v(0,"right_pressed")
 r.as=!1
-if(r.at){r.x.db.v(0,"left_pressed")
-r.x.db.v(0,s)
+if(r.at){r.x.cx.v(0,"left_pressed")
+r.x.cx.v(0,s)
 r.n5()}}else{q===$&&A.c()
-q.db.C(0,s)
+q.cx.C(0,s)
 r.n7()
 r.as=!0}},
 $S:6}
 A.a33.prototype={
 $0(){var s,r=null,q=this.a,p=q.x
 p===$&&A.c()
-if(p.ch.Fk()){p=Date.now()
+if(p.ax.Fk()){p=Date.now()
 s="Monster Maze"+(" "+A.acp("yyyy-MM-dd").mH(new A.cG(p,!1)))}else s="Monster Maze"
-p=q.x.ay
+p=q.x.at
 p===$&&A.c()
 s=s+("\ndistance: "+p+"\ntime: "+B.d.O(q.Q/20,2))+"\n\n\ud83d\udfe6\ud83d\udfe6\ud83d\udfe6\ud83d\udfe6\ud83d\udfe6\n\ud83d\udfe6\ud83d\udfe6\ud83d\udfe6\u2b1c\ud83d\udfe6\n\ud83d\udfe5\ud83d\udfe6\ud83d\udfe8\ud83d\udfe6\ud83d\udfe6\n\ud83d\udfe9\ud83d\udfe9\ud83d\udfe6\u26ab\ud83d\udfe6\n\ud83d\udfe9\ud83d\udfe9\ud83d\udfe9\ud83d\udfe9\ud83d\udfe9\nhttps://monstermaze.io"
 $.aht().jP(0,s,r,r)
@@ -57077,7 +57083,7 @@ $0(){var s=this.a
 s.ax=!1
 s=s.x
 s===$&&A.c()
-s.r=!0},
+s.f=!0},
 $S:0}
 A.a3u.prototype={
 $0(){var s=this.a
@@ -57088,7 +57094,7 @@ $0(){var s=this.a
 s.r=!1
 s=s.x
 s===$&&A.c()
-s.r=!0},
+s.f=!0},
 $S:0}
 A.a3_.prototype={
 $0(){var s=this.a

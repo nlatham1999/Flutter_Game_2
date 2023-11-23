@@ -19,7 +19,6 @@ import '../util/util.dart';
 
 class GameController  extends ChangeNotifier{
   late BasicMap gameMap;
-  int numCellsToDisplay = 13;
 
   late int viewMapLeft;
   late int viewMapRight;
@@ -38,8 +37,6 @@ class GameController  extends ChangeNotifier{
   Size screenSize;
 
   String gameOverText = "";
-
-  int cellsPerView = 15;
 
   late int distanceTraveled;
 
@@ -79,18 +76,12 @@ class GameController  extends ChangeNotifier{
     }
 
     double size = (minDimension/divisor);
-
     double remainder = size % kCellSize;
-    double missing = kCellSize - remainder;
-
     double roundDown = size - remainder;
-    double roundUp = size + missing;
 
-    double cellSize;
-    // if (size-roundDown > roundUp-size){
-    //   cellSize = roundUp;
-    // }else{
-      cellSize = roundDown;
+    //see if changing the 
+
+    double cellSize = roundDown;
     // }
     cellHeight = cellSize;
     cellWidth = cellSize;
@@ -124,7 +115,7 @@ class GameController  extends ChangeNotifier{
 
 
     viewMapLeft = 0;
-    viewMapRight = (numCellsToDisplay - 2) * 4;
+    viewMapRight = (viewMapWidth - 2) * 4;
 
     gameOver = false;
   }
@@ -171,11 +162,11 @@ class GameController  extends ChangeNotifier{
     unitsUpdated = [];
     unitsToProcessLater = [];
 
-    int startLeft = gameMap.player.x - numCellsToDisplay;
+    int startLeft = gameMap.player.x - viewMapWidth;
     if(startLeft < 0){
       startLeft = 0;
     }
-    int startRight = gameMap.player.x + numCellsToDisplay;
+    int startRight = gameMap.player.x + viewMapWidth;
     if(startRight > gameMap.map[0].length - 1){
       startRight = gameMap.map[0].length - 1;
     }

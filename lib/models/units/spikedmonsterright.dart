@@ -32,7 +32,7 @@ class SpikedMonsterRight extends Unit {
   void doAction(GameController gameController) {
     value_1 = (value_1 + 1) % 8;
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++) {
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN", playerPriority: "low");
       switch (spriteBelow.type) {
         case "player_fireball":
@@ -54,7 +54,7 @@ class SpikedMonsterRight extends Unit {
       }
     }
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedHalf(); i++) {
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSpeedy(); i++) {
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "RIGHT", playerPriority: "low");
       switch (spriteLeft.type) {
         case "player_fireball":

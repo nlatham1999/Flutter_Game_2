@@ -85,7 +85,7 @@ class Player extends Unit {
   }
 
   void moveRight(GameController gameController){
-    for(int i = 0; i < movingSpeed * gameController.gameMap.unitOfSpeed(); i++) {
+    for(int i = 0; i < movingSpeed * gameController.gameMap.unitOfSpeedNormal(); i++) {
     Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
     switch (spriteRight.type) {
       case "air":
@@ -101,7 +101,7 @@ class Player extends Unit {
   }
 
   void moveLeft(GameController gameController){
-    for(int i = 0; i < movingSpeed *  gameController.gameMap.unitOfSpeed(); i++){
+    for(int i = 0; i < movingSpeed *  gameController.gameMap.unitOfSpeedNormal(); i++){
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
       switch (spriteLeft.type) {
         case "air":
@@ -157,8 +157,8 @@ class Player extends Unit {
   }
 
   void updateJump(GameController gameController){
-    int jumpMax = 10 ~/ gameController.gameMap.unitOfSpeedHalf();
-    int jumpFirst = 4 ~/ gameController.gameMap.unitOfSpeedHalf();
+    int jumpMax = 10 ~/ gameController.gameMap.unitOfSpeedSlow();
+    int jumpFirst = 4 ~/ gameController.gameMap.unitOfSpeedSlow();
     if(jumpCount < jumpMax && jumpCount > 0){
       
       int spacesToJump = 4;
@@ -166,7 +166,7 @@ class Player extends Unit {
         spacesToJump = 2;
       }
 
-      for(int i = 0; i < spacesToJump *  gameController.gameMap.unitOfSpeed(); i++){
+      for(int i = 0; i < spacesToJump *  gameController.gameMap.unitOfSpeedNormal(); i++){
         print("$jumpCount $jumpMax $jumpFirst $i $spacesToJump");
         Unit spriteAbove = gameController.gameMap.getPotentialCollision(gameController.gameMap.player, "UP");
         switch (spriteAbove.type) {
@@ -201,7 +201,7 @@ class Player extends Unit {
     if(fall == 0){
       fall = 1;
     }
-    for(int i = 0; i < 2 *  gameController.gameMap.unitOfSpeed(); i++){
+    for(int i = 0; i < 2 *  gameController.gameMap.unitOfSpeedNormal(); i++){
       Unit spriteBelow = gameController.gameMap.getPotentialCollision(this, "DOWN");
       bool exitEarly = spriteBelow.playerHittingFromAboveAction(gameController, this);
       if(exitEarly){
