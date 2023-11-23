@@ -16132,7 +16132,7 @@ _.ax=!1
 _.ay=0},
 a9y(a,b,c,d,e,f,g){var s=new A.zD(d,f,g,b,c,e,a)
 s.x=1
-s.y=16
+s.y=32
 return s},
 zD:function zD(a,b,c,d,e,f,g){var _=this
 _.a=a
@@ -49538,7 +49538,7 @@ A.wB.prototype={
 bO(){return"assets/bomb_charged.png"},
 by(a){var s,r,q,p,o,n,m,l,k,j,i,h=this,g="explosion",f=h.x,e=a.a
 e===$&&A.e()
-if(f<12){h.x=f+1
+if(f<24){h.x=f+1
 return}e.bh(h)
 s=new A.dn(g,h.b,h.c,1,0,4,4)
 s.y=1

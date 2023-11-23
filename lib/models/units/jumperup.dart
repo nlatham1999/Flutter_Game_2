@@ -6,7 +6,7 @@ import '../unit.dart';
 class JumperUp extends Unit {
   JumperUp({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height}){
     value_1 = 1;
-    value_2 = 16;
+    value_2 = 32;
   }
     
   @override
