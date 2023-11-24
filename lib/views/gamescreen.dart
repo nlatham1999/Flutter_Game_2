@@ -182,65 +182,59 @@ class _GameScreenState extends State<GameScreen> {
     builder: (BuildContext context) {
       return Scaffold(
         backgroundColor: Colors.blue,
-        body: Stack(
+        body: GestureDetector(
+          onTapDown: (details) => {
+            if(details.globalPosition.dy < size.height * 1 / 3){
+              jump()
+            },
+            // else if (if(details.globalPosition.dy < size.height * 1 / 3){
+            //   jump()
+            // },
+            if(details.globalPosition.dx < size.width * 1 / 3){
+              walkingMode(),
+              moveLeft(),
+            }else if(details.globalPosition.dx > size.width * 2 / 3){
+              walkingMode(),
+              moveRight(),
+            }else{
+              fire(),
+            }
+          },
+          onTapUp: (details) => {
+            releaseAll(),
+          },
+          // onDoubleTapDown: (details) => {
+          //   if(details.globalPosition.dx < size.width * 1 / 3){
+          //     sprintMode(),
+          //     moveLeft(),
+          //   }else if(details.globalPosition.dx > size.width * 2 / 3){
+          //     sprintMode(),
+          //     moveRight(),
+          //   }
+          // },
+          onVerticalDragUpdate: (details) => {
+          },
+          onHorizontalDragUpdate: (details) => {
+          },
+          onVerticalDragEnd: (details) => {
+            releaseAll()
+          },
+          onHorizontalDragEnd: (details) {
+            releaseAll();
+            // if (details.velocity.pixelsPerSecond.dx > 0) {
+            //   // Positive velocity indicates a swipe to the right
+            //   // You can perform your desired action here
+            //   print('Swiped to the right');
+            // }
+          },
+        child: Stack(
           children: [
             keyboardEvents(),
             Scaffold(
               backgroundColor: Colors.blue,
-              body: GestureDetector(
-                onTapDown: (details) => {
-                  if(details.globalPosition.dy < size.height * 1 / 3){
-                    jump()
-                  },
-                  if(details.globalPosition.dx < size.width * 1 / 3){
-                    walkingMode(),
-                    moveLeft(),
-                  }else if(details.globalPosition.dx > size.width * 2 / 3){
-                    walkingMode(),
-                    moveRight(),
-                  }else(){
-                    fire();
-                  }
-                },
-                onTapUp: (details) => {
-                  releaseAll(),
-                },
-                // onDoubleTapDown: (details) => {
-                //   if(details.globalPosition.dx < size.width * 1 / 3){
-                //     sprintMode(),
-                //     moveLeft(),
-                //   }else if(details.globalPosition.dx > size.width * 2 / 3){
-                //     sprintMode(),
-                //     moveRight(),
-                //   }
-                // },
-                onVerticalDragUpdate: (details) => {
-                  // if(details.delta.dy < 0){
-                  //   jump(),
-                  //   if(details.globalPosition.dx < size.width * 1 / 3){
-                  //     moveLeft()
-                  //   }else if(details.globalPosition.dx > size.width * 2 / 3){
-                  //     moveRight()
-                  //   }
-                  // }
-                },
-                onHorizontalDragUpdate: (details) => {
-                },
-                onVerticalDragEnd: (details) => {
-                  releaseAll()
-                },
-                onHorizontalDragEnd: (details) {
-                  releaseAll();
-                  // if (details.velocity.pixelsPerSecond.dx > 0) {
-                  //   // Positive velocity indicates a swipe to the right
-                  //   // You can perform your desired action here
-                  //   print('Swiped to the right');
-                  // }
-                },
-                child: Stack(
-                  children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
-                ),
-              )
+              body:Stack(
+                children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
+              ),
             ),
             infoButton(),
             topBar(),
@@ -257,6 +251,7 @@ class _GameScreenState extends State<GameScreen> {
             welcomeAlert(),
             aboutGameAlert(),
           ],
+        ),
         ),
       );
     },
@@ -693,6 +688,7 @@ class _GameScreenState extends State<GameScreen> {
                 setState(() {
                   _initialLoad = false;
                   _gameController.gameStarted = true;
+                  releaseAll();
                 });
               },
               child: const Text("Lets Play!"),

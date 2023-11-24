@@ -56,7 +56,7 @@ class GameController  extends ChangeNotifier{
     required this.level,
   }){
 
-    viewMapWidth = 12;
+    viewMapWidth = kNumCellsWidth;
     int viewMapHeight = 16;
 
     int divisor = viewMapWidth;

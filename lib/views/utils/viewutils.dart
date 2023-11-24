@@ -13,7 +13,7 @@ class ViewUtils {
       double offsetY,
       int viewMapLeft,
       int viewMapRight,
-      {int numCellsToDisplay = 13}) {
+      {int numCellsToDisplay = kNumCellsWidth}) {
     List<Widget> positions = [
       // Positioned(
       //   left: offsetX,

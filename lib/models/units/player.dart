@@ -140,7 +140,7 @@ class Player extends Unit {
 
     Unit fireball = FireballPlayer(type: "player_fireball", x: x_temp ~/ kCellSize, y: y, offsetX: x_temp % kCellSize, offsetY: kCellSize ~/ 2, width: kCellSize ~/ 4, height: kCellSize ~/ 4);
     fireball.value_1 = direction;
-    fireball.value_2 = 10;
+    fireball.value_2 = 10 * gameController.gameMap.unitOfSpeedNormal();
     gameController.gameMap.addUnit(fireball);
   }
 
@@ -170,7 +170,6 @@ class Player extends Unit {
       }
 
       for(int i = 0; i < spacesToJump *  gameController.gameMap.unitOfSpeedNormal(); i++){
-        print("$jumpCount $jumpMax $jumpFirst $i $spacesToJump");
         Unit spriteAbove = gameController.gameMap.getPotentialCollision(gameController.gameMap.player, "UP");
         switch (spriteAbove.type) {
           case "air":
