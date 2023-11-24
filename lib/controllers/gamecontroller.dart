@@ -56,7 +56,8 @@ class GameController  extends ChangeNotifier{
     required this.level,
   }){
 
-    viewMapWidth = 13;
+    viewMapWidth = 12;
+    int viewMapHeight = 16;
 
     int divisor = viewMapWidth;
     if(screenSize.height < screenSize.width){
@@ -69,15 +70,27 @@ class GameController  extends ChangeNotifier{
     //there are cases where it is in potrait mode but the height is barely bigger than the width
     //so instead of comparing height and width, we compare width and height*(2/3)
     //so at the bare minimum there will be a third of the space left at the bottom for buttons
-    if (screenSize.height > screenSize.width) {
-      if (screenSize.height * 2 / 3 < screenSize.width){
-        minDimension = screenSize.height * 2 / 3;
-      }
-    }
+    // if (screenSize.height > screenSize.width) {
+    //   if (screenSize.height * 2 / 3 < screenSize.width){
+    //     minDimension = screenSize.height * 2 / 3;
+    //   }
+    // }
 
     double size = (minDimension/divisor);
     double remainder = size % kCellSize;
     double roundDown = size - remainder;
+
+    //make sure the height doesn't push everything down if we are in potrait mode
+    //calculate the max size of each s
+    if(screenSize.width < screenSize.height){
+      double twoThirds = screenSize.height;
+      double sizeY = twoThirds / viewMapHeight;
+      double remainderY = sizeY % kCellSize;
+      double roundDownY = sizeY - remainderY;
+      if(roundDownY < roundDown){
+        roundDown = roundDownY;
+      }
+    }
 
     //see if changing the 
 
@@ -118,6 +131,8 @@ class GameController  extends ChangeNotifier{
     viewMapRight = (viewMapWidth - 2) * 4;
 
     gameOver = false;
+
+    keyPressed = {};
   }
 
   void setNextState(){

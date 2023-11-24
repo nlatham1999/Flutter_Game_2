@@ -58,6 +58,10 @@ class Player extends Unit {
       jumpTrigger = false;
     }
 
+    if(jumpState && !falling){
+      updateJump(gameController);
+    }
+
     if(gameController.keyPressed.contains("left_pressed") || gameController.keyPressed.contains("left_clicked")){
       moveLeft(gameController);
       direction = 1;
@@ -68,10 +72,6 @@ class Player extends Unit {
       moveRight(gameController);
       direction = 0;
       gameController.keyPressed.remove("right_clicked");
-    }
-
-    if(jumpState && !falling){
-      updateJump(gameController);
     }
 
     if(gameController.keyPressed.contains("fire_trigger")){
@@ -156,6 +156,7 @@ class Player extends Unit {
     }
 
     jumpState = true;
+    jumpCount = 1;
   }
 
   void updateJump(GameController gameController){

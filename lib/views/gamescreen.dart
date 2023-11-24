@@ -55,6 +55,7 @@ class _GameScreenState extends State<GameScreen> {
     mapAsString = _gameController.level.mapTemplate.join("\n");
     _buttonsPositions = ButtonsPositions(_gameController.offsetY + (_gameController.cellHeight * 17), _gameController.offsetX, (_gameController.viewMapWidth + 1) * _gameController.cellWidth, size);
     _startTimer();
+    moveRightReleased();
   }
 
   @override
@@ -142,6 +143,12 @@ class _GameScreenState extends State<GameScreen> {
     _gameController.keyPressed.remove("sprint_mode");
   }
 
+  void releaseAll(){
+    moveLeftReleased();
+    moveRightReleased();
+    jumpReleased();
+  }
+
   void checkForGameEnd(){
       if(!_level.finished){
         return;
@@ -175,36 +182,81 @@ class _GameScreenState extends State<GameScreen> {
     builder: (BuildContext context) {
       return Scaffold(
         backgroundColor: Colors.blue,
-        body: GestureDetector(
-          onHorizontalDragEnd: (details) {
-            if (details.velocity.pixelsPerSecond.dx > 0) {
-              // Positive velocity indicates a swipe to the right
-              // You can perform your desired action here
-              print('Swiped to the right');
-            }
-          },
-          child: Stack(
-            children: [
-              keyboardEvents(),
-              Stack(
-                children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
-              ),
-              infoButton(),
-              topBar(),
-              jumpButton(),
-              fireButton(),
-              leftWalkButton(),
-              leftSprintButton(),
-              rightWalkButton(),
-              rightSprintButton(),
-              // mapBuilder1(),
-              // mapBuilder2(),
-              endGameAlert(),
-              menuAlert(),
-              welcomeAlert(),
-              aboutGameAlert(),
-            ],
-          ),
+        body: Stack(
+          children: [
+            keyboardEvents(),
+            Scaffold(
+              backgroundColor: Colors.blue,
+              body: GestureDetector(
+                onTapDown: (details) => {
+                  if(details.globalPosition.dy < size.height * 1 / 3){
+                    jump()
+                  },
+                  if(details.globalPosition.dx < size.width * 1 / 3){
+                    walkingMode(),
+                    moveLeft(),
+                  }else if(details.globalPosition.dx > size.width * 2 / 3){
+                    walkingMode(),
+                    moveRight(),
+                  }else(){
+                    fire();
+                  }
+                },
+                onTapUp: (details) => {
+                  releaseAll(),
+                },
+                // onDoubleTapDown: (details) => {
+                //   if(details.globalPosition.dx < size.width * 1 / 3){
+                //     sprintMode(),
+                //     moveLeft(),
+                //   }else if(details.globalPosition.dx > size.width * 2 / 3){
+                //     sprintMode(),
+                //     moveRight(),
+                //   }
+                // },
+                onVerticalDragUpdate: (details) => {
+                  // if(details.delta.dy < 0){
+                  //   jump(),
+                  //   if(details.globalPosition.dx < size.width * 1 / 3){
+                  //     moveLeft()
+                  //   }else if(details.globalPosition.dx > size.width * 2 / 3){
+                  //     moveRight()
+                  //   }
+                  // }
+                },
+                onHorizontalDragUpdate: (details) => {
+                },
+                onVerticalDragEnd: (details) => {
+                  releaseAll()
+                },
+                onHorizontalDragEnd: (details) {
+                  releaseAll();
+                  // if (details.velocity.pixelsPerSecond.dx > 0) {
+                  //   // Positive velocity indicates a swipe to the right
+                  //   // You can perform your desired action here
+                  //   print('Swiped to the right');
+                  // }
+                },
+                child: Stack(
+                  children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
+                ),
+              )
+            ),
+            infoButton(),
+            topBar(),
+            // jumpButton(),
+            // fireButton(),
+            // leftWalkButton(),
+            // leftSprintButton(),
+            // rightWalkButton(),
+            // rightSprintButton(),
+            // mapBuilder1(),
+            // mapBuilder2(),
+            endGameAlert(),
+            menuAlert(),
+            welcomeAlert(),
+            aboutGameAlert(),
+          ],
         ),
       );
     },
