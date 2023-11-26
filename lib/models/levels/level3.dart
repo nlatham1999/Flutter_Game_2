@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 
-import 'package:my_app/models/level.dart';
+import 'package:monster_maze/models/level.dart';
 
 class Level3 extends Level {
   @override

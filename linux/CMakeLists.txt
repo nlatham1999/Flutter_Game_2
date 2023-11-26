@@ -4,7 +4,7 @@ project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "my_app")
+set(BINARY_NAME "monster_maze")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
 set(APPLICATION_ID "nick.latham.cubeworld")
@@ -62,7 +62,7 @@ add_definitions(-DAPPLICATION_ID="${APPLICATION_ID}")
 # Any new source files that you add to the application should be added here.
 add_executable(${BINARY_NAME}
   "main.cc"
-  "my_application.cc"
+  "monster_mazelication.cc"
   "${FLUTTER_MANAGED_DIR}/generated_plugin_registrant.cc"
 )
 

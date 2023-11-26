@@ -1,6 +1,6 @@
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/unit.dart';
-import 'package:my_app/models/units/fireballmonster.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/unit.dart';
+import 'package:monster_maze/models/units/fireballmonster.dart';
 
 import '../../constants.dart';
 

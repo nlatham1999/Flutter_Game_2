@@ -1,6 +1,6 @@
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/basicmap.dart';
-import 'package:my_app/models/map.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/basicmap.dart';
+import 'package:monster_maze/models/map.dart';
 
 import '../../constants.dart';
 import '../unit.dart';
@@ -18,6 +18,8 @@ class Player extends Unit {
   bool leftPressed = false;
   bool rightPressed = false;
   int movingSpeed = 1;
+
+  bool justAddedFireball = false;
 
   @override
   int processingIndex = 1;

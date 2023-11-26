@@ -1,4 +1,4 @@
-import 'package:my_app/models/unit.dart';
+import 'package:monster_maze/models/unit.dart';
 
 class GameMap {
   List<List<List<Unit>>> map = [];

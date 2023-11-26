@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
-import 'package:my_app/constants.dart';
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/levels/testlevel.dart';
-import 'package:my_app/views/gamecontext.dart';
-import 'package:my_app/views/home.dart';
-import 'package:my_app/views/utils/aboutinfo.dart';
-import 'package:my_app/views/utils/buttonpositions.dart';
+import 'package:monster_maze/constants.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/levels/testlevel.dart';
+import 'package:monster_maze/views/gamecontext.dart';
+import 'package:monster_maze/views/home.dart';
+import 'package:monster_maze/views/utils/aboutinfo.dart';
+import 'package:monster_maze/views/utils/buttonpositions.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart'; 
@@ -179,8 +179,17 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
   return Builder(
-    builder: (BuildContext context) {
+    builder: (BuildContext context) { 
+      Future.delayed(Duration.zero, () {
+        if(_gameController.gameMap.player.justAddedFireball){
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('tap the middle of your screen to shoot the fireball')),
+          );
+          _gameController.gameMap.player.justAddedFireball = false;
+        }
+      });
       return Scaffold(
+        
         backgroundColor: Colors.blue,
         body: GestureDetector(
           onTapDown: (details) => {
@@ -200,9 +209,37 @@ class _GameScreenState extends State<GameScreen> {
               fire(),
             }
           },
+          // onDoubleTapDown: (details) => {
+          //   print("test1"),
+          //   if(details.globalPosition.dx < size.width * 1 / 3){
+          //     sprintMode(),
+          //     // moveLeft(),
+          //   }else if(details.globalPosition.dx > size.width * 2 / 3){
+          //     sprintMode(),
+          //     // moveRight(),
+          //   }
+          // },
           onTapUp: (details) => {
             releaseAll(),
           },
+          onLongPressUp: () => {
+            releaseAll(),
+          },
+          onLongPressMoveUpdate: (details) => {
+            if(details.offsetFromOrigin.dx.abs() > size.shortestSide / 20){
+              sprintMode()
+            }else{
+              walkingMode()
+            },
+            // print(details.offsetFromOrigin.dy.abs()),
+            // print(size.width / 10),
+            if(details.offsetFromOrigin.dy.abs() > size.shortestSide / 20){
+              jump()
+            }else{
+              jumpReleased()
+            }
+          },
+
           // onDoubleTapDown: (details) => {
           //   if(details.globalPosition.dx < size.width * 1 / 3){
           //     sprintMode(),
@@ -213,6 +250,9 @@ class _GameScreenState extends State<GameScreen> {
           //   }
           // },
           onVerticalDragUpdate: (details) => {
+            if(details.localPosition.dx > 0){
+              jump()
+            }
           },
           onHorizontalDragUpdate: (details) => {
           },
@@ -575,7 +615,6 @@ class _GameScreenState extends State<GameScreen> {
                       text += " ${formattedDate}";
                     }
                     text += "\ndistance: ${_gameController.distanceTraveled}\ntime: ${(_duration / 20).toStringAsFixed(2)}";
-                    text += "\n\n🟦🟦🟦🟦🟦\n🟦🟦🟦⬜🟦\n🟥🟦🟨🟦🟦\n🟩🟩🟦⚫🟦\n🟩🟩🟩🟩🟩";
                     text += "\n${kWebUrl}";
                     Share.share(text);
 
@@ -665,6 +704,7 @@ class _GameScreenState extends State<GameScreen> {
                 setState(() {
                   _menuPressed = false;
                   _gameController.gameStarted = true;
+                  releaseAll();
                 });
               },
               child: const Text("Ok"),

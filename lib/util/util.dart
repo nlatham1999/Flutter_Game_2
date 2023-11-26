@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/unit.dart';
+import 'package:monster_maze/models/unit.dart';
 
 String getSpriteType(Unit unit) {
   return unit.type;

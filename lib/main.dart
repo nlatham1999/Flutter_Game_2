@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/views/gamecontext.dart';
-import 'package:my_app/views/gamescreen.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/views/gamecontext.dart';
+import 'package:monster_maze/views/gamescreen.dart';
 import 'package:provider/provider.dart';
 
 // import 'dart:html' as html;

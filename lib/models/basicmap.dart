@@ -1,30 +1,30 @@
 // ignore_for_file: overridden_fields
 
-import 'package:my_app/constants.dart';
-import 'package:my_app/models/map.dart';
-import 'package:my_app/models/unit.dart';
-import 'package:my_app/models/units/airunit.dart';
-import 'package:my_app/models/units/bombcharged.dart';
-import 'package:my_app/models/units/jumperdown.dart';
-import 'package:my_app/models/units/jumperup.dart';
-import 'package:my_app/models/units/monsterdead.dart';
-import 'package:my_app/models/units/monsterleft.dart';
-import 'package:my_app/models/units/monsterright.dart';
-import 'package:my_app/models/units/outofbounds.dart';
-import 'package:my_app/models/units/player.dart';
-import 'package:my_app/models/units/signage.dart';
-import 'package:my_app/models/units/spikedmonsterleft.dart';
-import 'package:my_app/models/units/spikedmonsterright.dart';
-import 'package:my_app/models/units/firemonsterleft.dart';
-import 'package:my_app/models/units/firemonsterright.dart';
-import 'package:my_app/models/units/fireballpowerup.dart';
-import 'package:my_app/models/units/iciclefalling.dart';
-import 'package:my_app/models/units/icicleinert.dart';
-import 'package:my_app/models/units/bombinert.dart';
-import 'package:my_app/models/units/grass.dart';
-import 'package:my_app/models/units/loghorizontal.dart';
-import 'package:my_app/models/units/logvertical.dart';
-import 'package:my_app/models/units/wingedmonster.dart';
+import 'package:monster_maze/constants.dart';
+import 'package:monster_maze/models/map.dart';
+import 'package:monster_maze/models/unit.dart';
+import 'package:monster_maze/models/units/airunit.dart';
+import 'package:monster_maze/models/units/bombcharged.dart';
+import 'package:monster_maze/models/units/jumperdown.dart';
+import 'package:monster_maze/models/units/jumperup.dart';
+import 'package:monster_maze/models/units/monsterdead.dart';
+import 'package:monster_maze/models/units/monsterleft.dart';
+import 'package:monster_maze/models/units/monsterright.dart';
+import 'package:monster_maze/models/units/outofbounds.dart';
+import 'package:monster_maze/models/units/player.dart';
+import 'package:monster_maze/models/units/signage.dart';
+import 'package:monster_maze/models/units/spikedmonsterleft.dart';
+import 'package:monster_maze/models/units/spikedmonsterright.dart';
+import 'package:monster_maze/models/units/firemonsterleft.dart';
+import 'package:monster_maze/models/units/firemonsterright.dart';
+import 'package:monster_maze/models/units/fireballpowerup.dart';
+import 'package:monster_maze/models/units/iciclefalling.dart';
+import 'package:monster_maze/models/units/icicleinert.dart';
+import 'package:monster_maze/models/units/bombinert.dart';
+import 'package:monster_maze/models/units/grass.dart';
+import 'package:monster_maze/models/units/loghorizontal.dart';
+import 'package:monster_maze/models/units/logvertical.dart';
+import 'package:monster_maze/models/units/wingedmonster.dart';
 
 class BasicMap extends GameMap {
 

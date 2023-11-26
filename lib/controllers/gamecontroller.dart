@@ -9,9 +9,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
-import 'package:my_app/constants.dart';
-import 'package:my_app/models/unit.dart';
-import 'package:my_app/models/units/fireballplayer.dart';
+import 'package:monster_maze/constants.dart';
+import 'package:monster_maze/models/unit.dart';
+import 'package:monster_maze/models/units/fireballplayer.dart';
 
 import '../models/basicmap.dart';
 import '../models/level.dart';
@@ -117,7 +117,7 @@ class GameController  extends ChangeNotifier{
 
     reset();
 
-    updateViewMap();
+    // updateViewMap();
   }
 
   void reset(){
@@ -133,6 +133,8 @@ class GameController  extends ChangeNotifier{
     gameOver = false;
 
     keyPressed = {};
+
+    updateViewMap();
   }
 
   void setNextState(){

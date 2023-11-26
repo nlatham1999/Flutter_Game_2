@@ -10,9 +10,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:my_app/main.dart';
-import 'package:my_app/models/level.dart';
-import 'package:my_app/models/leveldynamic.dart';
+import 'package:monster_maze/main.dart';
+import 'package:monster_maze/models/level.dart';
+import 'package:monster_maze/models/leveldynamic.dart';
 
 void main() {
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {

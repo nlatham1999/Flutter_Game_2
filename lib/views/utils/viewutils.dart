@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/models/unit.dart';
-import 'package:my_app/painters/deadmonsterpainter.dart';
+import 'package:monster_maze/models/unit.dart';
+import 'package:monster_maze/painters/deadmonsterpainter.dart';
 
 import '../../constants.dart';
 

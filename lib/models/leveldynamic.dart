@@ -3,8 +3,8 @@
 
 import 'dart:math';
 
-import 'package:my_app/models/chunk.dart';
-import 'package:my_app/models/level.dart';
+import 'package:monster_maze/models/chunk.dart';
+import 'package:monster_maze/models/level.dart';
 
 class LevelDynamic extends Level { 
 

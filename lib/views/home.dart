@@ -1,19 +1,19 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:my_app/constants.dart';
-import 'package:my_app/models/level.dart';
-import 'package:my_app/models/levels/level1.dart';
-import 'package:my_app/models/levels/level2.dart';
-import 'package:my_app/models/leveldynamic.dart';
-import 'package:my_app/models/levels/monstermadness.dart';
-import 'package:my_app/models/levels/skyjump.dart';
-import 'package:my_app/models/levels/spookycave.dart';
-import 'package:my_app/models/levels/testlevel.dart';
-import 'package:my_app/views/gamecontext.dart';
-import 'package:my_app/views/gamescreen.dart';
-import 'package:my_app/views/utils/aboutinfo.dart';
-import 'package:my_app/views/utils/homescreenbuttonpositions.dart';
-import 'package:my_app/views/utils/viewutils.dart';
+import 'package:monster_maze/constants.dart';
+import 'package:monster_maze/models/level.dart';
+import 'package:monster_maze/models/levels/level1.dart';
+import 'package:monster_maze/models/levels/level2.dart';
+import 'package:monster_maze/models/leveldynamic.dart';
+import 'package:monster_maze/models/levels/monstermadness.dart';
+import 'package:monster_maze/models/levels/skyjump.dart';
+import 'package:monster_maze/models/levels/spookycave.dart';
+import 'package:monster_maze/models/levels/testlevel.dart';
+import 'package:monster_maze/views/gamecontext.dart';
+import 'package:monster_maze/views/gamescreen.dart';
+import 'package:monster_maze/views/utils/aboutinfo.dart';
+import 'package:monster_maze/views/utils/homescreenbuttonpositions.dart';
+import 'package:monster_maze/views/utils/viewutils.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -201,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: Text("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nFor controls you have buttons to go left, right, sprint, and to jump. \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.\n value 1: ${{MediaQuery.of(context).size.height}}\n value 2: ${{size.height}}",),
+                  content: Text("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nMove Left: Tap left side of the screen\nMove Right Tap right side of the screen\nJump: Tap top of the screen\nJump+Move Left: Tap upper left side of the screen\nJump+Move Right: Tap upper right side of the screen.\n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.",),
                   actions: [
                     ElevatedButton(
                       onPressed: () {

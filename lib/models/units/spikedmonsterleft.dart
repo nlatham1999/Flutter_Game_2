@@ -1,6 +1,6 @@
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/unit.dart';
-import 'package:my_app/models/units/player.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/unit.dart';
+import 'package:monster_maze/models/units/player.dart';
 
 class SpikedMonsterLeft extends Unit {
   SpikedMonsterLeft({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height});

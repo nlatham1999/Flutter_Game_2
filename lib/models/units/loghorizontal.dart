@@ -1,6 +1,6 @@
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/basicmap.dart';
-import 'package:my_app/models/map.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/basicmap.dart';
+import 'package:monster_maze/models/map.dart';
 
 import '../../constants.dart';
 import '../unit.dart';

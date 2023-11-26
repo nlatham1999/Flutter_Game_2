@@ -1,5 +1,5 @@
-import 'package:my_app/controllers/gamecontroller.dart';
-import 'package:my_app/models/unit.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
+import 'package:monster_maze/models/unit.dart';
 
 import '../../constants.dart';
 

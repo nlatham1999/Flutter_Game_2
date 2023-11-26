@@ -1,4 +1,4 @@
-import 'package:my_app/controllers/gamecontroller.dart';
+import 'package:monster_maze/controllers/gamecontroller.dart';
 
 import '../../constants.dart';
 import '../unit.dart';
