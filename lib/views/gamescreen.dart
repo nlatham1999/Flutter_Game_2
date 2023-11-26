@@ -227,9 +227,19 @@ class _GameScreenState extends State<GameScreen> {
           },
           onLongPressMoveUpdate: (details) => {
             if(details.offsetFromOrigin.dx.abs() > size.shortestSide / 20){
-              sprintMode()
+              sprintMode(),
+              
             }else{
               walkingMode()
+            },
+            if(details.offsetFromOrigin.dx < 0){
+              print("moving left"),
+              moveRightReleased(),
+              moveLeft(),
+            }else{
+              print("moving left"),
+              moveLeftReleased(),
+              moveRight(),
             },
             // print(details.offsetFromOrigin.dy.abs()),
             // print(size.width / 10),
