@@ -43,6 +43,8 @@ class _GameScreenState extends State<GameScreen> {
   bool _menuPressed = false;
   bool pause = false;
   late ButtonsPositions _buttonsPositions;
+  Offset _initialPosition = Offset(0, 0);
+  Offset _distanceDragged = Offset(0, 0);
 
   String mapAsString = "";
 
@@ -193,18 +195,18 @@ class _GameScreenState extends State<GameScreen> {
         backgroundColor: Colors.blue,
         body: GestureDetector(
           onTapDown: (details) => {
-            if(details.globalPosition.dy < size.height * 1 / 3){
-              jump()
-            },
+            // if(details.globalPosition.dy < size.height * 1 / 3){
+            //   jump()
+            // },
             // else if (if(details.globalPosition.dy < size.height * 1 / 3){
             //   jump()
             // },
             if(details.globalPosition.dx < size.width * 1 / 3){
-              walkingMode(),
-              moveLeft(),
+              // walkingMode(),
+              // moveLeft(),
             }else if(details.globalPosition.dx > size.width * 2 / 3){
-              walkingMode(),
-              moveRight(),
+            //   walkingMode(),
+            //   moveRight(),
             }else{
               fire(),
             }
@@ -219,36 +221,36 @@ class _GameScreenState extends State<GameScreen> {
           //     // moveRight(),
           //   }
           // },
-          onTapUp: (details) => {
-            releaseAll(),
-          },
-          onLongPressUp: () => {
-            releaseAll(),
-          },
-          onLongPressMoveUpdate: (details) => {
-            if(details.offsetFromOrigin.dx.abs() > size.shortestSide / 20){
-              sprintMode(),
+          // onTapUp: (details) => {
+          //   releaseAll(),
+          // },
+          // onLongPressUp: () => {
+          //   releaseAll(),
+          // },
+          // onLongPressMoveUpdate: (details) => {
+          //   if(details.offsetFromOrigin.dx.abs() > size.shortestSide / 20){
+          //     sprintMode(),
               
-            }else{
-              walkingMode()
-            },
-            if(details.offsetFromOrigin.dx < 0){
-              print("moving left"),
-              moveRightReleased(),
-              moveLeft(),
-            }else{
-              print("moving left"),
-              moveLeftReleased(),
-              moveRight(),
-            },
-            // print(details.offsetFromOrigin.dy.abs()),
-            // print(size.width / 10),
-            if(details.offsetFromOrigin.dy.abs() > size.shortestSide / 20){
-              jump()
-            }else{
-              jumpReleased()
-            }
-          },
+          //   }else{
+          //     walkingMode()
+          //   },
+          //   if(details.offsetFromOrigin.dx < 0){
+          //     print("moving left"),
+          //     moveRightReleased(),
+          //     moveLeft(),
+          //   }else{
+          //     print("moving left"),
+          //     moveLeftReleased(),
+          //     moveRight(),
+          //   },
+          //   // print(details.offsetFromOrigin.dy.abs()),
+          //   // print(size.width / 10),
+          //   if(details.offsetFromOrigin.dy.abs() > size.shortestSide / 20){
+          //     jump()
+          //   }else{
+          //     jumpReleased()
+          //   }
+          // },
 
           // onDoubleTapDown: (details) => {
           //   if(details.globalPosition.dx < size.width * 1 / 3){
@@ -259,24 +261,57 @@ class _GameScreenState extends State<GameScreen> {
           //     moveRight(),
           //   }
           // },
-          onVerticalDragUpdate: (details) => {
-            if(details.localPosition.dx > 0){
+          // onVerticalDragUpdate: (details) => {
+          //   if(details.delta.dy > 0){
+          //     print("jumping up"),
+          //     jump()
+          //   },
+          //   if(details.delta.dx > 0) {
+          //     print("swiping left"),
+          //   },
+          //   if(details.delta.dx < 0) {
+          //     print("swiping right"),
+          //   }
+          // },
+          onPanStart: (details) => {    
+              _initialPosition = details.globalPosition,
+          },
+          onPanUpdate: (details) => {
+            _distanceDragged = details.globalPosition - _initialPosition,
+            if(_distanceDragged.dy < size.height / 10 * -1){
               jump()
-            }
+            },
+
+            if(_distanceDragged.dx > size.width / 5) {
+              sprintMode(),
+              moveRight(),
+            }else if(_distanceDragged.dx > size.width / 10) {
+              walkingMode(),
+              moveRight(),
+            } else if(_distanceDragged.dx < (size.width / 5) * -1) {
+              sprintMode(),
+              moveLeft(),
+            } else if(_distanceDragged.dx < size.width / 10 * -1) {
+              walkingMode(),
+              moveLeft(),
+            },
+            
           },
-          onHorizontalDragUpdate: (details) => {
+          onPanEnd: (details) => {
+            _initialPosition = Offset.zero,
+            releaseAll(),
           },
-          onVerticalDragEnd: (details) => {
-            releaseAll()
-          },
-          onHorizontalDragEnd: (details) {
-            releaseAll();
-            // if (details.velocity.pixelsPerSecond.dx > 0) {
-            //   // Positive velocity indicates a swipe to the right
-            //   // You can perform your desired action here
-            //   print('Swiped to the right');
-            // }
-          },
+          // onVerticalDragEnd: (details) => {
+          //   releaseAll()
+          // },
+          // onHorizontalDragEnd: (details) {
+          //   releaseAll();
+          //   // if (details.velocity.pixelsPerSecond.dx > 0) {
+          //   //   // Positive velocity indicates a swipe to the right
+          //   //   // You can perform your desired action here
+          //   //   print('Swiped to the right');
+          //   // }
+          // },
         child: Stack(
           children: [
             keyboardEvents(),
