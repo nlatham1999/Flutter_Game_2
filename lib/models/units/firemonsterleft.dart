@@ -25,8 +25,8 @@ class FireMonsterLeft extends Unit {
       gameController.queueUnitTypeChange(this, "fire_monster_right");
     }
 
-    value_1 = (value_1 + 1) % 30;
-    if(value_1 == 29){
+    value_1 = (value_1 + 1) % 50;
+    if(value_1 == 49){
       int lx = x * kCellSize + offsetX - 1;
       Unit fireball = FireballMonster(type: "fireball", x: lx ~/ kCellSize, y: y, offsetX: lx % kCellSize, offsetY: kCellSize ~/ 4, width: 2 * (kCellSize ~/ 4), height: 2 * (kCellSize ~/ 4));
       fireball.value_2 = 1;

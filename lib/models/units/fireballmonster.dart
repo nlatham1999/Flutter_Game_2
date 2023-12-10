@@ -29,7 +29,7 @@ class FireballMonster extends Unit {
   void doAction(GameController gameController) {
     for(int i = 0; i < gameController.gameMap.unitOfSpeedNormal(); i++){
       value_1++;
-      if(value_1 == 60 * gameController.gameMap.unitOfSpeedNormal()){
+      if(value_1 == 40 * gameController.gameMap.unitOfSpeedNormal()){
         gameController.gameMap.removeSprite(this);
         return;
       }

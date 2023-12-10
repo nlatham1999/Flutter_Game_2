@@ -56254,7 +56254,7 @@ bN(a){var s,r=this,q="You got hit with a fireball :(",p=0
 while(!0){s=a.a
 s===$&&A.c()
 if(!(p<2))break
-if(++r.x===120){s.bx(r)
+if(++r.x===80){s.bx(r)
 return}if(r.y===1)switch(s.bD(r,"LEFT").a){case"fire_monster_left":case"air":a.a.fk(r)
 break
 case"player":a.e=!0
@@ -56319,9 +56319,9 @@ o=a.a
 s=o.d
 s===$&&A.c()
 if(!o.Ft(p,s)){p.x=0
-a.CW.l(0,p,"fire_monster_right")}o=B.f.bo(p.x+1,30)
+a.CW.l(0,p,"fire_monster_right")}o=B.f.bo(p.x+1,50)
 p.x=o
-if(o===29){r=p.b*16+p.d-1
+if(o===49){r=p.b*16+p.d-1
 q=new A.qb("fireball",B.f.b5(r,16),p.c,B.f.bo(r,16),4,8,8)
 q.y=1
 a.a.df(q)}}}
@@ -56342,10 +56342,10 @@ o=a.a
 s=o.d
 s===$&&A.c()
 if(o.Ft(p,s)){p.x=0
-a.CW.l(0,p,"fire_monster_left")}o=B.f.bo(p.x+1,30)
+a.CW.l(0,p,"fire_monster_left")}o=B.f.bo(p.x+1,50)
 p.x=o
 s=a.a
-if(o===58){r=p.b*16+p.d+16
+if(o===98){r=p.b*16+p.d+16
 q=new A.qb("fireball",B.f.b5(r,16),p.c,B.f.bo(r,16),4,8,8)
 q.y=2
 s.df(q)}}}
