@@ -295,6 +295,11 @@ class GameController  extends ChangeNotifier{
     return spriteBelow.isSolidGround;
   }
 
+  bool isOnJumpableOrOnSolidGround(Unit unit, {String groundPriority = "neutral"}){
+    Unit spriteBelow = gameMap.getPotentialCollision(unit, "DOWN", groundPriority: groundPriority);
+    return spriteBelow.isSolidGround || spriteBelow.isJumpable;
+  }
+
 
   // bool isOnJumpableSprite(){
   //   switch (getSpriteType(gameMap.map[gameMap.playerY+1][gameMap.playerX])) {

@@ -41,7 +41,7 @@ class Player extends Unit {
     
     bool falling = false;
     //fall down is before jump so we can jump on descending logs
-    if(!jumpState && !gameController.isOnSolidGround(this, groundPriority: "solid")){
+    if(!jumpState && !gameController.isOnJumpableOrOnSolidGround(this, groundPriority: "solid")){
       fallDown(gameController);
       falling = true;
     }
@@ -49,7 +49,7 @@ class Player extends Unit {
 
     //if the jump button is still being pressed and we are ok for a jump then jump
     if (gameController.keyPressed.contains("jump_pressed") || gameController.keyPressed.contains("jump_clicked")) {
-      if (!jumpState && gameController.isOnSolidGround(this)){
+      if (!jumpState && gameController.isOnJumpableOrOnSolidGround(this)){
         jumpTrigger = true;
       }
       gameController.keyPressed.remove("jump_clicked");
@@ -149,7 +149,7 @@ class Player extends Unit {
   
   void jump(GameController gameController){
 
-    if(!gameController.isOnSolidGround(this)){
+    if(!gameController.isOnJumpableOrOnSolidGround(this)){
       return;
     }
 

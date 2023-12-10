@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'package:monster_maze/views/gamecontext.dart';
 import 'package:monster_maze/views/home.dart';
 import 'package:monster_maze/views/utils/aboutinfo.dart';
 import 'package:monster_maze/views/utils/buttonpositions.dart';
+import 'package:monster_maze/views/utils/circlepainter.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart'; 
@@ -45,6 +47,8 @@ class _GameScreenState extends State<GameScreen> {
   late ButtonsPositions _buttonsPositions;
   Offset _initialPosition = Offset(0, 0);
   Offset _distanceDragged = Offset(0, 0);
+  Offset _currentPosition = Offset(0, 0);
+  bool _isPanning = false;
 
   String mapAsString = "";
 
@@ -195,12 +199,6 @@ class _GameScreenState extends State<GameScreen> {
         backgroundColor: Colors.blue,
         body: GestureDetector(
           onTapDown: (details) => {
-            // if(details.globalPosition.dy < size.height * 1 / 3){
-            //   jump()
-            // },
-            // else if (if(details.globalPosition.dy < size.height * 1 / 3){
-            //   jump()
-            // },
             if(details.globalPosition.dx < size.width * 1 / 3){
               // walkingMode(),
               // moveLeft(),
@@ -211,107 +209,63 @@ class _GameScreenState extends State<GameScreen> {
               fire(),
             }
           },
-          // onDoubleTapDown: (details) => {
-          //   print("test1"),
-          //   if(details.globalPosition.dx < size.width * 1 / 3){
-          //     sprintMode(),
-          //     // moveLeft(),
-          //   }else if(details.globalPosition.dx > size.width * 2 / 3){
-          //     sprintMode(),
-          //     // moveRight(),
-          //   }
-          // },
-          // onTapUp: (details) => {
-          //   releaseAll(),
-          // },
-          // onLongPressUp: () => {
-          //   releaseAll(),
-          // },
-          // onLongPressMoveUpdate: (details) => {
-          //   if(details.offsetFromOrigin.dx.abs() > size.shortestSide / 20){
-          //     sprintMode(),
-              
-          //   }else{
-          //     walkingMode()
-          //   },
-          //   if(details.offsetFromOrigin.dx < 0){
-          //     print("moving left"),
-          //     moveRightReleased(),
-          //     moveLeft(),
-          //   }else{
-          //     print("moving left"),
-          //     moveLeftReleased(),
-          //     moveRight(),
-          //   },
-          //   // print(details.offsetFromOrigin.dy.abs()),
-          //   // print(size.width / 10),
-          //   if(details.offsetFromOrigin.dy.abs() > size.shortestSide / 20){
-          //     jump()
-          //   }else{
-          //     jumpReleased()
-          //   }
-          // },
-
-          // onDoubleTapDown: (details) => {
-          //   if(details.globalPosition.dx < size.width * 1 / 3){
-          //     sprintMode(),
-          //     moveLeft(),
-          //   }else if(details.globalPosition.dx > size.width * 2 / 3){
-          //     sprintMode(),
-          //     moveRight(),
-          //   }
-          // },
-          // onVerticalDragUpdate: (details) => {
-          //   if(details.delta.dy > 0){
-          //     print("jumping up"),
-          //     jump()
-          //   },
-          //   if(details.delta.dx > 0) {
-          //     print("swiping left"),
-          //   },
-          //   if(details.delta.dx < 0) {
-          //     print("swiping right"),
-          //   }
-          // },
           onPanStart: (details) => {    
-              _initialPosition = details.globalPosition,
+            _isPanning = true,
+            _initialPosition = details.globalPosition,
           },
-          onPanUpdate: (details) => {
-            _distanceDragged = details.globalPosition - _initialPosition,
-            if(_distanceDragged.dy < size.height / 10 * -1){
-              jump()
-            },
+          onPanUpdate: (details) {
+            _distanceDragged = details.globalPosition - _initialPosition;
+            
+            _currentPosition = details.globalPosition;
+  
+            // Calculate the angle in radians
+            double angle = atan2(_distanceDragged.dy, _distanceDragged.dx);
 
-            if(_distanceDragged.dx > size.width / 5) {
-              sprintMode(),
-              moveRight(),
-            }else if(_distanceDragged.dx > size.width / 10) {
-              walkingMode(),
-              moveRight(),
-            } else if(_distanceDragged.dx < (size.width / 5) * -1) {
-              sprintMode(),
-              moveLeft(),
-            } else if(_distanceDragged.dx < size.width / 10 * -1) {
-              walkingMode(),
-              moveLeft(),
-            },
+            // Convert angle to degrees for easier understanding
+            double angleDegrees = angle * 180 / pi;
+
+            bool isWithin72 = (angleDegrees >= -72 && angleDegrees <= 72) || (angleDegrees >= 108 || angleDegrees <= -108);
+            
+            bool isWithin72upward = (angleDegrees <= -36 && angleDegrees >= -144);
+
+            double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
+
+
+            // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
+            if(isWithin72upward && polarDistance > size.height / 10){
+              jump();
+            };
+
+            double distanceToUse = 0;
+            if (_distanceDragged.dx < 0){
+              distanceToUse = -1 * polarDistance ;
+            }else{
+              distanceToUse =  polarDistance;
+            }
+
+
+           if(isWithin72 && distanceToUse > size.width / 5) {
+              sprintMode();
+              moveRight();
+            }else if(isWithin72 && distanceToUse > size.width / 10) {
+              walkingMode();
+              moveRight();
+            } else if(isWithin72 && distanceToUse < (size.width / 5) * -1) {
+              sprintMode();
+              moveLeft();
+            } else if(isWithin72 && distanceToUse < size.width / 10 * -1) {
+              walkingMode();
+              moveLeft();
+            } else {
+              releaseAll();
+            }
             
           },
           onPanEnd: (details) => {
             _initialPosition = Offset.zero,
             releaseAll(),
+            _isPanning = false,
           },
-          // onVerticalDragEnd: (details) => {
-          //   releaseAll()
-          // },
-          // onHorizontalDragEnd: (details) {
-          //   releaseAll();
-          //   // if (details.velocity.pixelsPerSecond.dx > 0) {
-          //   //   // Positive velocity indicates a swipe to the right
-          //   //   // You can perform your desired action here
-          //   //   print('Swiped to the right');
-          //   // }
-          // },
         child: Stack(
           children: [
             keyboardEvents(),
@@ -321,6 +275,13 @@ class _GameScreenState extends State<GameScreen> {
                 children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
               ),
             ),
+            CustomPaint(
+                painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
+                child: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                ),
+              ),
             infoButton(),
             topBar(),
             // jumpButton(),
@@ -335,6 +296,7 @@ class _GameScreenState extends State<GameScreen> {
             menuAlert(),
             welcomeAlert(),
             aboutGameAlert(),
+             
           ],
         ),
         ),

@@ -31,6 +31,8 @@ class Unit {
 
   bool isSolidGround = false;
 
+  bool isJumpable = false; //some sprites are not solid ground but you can still jump on them
+
   bool needsActionRan = true; //whether the do action function needs to run
 
   Unit({
