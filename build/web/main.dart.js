@@ -17872,7 +17872,7 @@ _.ax=!1
 _.ay=0},
 acY(a,b,c,d,e,f,g){var s=new A.AV(d,f,g,b,c,e,a)
 s.x=1
-s.y=24
+s.y=48
 return s},
 AV:function AV(a,b,c,d,e,f,g){var _=this
 _.a=a
@@ -56159,7 +56159,7 @@ A.xF.prototype={
 c1(){return"assets/bomb_charged.png"},
 bN(a){var s,r,q,p,o,n,m,l,k,j,i,h=this,g="explosion",f=h.x,e=a.a
 e===$&&A.c()
-if(f<24){h.x=f+1
+if(f<48){h.x=f+1
 return}e.bx(h)
 s=new A.dD(g,h.b,h.c,1,0,4,4)
 s.y=1
@@ -56253,8 +56253,8 @@ return!0},
 bN(a){var s,r=this,q="You got hit with a fireball :(",p=0
 while(!0){s=a.a
 s===$&&A.c()
-if(!(p<3))break
-if(++r.x===80){s.bx(r)
+if(!(p<2))break
+if(++r.x===120){s.bx(r)
 return}if(r.y===1)switch(s.bD(r,"LEFT").a){case"fire_monster_left":case"air":a.a.fk(r)
 break
 case"player":a.e=!0
@@ -56411,7 +56411,7 @@ r.x=1
 return}s=0
 while(!0){p=a.a
 p===$&&A.c()
-if(!(s<2))break
+if(!(s<1))break
 switch(p.bD(r,"UP").a){case"air":a.a.iD(r)
 break
 default:a.CW.l(0,r,q)

@@ -18,7 +18,7 @@ class BombCharged extends Unit {
   @override
   void doAction(GameController gameController) {
 
-    if(value_1 < 24 ~/ gameController.gameMap.unitOfSpeedSlow()){
+    if(value_1 < 48 ~/ gameController.gameMap.unitOfSpeedSlow()){
       value_1 ++;
       return;
     }

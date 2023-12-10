@@ -6,7 +6,7 @@ import '../unit.dart';
 class JumperUp extends Unit {
   JumperUp({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height}){
     value_1 = 1;
-    value_2 = 24;
+    value_2 = 48;
   }
     
   @override
@@ -27,7 +27,7 @@ class JumperUp extends Unit {
       return;
     }
 
-    for(int i = 0; i < gameController.gameMap.unitOfSpeedNormal(); i++){
+    for(int i = 0; i < gameController.gameMap.unitOfSpeedSlow(); i++){
       Unit spriteAbove = gameController.gameMap.getPotentialCollision(this, "UP");
       switch (spriteAbove.type) {
         case "air":
