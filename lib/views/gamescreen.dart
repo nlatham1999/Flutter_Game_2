@@ -139,14 +139,21 @@ class _GameScreenState extends State<GameScreen> {
     _gameController.keyPressed.remove("left_pressed");
   }
 
+  void fasterMode(){
+    _gameController.keyPressed.add("faster_mode");
+    _gameController.keyPressed.remove("sprint_mode");
+  }
+
   void sprintMode(){
     // _gameController.movingSpeed = 2;
     _gameController.keyPressed.add("sprint_mode");
+    _gameController.keyPressed.remove("faster_mode");
   }
 
   void walkingMode(){
     // _gameController.movingSpeed = 1;
     _gameController.keyPressed.remove("sprint_mode");
+    _gameController.keyPressed.remove("faster_mode");
   }
 
   void releaseAll(){
@@ -231,7 +238,8 @@ class _GameScreenState extends State<GameScreen> {
             double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
 
             double firstR = size.width / 7.5;
-            double secondR = size.width / 2.5;
+            double secondR = size.width / 4;
+            double thirdR = size.width / 2.5;
 
             // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
             if(isWithin72upward && polarDistance > firstR){
@@ -245,14 +253,20 @@ class _GameScreenState extends State<GameScreen> {
               distanceToUse =  polarDistance;
             }
 
-           if(isWithin72 && distanceToUse > secondR) {
+           if(isWithin72 && distanceToUse > thirdR) {
               sprintMode();
               moveRight();
-            }else if(isWithin72 && distanceToUse > firstR) {
+            }else if(isWithin72 && distanceToUse > secondR) {
+              fasterMode();
+              moveRight();
+            } else if(isWithin72 && distanceToUse > firstR) {
               walkingMode();
               moveRight();
-            } else if(isWithin72 && distanceToUse < secondR * -1) {
+            } else if(isWithin72 && distanceToUse < thirdR * -1) {
               sprintMode();
+              moveLeft();
+            } else if(isWithin72 && distanceToUse < secondR * -1) {
+              fasterMode();
               moveLeft();
             } else if(isWithin72 && distanceToUse < firstR * -1) {
               walkingMode();

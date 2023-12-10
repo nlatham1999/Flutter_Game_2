@@ -82,14 +82,24 @@ class Player extends Unit {
     }
 
     if(gameController.keyPressed.contains("sprint_mode")){
+      movingSpeed = 3;
+    }else if (gameController.keyPressed.contains("faster_mode")){
       movingSpeed = 2;
-    }else{
+    }else {
       movingSpeed = 1;
     }
   }
 
   void moveRight(GameController gameController){
-    for(int i = 0; i < movingSpeed * gameController.gameMap.unitOfSpeedNormal(); i++) {
+    int speed = 0;
+    if(movingSpeed == 1) {
+      speed = gameController.gameMap.unitOfSpeedNormal();
+    }else if(movingSpeed == 2) {
+      speed = gameController.gameMap.unitOfSpeedFaster();
+    }else if(movingSpeed == 3) {
+      speed = gameController.gameMap.unitOfSpeedSpeedy();
+    }
+    for(int i = 0; i < speed; i++) {
     Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
     switch (spriteRight.type) {
       case "air":
@@ -105,7 +115,15 @@ class Player extends Unit {
   }
 
   void moveLeft(GameController gameController){
-    for(int i = 0; i < movingSpeed *  gameController.gameMap.unitOfSpeedNormal(); i++){
+    int speed = 0;
+    if(movingSpeed == 1) {
+      speed = gameController.gameMap.unitOfSpeedNormal();
+    }else if(movingSpeed == 2) {
+      speed = gameController.gameMap.unitOfSpeedFaster();
+    }else if(movingSpeed == 3) {
+      speed = gameController.gameMap.unitOfSpeedSpeedy();
+    }
+    for(int i = 0; i < speed; i++){
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");
       switch (spriteLeft.type) {
         case "air":

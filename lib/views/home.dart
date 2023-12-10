@@ -201,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
               child:Center(
                 child: AlertDialog(
                   title: const Text("Welcome"),
-                  content: Text("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n \nMove Left: Tap left side of the screen\nMove Right Tap right side of the screen\nJump: Tap top of the screen\nJump+Move Left: Tap upper left side of the screen\nJump+Move Right: Tap upper right side of the screen.\n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey.",),
+                  content: const Text(kStartText,),
                   actions: [
                     ElevatedButton(
                       onPressed: () {
