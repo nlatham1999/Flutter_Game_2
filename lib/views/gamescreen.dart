@@ -230,7 +230,7 @@ class _GameScreenState extends State<GameScreen> {
 
             double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
 
-            double firstR = size.width / 5;
+            double firstR = size.width / 7.5;
             double secondR = size.width / 2.5;
 
             // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
