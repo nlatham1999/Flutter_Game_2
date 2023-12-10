@@ -22,8 +22,8 @@ class CirclePainter extends CustomPainter {
         ..style = PaintingStyle.fill;
 
       // Rectangle bounds for the circles
-      final rectLargeCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 5);
-      final rectSmallCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 10);
+      final rectLargeCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 2.5);
+      final rectSmallCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 5);
 
       // Draw arc for both circles (-60 to 60 degrees)
       // canvas.drawArc(rectLargeCircle, 0 * pi / 180, 60 * pi / 180, true, paint);

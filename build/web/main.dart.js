@@ -57003,42 +57003,32 @@ r.CW=s
 return A.bZ([!0,s],t.K)},
 $S:46}
 A.a34.prototype={
-$1(a){var s,r,q,p,o,n="sprint_mode",m=this.a,l=a.d,k=m.cx=l.a3(0,m.CW)
-m.cy=l
-s=Math.atan2(k.b,k.a)*180/3.141592653589793
+$1(a){var s,r,q,p,o,n,m,l="sprint_mode",k=this.a,j=a.d,i=k.cx=j.a3(0,k.CW)
+k.cy=j
+s=Math.atan2(i.b,i.a)*180/3.141592653589793
 r=s>=-72&&s<=72||s>=108||s<=-108
 q=s<=-36&&s>=-144
-p=Math.sqrt(Math.pow(m.cx.a,2)+Math.pow(m.cx.b,2))
-if(q){l=m.y
-l===$&&A.d()
-l=p>l.b/10}else l=!1
-if(l)m.Fv()
-o=m.cx.a<0?-1*p:p
-if(r){l=m.y
-l===$&&A.d()
-l=o>l.a/5}else l=!1
-if(l){l=m.x
-l===$&&A.d()
-l.cx.C(0,n)
-m.wn()}else{if(r){l=m.y
-l===$&&A.d()
-l=o>l.a/10}else l=!1
-if(l){l=m.x
-l===$&&A.d()
-l.cx.A(0,n)
-m.wn()}else{if(r){l=m.y
-l===$&&A.d()
-l=o<l.a/5*-1}else l=!1
-if(l){l=m.x
-l===$&&A.d()
-l.cx.C(0,n)
-m.wm()}else{if(r){l=m.y
-l===$&&A.d()
-l=o<l.a/10*-1}else l=!1
-if(l){l=m.x
-l===$&&A.d()
-l.cx.A(0,n)
-m.wm()}else m.qG()}}}},
+p=Math.sqrt(Math.pow(k.cx.a,2)+Math.pow(k.cx.b,2))
+j=k.y
+j===$&&A.d()
+j=j.b
+o=j/5
+n=j/2.5
+if(q&&p>o)k.Fv()
+m=k.cx.a<0?-1*p:p
+if(r&&m>n){j=k.x
+j===$&&A.d()
+j.cx.C(0,l)
+k.wn()}else if(r&&m>o){j=k.x
+j===$&&A.d()
+j.cx.A(0,l)
+k.wn()}else if(r&&m<n*-1){j=k.x
+j===$&&A.d()
+j.cx.C(0,l)
+k.wm()}else if(r&&m<n*-1){j=k.x
+j===$&&A.d()
+j.cx.A(0,l)
+k.wm()}else k.qG()},
 $S:14}
 A.a32.prototype={
 $1(a){var s,r=this.a
@@ -57304,8 +57294,8 @@ q.sai(0,A.aX(204,255,255,255))
 q.sck(0,B.Y)
 s=m.b
 p=m.e.a
-o=A.CQ(s,p/5)
-n=A.CQ(s,p/10)
+o=A.CQ(s,p/2.5)
+n=A.CQ(s,p/5)
 a.fb(o,2.5132741228718345,4.39822971502571,!0,r)
 a.fb(n,2.5132741228718345,4.39822971502571,!0,r)
 a.fb(o,5.026548245743669,0.6283185307179586,!0,r)

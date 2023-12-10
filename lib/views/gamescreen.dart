@@ -230,9 +230,11 @@ class _GameScreenState extends State<GameScreen> {
 
             double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
 
+            double firstR = size.height / 5;
+            double secondR = size.height / 2.5;
 
             // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
-            if(isWithin72upward && polarDistance > size.height / 10){
+            if(isWithin72upward && polarDistance > firstR){
               jump();
             };
 
@@ -243,17 +245,16 @@ class _GameScreenState extends State<GameScreen> {
               distanceToUse =  polarDistance;
             }
 
-
-           if(isWithin72 && distanceToUse > size.width / 5) {
+           if(isWithin72 && distanceToUse > secondR) {
               sprintMode();
               moveRight();
-            }else if(isWithin72 && distanceToUse > size.width / 10) {
+            }else if(isWithin72 && distanceToUse > firstR) {
               walkingMode();
               moveRight();
-            } else if(isWithin72 && distanceToUse < (size.width / 5) * -1) {
+            } else if(isWithin72 && distanceToUse < secondR * -1) {
               sprintMode();
               moveLeft();
-            } else if(isWithin72 && distanceToUse < size.width / 10 * -1) {
+            } else if(isWithin72 && distanceToUse < secondR * -1) {
               walkingMode();
               moveLeft();
             } else {
