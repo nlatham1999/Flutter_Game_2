@@ -19,9 +19,19 @@ class Signage extends Unit {
       return 'assets/signage_grass.png';
     } else if (signageType == "grass_large") {
       return 'assets/signage_grass_large.png';
+    }else if (signageType == "grass_hidden") {
+      return 'assets/grass1x1.png';
     } else {
       throw Exception("This signage type has not been implemented");
     }
+  }
+
+  @override
+  double getOpacity(){
+    if (signageType == "grass_hidden"){
+      return .7;
+    } 
+    return 1;
   }
 
   @override

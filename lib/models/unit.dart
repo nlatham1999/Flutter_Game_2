@@ -45,6 +45,10 @@ class Unit {
     required this.height
   });
 
+  double getOpacity() {
+    return 1;
+  }
+
   void doAction(GameController gameController){
     throw Exception("not implemented ${{type}}");
   }

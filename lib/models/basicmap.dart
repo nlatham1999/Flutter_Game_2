@@ -193,6 +193,9 @@ class BasicMap extends GameMap {
           case "&":
             cell.add(Signage(signageType: "grass_large", type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
+          case "!":
+            cell.add(Signage(signageType: "grass_hidden", type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
+            break;
           default:
         }
         row.add(cell);

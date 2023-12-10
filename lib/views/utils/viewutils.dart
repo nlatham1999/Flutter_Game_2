@@ -60,10 +60,14 @@ class ViewUtils {
             child: SizedBox(
               width: boxWidth,
               height: height * unit.height / kCellSize,
-              child: Image.asset(
-                getPositionedImage(unit), // Replace with the actual image path
-                fit:
-                    BoxFit.contain, // Adjust the image within the specified box
+              child: Opacity(
+                opacity: unit.getOpacity(),
+                child: Image.asset(
+                  getPositionedImage(unit),
+                  // Replace with the actual image path
+                  fit:
+                      BoxFit.contain, // Adjust the image within the specified box
+                ),
               ),
             ),
           );
