@@ -230,8 +230,8 @@ class _GameScreenState extends State<GameScreen> {
 
             double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
 
-            double firstR = size.height / 5;
-            double secondR = size.height / 2.5;
+            double firstR = size.width / 5;
+            double secondR = size.width / 2.5;
 
             // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
             if(isWithin72upward && polarDistance > firstR){
@@ -254,7 +254,7 @@ class _GameScreenState extends State<GameScreen> {
             } else if(isWithin72 && distanceToUse < secondR * -1) {
               sprintMode();
               moveLeft();
-            } else if(isWithin72 && distanceToUse < secondR * -1) {
+            } else if(isWithin72 && distanceToUse < firstR * -1) {
               walkingMode();
               moveLeft();
             } else {
@@ -276,13 +276,18 @@ class _GameScreenState extends State<GameScreen> {
                 children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
               ),
             ),
-            CustomPaint(
-                painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
+            Visibility(
+              visible: _isPanning,
+              child: 
+                CustomPaint(
+                  painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
+                  child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
                 ),
-              ),
+            ),
+            
             infoButton(),
             topBar(),
             // jumpButton(),
