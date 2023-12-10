@@ -81,7 +81,9 @@ class Player extends Unit {
       gameController.keyPressed.remove("fire_trigger");
     }
 
-    if(gameController.keyPressed.contains("sprint_mode")){
+    if(gameController.keyPressed.contains("slow_mode")){
+      movingSpeed = 4;
+    }else if(gameController.keyPressed.contains("sprint_mode")){
       movingSpeed = 3;
     }else if (gameController.keyPressed.contains("faster_mode")){
       movingSpeed = 2;
@@ -98,6 +100,8 @@ class Player extends Unit {
       speed = gameController.gameMap.unitOfSpeedFaster();
     }else if(movingSpeed == 3) {
       speed = gameController.gameMap.unitOfSpeedSpeedy();
+    }else if(movingSpeed == 4) {
+      speed = gameController.gameMap.unitOfSpeedSlow();
     }
     for(int i = 0; i < speed; i++) {
     Unit spriteRight = gameController.gameMap.getPotentialCollision(this, "RIGHT");
@@ -122,6 +126,8 @@ class Player extends Unit {
       speed = gameController.gameMap.unitOfSpeedFaster();
     }else if(movingSpeed == 3) {
       speed = gameController.gameMap.unitOfSpeedSpeedy();
+    }else if(movingSpeed == 4) {
+      speed = gameController.gameMap.unitOfSpeedSlow();
     }
     for(int i = 0; i < speed; i++){
       Unit spriteLeft = gameController.gameMap.getPotentialCollision(this, "LEFT");

@@ -142,18 +142,28 @@ class _GameScreenState extends State<GameScreen> {
   void fasterMode(){
     _gameController.keyPressed.add("faster_mode");
     _gameController.keyPressed.remove("sprint_mode");
+    _gameController.keyPressed.remove("slow_mode");
   }
 
   void sprintMode(){
     // _gameController.movingSpeed = 2;
     _gameController.keyPressed.add("sprint_mode");
     _gameController.keyPressed.remove("faster_mode");
+    _gameController.keyPressed.remove("slow_mode");
+  }
+  
+  void slowMode(){
+    // _gameController.movingSpeed = 2;
+    _gameController.keyPressed.add("slow_mode");
+    _gameController.keyPressed.remove("faster_mode");
+    _gameController.keyPressed.remove("sprint_mode");
   }
 
   void walkingMode(){
     // _gameController.movingSpeed = 1;
     _gameController.keyPressed.remove("sprint_mode");
     _gameController.keyPressed.remove("faster_mode");
+    _gameController.keyPressed.remove("slow_mode");
   }
 
   void releaseAll(){
@@ -237,6 +247,7 @@ class _GameScreenState extends State<GameScreen> {
 
             double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
 
+            double slowR = size.width / 12;
             double firstR = size.width / 7.5;
             double secondR = size.width / 4;
             double thirdR = size.width / 2.5;
@@ -262,6 +273,9 @@ class _GameScreenState extends State<GameScreen> {
             } else if(isWithin72 && distanceToUse > firstR) {
               walkingMode();
               moveRight();
+            } else if(isWithin72 && distanceToUse > slowR) {
+              slowMode();
+              moveRight();
             } else if(isWithin72 && distanceToUse < thirdR * -1) {
               sprintMode();
               moveLeft();
@@ -270,6 +284,9 @@ class _GameScreenState extends State<GameScreen> {
               moveLeft();
             } else if(isWithin72 && distanceToUse < firstR * -1) {
               walkingMode();
+              moveLeft();
+            } else if(isWithin72 && distanceToUse < slowR * -1) {
+              slowMode();
               moveLeft();
             } else {
               releaseAll();

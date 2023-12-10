@@ -25,6 +25,7 @@ class CirclePainter extends CustomPainter {
       final rectLargeCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 2.5);
       final rectMediumCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 3.5);
       final rectSmallCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 7.5);
+      final rectTinyCircle = Rect.fromCircle(center: startPosition!, radius: screenSize.width / 12.0);
 
       // Draw arc for both circles (-60 to 60 degrees)
       // canvas.drawArc(rectLargeCircle, 0 * pi / 180, 60 * pi / 180, true, paint);
@@ -33,14 +34,17 @@ class CirclePainter extends CustomPainter {
       canvas.drawArc(rectLargeCircle, 144 * pi / 180, 252 * pi / 180, true, paint);
       canvas.drawArc(rectMediumCircle, 144 * pi / 180, 252 * pi / 180, true, paint);
       canvas.drawArc(rectSmallCircle, 144 * pi / 180, 252 * pi / 180, true, paint);
+      canvas.drawArc(rectTinyCircle, 144 * pi / 180, 252 * pi / 180, true, paint);
 
       canvas.drawArc(rectLargeCircle, 288 * pi / 180, 36 * pi / 180, true, paint);
       canvas.drawArc(rectMediumCircle, 288 * pi / 180, 36 * pi / 180, true, paint);
       canvas.drawArc(rectSmallCircle, 288 * pi / 180, 36 * pi / 180, true, paint);
+      canvas.drawArc(rectTinyCircle, 288 * pi / 180, 36 * pi / 180, true, paint);
       
       canvas.drawArc(rectLargeCircle, 216 * pi / 180, 36 * pi / 180, true, paint);
       canvas.drawArc(rectMediumCircle, 216 * pi / 180, 36 * pi / 180, true, paint);
       canvas.drawArc(rectSmallCircle, 216 * pi / 180, 36 * pi / 180, true, paint);
+      canvas.drawArc(rectTinyCircle, 216 * pi / 180, 36 * pi / 180, true, paint);
 
       canvas.drawCircle(currentPosition!, screenSize.width / 30, paint3);
     }
