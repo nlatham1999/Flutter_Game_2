@@ -36,6 +36,9 @@ class GameController  extends ChangeNotifier{
   double offsetY;
   Size screenSize;
 
+  int playerStartX = -1;
+  int playerStartY = -1;
+
   String gameOverText = "";
 
   late int distanceTraveled;
@@ -124,7 +127,8 @@ class GameController  extends ChangeNotifier{
 
     gameStarted = false;
     distanceTraveled = 0;
-    gameMap = BasicMap(mapTemplate: level.mapTemplate);
+    gameMap = BasicMap(mapTemplate: level.mapTemplate, startX: playerStartX, startY: playerStartY);
+
 
 
     viewMapLeft = 0;

@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     
     super.initState();
-    sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate);
+    sampleMap = BasicMap(mapTemplate: sampleLevel.mapTemplate, startX: -1, startY: -1);
    
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);

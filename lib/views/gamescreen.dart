@@ -33,6 +33,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   late Level _level;
   late Timer _timer;
+  late Timer _countdownTimer;
   bool _gameOver = false;
   bool _initialLoad = true;
   bool _showAboutGame = false;
@@ -49,6 +50,8 @@ class _GameScreenState extends State<GameScreen> {
   Offset _distanceDragged = Offset(0, 0);
   Offset _currentPosition = Offset(0, 0);
   bool _isPanning = false;
+  int _initialCountdown = 3;
+  bool _isCountingDown = false;
 
   String mapAsString = "";
 
@@ -61,6 +64,7 @@ class _GameScreenState extends State<GameScreen> {
     mapAsString = _gameController.level.mapTemplate.join("\n");
     _buttonsPositions = ButtonsPositions(_gameController.offsetY + (_gameController.cellHeight * 17), _gameController.offsetX, (_gameController.viewMapWidth + 1) * _gameController.cellWidth, size);
     _startTimer();
+    _startCountdownTimer();
     moveRightReleased();
   }
 
@@ -69,6 +73,26 @@ class _GameScreenState extends State<GameScreen> {
     _stopTimer();
     super.dispose();
   }
+
+  void _startCountdownTimer(){
+    _initialCountdown = 3;
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if(!_isCountingDown){
+        return;
+      }
+      setState(() {
+        _initialCountdown -= 1;
+        if(_initialCountdown == 0){
+          _gameController.gameStarted = true;
+          _countdownTimer.cancel();
+          _initialCountdown = 0; 
+          _isCountingDown = false;
+        }
+      });
+     });
+  }
+
+
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 25), (timer) {
@@ -96,6 +120,9 @@ class _GameScreenState extends State<GameScreen> {
   void _stopTimer() {
     if (_timer != null) {
       _timer.cancel();
+    }
+     if (_countdownTimer != null) {
+      _countdownTimer.cancel();
     }
   }
 
@@ -182,16 +209,14 @@ class _GameScreenState extends State<GameScreen> {
       }
   }
 
-  void restartGame({bool startGame = false}){
+  void restartGame(){
     setState(() {
       _duration = 0;
       _gameController.reset();
       _gameOver = false;
       _level.finished = false;
-      if(startGame){
-        _gameController.gameStarted = true;
-      }
-      // _gameController.gameStarted = true;
+      _isCountingDown = true;
+      _startCountdownTimer();
     });
   }
 
@@ -321,6 +346,7 @@ class _GameScreenState extends State<GameScreen> {
             
             infoButton(),
             topBar(),
+            countDownText(),
             // jumpButton(),
             // fireButton(),
             // leftWalkButton(),
@@ -388,6 +414,24 @@ class _GameScreenState extends State<GameScreen> {
           });
         }, 
       )
+    );
+  }
+
+  Visibility countDownText(){
+    return Visibility(
+      visible: _isCountingDown,
+      child: Positioned(
+        height: size.height,
+        width: size.width,
+        child: Center (
+          child: Text(
+            _initialCountdown.toString(),
+            textAlign: TextAlign.center,
+            
+            style: TextStyle(color: Colors.white, fontSize: size.shortestSide / 8),
+          )
+        )
+      ),
     );
   }
 
@@ -694,7 +738,7 @@ class _GameScreenState extends State<GameScreen> {
             TextButton(
               onPressed: () {
                 
-                restartGame(startGame: true);
+                restartGame();
               },
               child: Text("Restart"), //, style: TextStyle(fontSize: size.height < size.width ? 20 : size.width / 20),),
             ),
@@ -727,6 +771,7 @@ class _GameScreenState extends State<GameScreen> {
                 TextButton(
                   onPressed: () {
                     restartGame();
+                    _menuPressed = false;
                   },
                   child: const Text("Restart Game"),
                 ),
@@ -771,7 +816,7 @@ class _GameScreenState extends State<GameScreen> {
               onPressed: () {
                 setState(() {
                   _initialLoad = false;
-                  _gameController.gameStarted = true;
+                  _isCountingDown = true;
                   releaseAll();
                 });
               },

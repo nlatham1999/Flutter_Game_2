@@ -5,6 +5,7 @@ import 'package:monster_maze/models/map.dart';
 import 'package:monster_maze/models/unit.dart';
 import 'package:monster_maze/models/units/airunit.dart';
 import 'package:monster_maze/models/units/bombcharged.dart';
+import 'package:monster_maze/models/units/checkpoint.dart';
 import 'package:monster_maze/models/units/jumperdown.dart';
 import 'package:monster_maze/models/units/jumperup.dart';
 import 'package:monster_maze/models/units/monsterdead.dart';
@@ -70,7 +71,11 @@ class BasicMap extends GameMap {
   Unit airUnit = Air(type: "air", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize);
   Unit outOfBoundsUnit = OutOfBounds(type: "-1", x: 0, y: 0, offsetX: 0, offsetY: 0, width: 0, height: 0);
 
-  BasicMap({required this.mapTemplate }){
+
+  int startX;
+  int startY;
+
+  BasicMap({required this.mapTemplate, required this.startX, required this.startY}){
     buildMapFromTemplate();
 
     buildCollisionMap();
@@ -78,6 +83,8 @@ class BasicMap extends GameMap {
 
   void buildMapFromTemplate(){
     map = [];
+    int playerX = 0;
+    int playerY = 0;
     for(int i = 0; i < mapTemplate.length; i++){
       List<List<Unit>> row = [];
       for(int j = 0; j < mapTemplate[i].length; j++){
@@ -169,8 +176,16 @@ class BasicMap extends GameMap {
             cell.add(MonsterRight(type: "monster_right", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
           case "p":
-            player = Player(type: "player", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
-            cell.add(player);
+            playerX = j;
+            playerY = i;
+            if(startX != -1) {
+              playerX = startX;
+            }
+            if(startY != -1) {
+              playerY = startY;
+            }
+            // player = Player(type: "player", x: playerX, y: playerY, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
+            // cell.add(player);
             break;
           case "r":
             cell.add(Unit(type: "brick", x: j, y: i, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
@@ -196,12 +211,18 @@ class BasicMap extends GameMap {
           case "!":
             cell.add(Signage(signageType: "grass_hidden", type: "signage", x: 0, y: 0, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize));
             break;
+          case "+":
+            cell.add(Checkpoint(type: "checkpoint", x: j, y: i, offsetX: 2, offsetY: 4, width: kCellSize ~/ 2, height: kCellSize ~/ 2));
+            break;
           default:
         }
         row.add(cell);
       }
       map.add(row);
     }
+    
+    player = Player(type: "player", x: playerX, y: playerY, offsetX: 0, offsetY: 0, width: kCellSize, height: kCellSize); 
+    map[playerY][playerX].add(player);
   }
 
   void buildCollisionMap(){
@@ -219,7 +240,7 @@ class BasicMap extends GameMap {
       for(int j = 0; j < map[i].length; j++){
         for(int k = 0; k < map[i][j].length; k++){
           Unit unit = map[i][j][k];
-          if(unit.type == "signage" || unit.type == "fireball_powerup"){
+          if(unit.type == "signage" || unit.type == "fireball_powerup" || unit.type == "checkpoint"){
             continue; //we don't want to add signage to the collision map
           }
           for(int m = 0; m < unit.height; m++){

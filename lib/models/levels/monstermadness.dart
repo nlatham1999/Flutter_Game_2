@@ -58,7 +58,7 @@ class MonsterMadness extends Level {
     "aaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaaaaaaaaaaaaaaaaaa",
     "aaaaaaaaamaaaaaaaaaaaaaaa",
-    "aaaaaaaaaaaaaaaaamaaaaaaa",
+    "aaaaaaaaaaaaaaaaam+aaaaaa",
     "paaaaggggg^^aaaaa^gaamaga",
     "aaagggaaaggg&&&&&gggggggg",
     "gggggaaaaaggggggggggggggg",
