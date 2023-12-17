@@ -4,9 +4,13 @@ import '../../constants.dart';
 import '../unit.dart';
 
 class JumperUp extends Unit {
+
+  int riseCount = 1;
+  int riseMax = 48;
+
   JumperUp({required super.type, required super.x, required super.y, required super.offsetX, required super.offsetY, required super.width, required super.height}){
     value_1 = 1;
-    value_2 = 48;
+    value_2 = 10;
   }
     
   @override
@@ -17,13 +21,13 @@ class JumperUp extends Unit {
   @override
   void doAction(GameController gameController) {
 
-    if(value_1 == 0){
-      value_1 = 1;
+    if(riseCount == 0){
+      riseCount = 1;
     }
 
-    if(value_1 == value_2){
+    if(riseCount >= riseMax){
       gameController.queueUnitTypeChange(this, "jumper_falling");
-      value_1 = 1;
+      riseCount = 1;
       return;
     }
 
@@ -38,6 +42,6 @@ class JumperUp extends Unit {
           return;
       }
     }
-    value_1 ++;
+    riseCount ++;
   }
 }

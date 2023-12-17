@@ -17920,9 +17920,10 @@ _.ax=!1
 _.ay=0},
 ad3(a,b,c,d,e,f,g){var s=new A.AX(d,f,g,b,c,e,a)
 s.x=1
-s.y=48
+s.y=10
 return s},
 AX:function AX(a,b,c,d,e,f,g){var _=this
+_.cy=1
 _.a=a
 _.b=b
 _.c=c
@@ -56510,10 +56511,9 @@ p.x=1
 return}++s}--p.x}}
 A.AX.prototype={
 bX(){return"assets/jumper.png"},
-bK(a){var s,r=this,q="jumper_falling",p=r.x
-if(p===0)p=r.x=1
-if(p===r.y){a.cy.l(0,r,q)
-r.x=1
+bK(a){var s,r=this,q="jumper_falling",p=r.cy
+if((p===0?r.cy=1:p)>=48){a.cy.l(0,r,q)
+r.cy=1
 return}s=0
 while(!0){p=a.a
 p===$&&A.c()
@@ -56521,7 +56521,7 @@ if(!(s<1))break
 switch(p.bD(r,"UP").a){case"air":a.a.iD(r)
 break
 default:a.cy.l(0,r,q)
-return}++s}++r.x}}
+return}++s}++r.cy}}
 A.qZ.prototype={
 bX(){return"assets/log.png"},
 gkZ(){return!0},
@@ -57418,7 +57418,7 @@ A.kY(this.a).iL(s)},
 $S:0}
 A.a4w.prototype={
 $1(a){var s="aaaaaaaaaaaaaaaaaaaaaaaaa",r="ggggggggggggggggggggggggg",q=u.R,p=t.s
-p=new A.Un(A.a(["","","","","","","","","","","","","","","",""],p),A.a([s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaamaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaam+aaaaaa","paaaaggggg^^aaaaa^gaamaga","aaagggaaaggg&&&&&gggggggg","gggggaaaaaggggggggggggggg"],p),A.a([s,s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaaagaggag","aaaaaaaaaaggaaaaaaggaaasa","ajaaaaggaaggaaggaaaaagaaa","ggggaaggaaggaaggaaggggggg"],p),A.a([s,s,s,s,s,"aaaaaaaaaaaaaaaaaaaaa1aaa","aaaaaaaaaagLaaaagaaaagaaa",s,"aaaaaaagaaaaaaaaaaaaaaaaa",s,"aaaaaaaaaagaaaaaaaaaaaaaa",s,"gaggaaagaaaaaaaaaaaaaaaaa","aaaaaaaamaamamaaabababaaa","aaagg&&&&&&&&&&&ggggggaaa",r],p),A.a([s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaajaaaaaa","aaaaaaaaggggaaaaagggaaaaa","aaaaaagagggiaaaaaaaaaaaaa","aaaggggagaaasaaaagggaaaaa","aagggggaaaaaaaaaagggggggg",r],p),A.a([s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaaagaaaga","aamamamamaagaaaaaaaaaaaaa","a^^^^^^^^^gggaaaaaaaaaaaa","ggggggggggggggglaaaaaaaaa","ggggggggggggggggaaaaaaaaa"],p),A.a([s,s,"aaaaawaaaaaaaaaaaaaaaaaaa",s,"aaaaaaaaaawaaaaaaaaaaaaaa",s,s,s,s,s,"aaaaaaaaaaaaaaaaaaaaagaaa","aaggaaaaaaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaagaaaaaa","aaaaaaaaaaaaaaagaaaaaaaaa","aaaaajaajaajaaaamaamaaaaa","aaagggggggggggggggggggggg"],p),A.a([q,q,q,q,q,q,q,q,u.C,u.q,u.l,u.K,u.J,u.T,u.j],p))
+p=new A.Un(A.a(["","","","","","","","","","","","","","","",""],p),A.a([s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaamaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaamaaaaaaa","paaaaggggg^^aaaaa^gaamaga","aaagggaaaggg&&&&&gggggggg","gggggaaaaaggggggggggggggg"],p),A.a([s,s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaaagaggag","aaaaaaaaaaggaaaaaaggaaasa","ajaaaaggaaggaaggaaaaagaaa","ggggaaggaaggaaggaaggggggg"],p),A.a([s,s,s,s,s,"aaaaaaaaaaaaaaaaaaaaa1aaa","aaaaaaaaaagLaaaagaaaagaaa",s,"aaaaaaagaaaaaaaaaaaaaaaaa",s,"aaaaaaaaaagaaaaaaaaaaaaaa",s,"gaggaaagaaaaaaaaaaaaaaaaa","aaaaaaaamaamamaaabababaaa","aaagg&&&&&&&&&&&ggggggaaa",r],p),A.a([s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaajaaaaaa","aaaaaaaaggggaaaaagggaaaaa","aaaaaagagggiaaaaaaaaaaaaa","aaaggggagaaasaaaagggaaaaa","aagggggaaaaaaaaaagggggggg",r],p),A.a([s,s,s,s,s,s,s,s,s,s,s,"aaaaaaaaaaaaaaaaaaagaaaga","aamamamamaagaaaaaaaaaaaaa","a^^^^^^^^^gggaaaaaaaaaaaa","ggggggggggggggglaaaaaaaaa","ggggggggggggggggaaaaaaaaa"],p),A.a([s,s,"aaaaawaaaaaaaaaaaaaaaaaaa",s,"aaaaaaaaaawaaaaaaaaaaaaaa",s,s,s,s,s,"aaaaaaaaaaaaaaaaaaaaagaaa","aaggaaaaaaaaaaaaaaaaaaaaa","aaaaaaaaaaaaaaaaaagaaaaaa","aaaaaaaaaaaaaaagaaaaaaaaa","aaaaajaajaajaaaamaamaaaaa","aaagggggggggggggggggggggg"],p),A.a([q,q,q,q,q,q,q,q,u.C,u.q,u.l,u.K,u.J,u.T,u.j],p))
 p.Le()
 return new A.f8(p,null)},
 $S:31}
