@@ -60,7 +60,7 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
     size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size;
     _level = widget.level;
-    _gameController = GameController(offsetY: 40, screenSize: size, level: _level);
+    _gameController = GameController(screenSize: size, level: _level);
     mapAsString = _gameController.level.mapTemplate.join("\n");
     _buttonsPositions = ButtonsPositions(_gameController.offsetY + (_gameController.cellHeight * 17), _gameController.offsetX, (_gameController.viewMapWidth + 1) * _gameController.cellWidth, size);
     _startTimer();

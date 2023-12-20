@@ -27,6 +27,9 @@ class ViewUtils {
     ];
 
     offsetX -= width / 2;
+    if(offsetX < 0) {
+      offsetX = 0;
+    }
 
     int vL = viewMapLeft ~/ kCellSize;
     // if(vL > 0){

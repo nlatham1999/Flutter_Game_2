@@ -13,7 +13,7 @@ class FireballMonster extends Unit {
   @override
    bool playerHittingFromBelowAction(GameController gameController){
     gameController.gameOver = true;
-    gameController.gameOverText = "You hit a fireball :(";
+    gameController.gameOverText = "You ran into a fireball :(";
     return true;
   }
   

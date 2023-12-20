@@ -70,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     int numSampleCells = size.width ~/ 32;
 
     HomeScreenButtonPositions buttonpos = HomeScreenButtonPositions(size);
+    double fontSize =  size.width / 20;
 
     return Scaffold(
       backgroundColor: Colors.blue,
@@ -119,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: true, seed: _dateNum),)),
                       );
                     } : null,
-                    child: const Text("Play Daily Challenge", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: Text("Play Daily Challenge", style: TextStyle(color: Colors.white, fontSize: fontSize),),
                   )
                 ),
 
@@ -134,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: LevelDynamic(useSeed: false, seed: 0),)),
                       );
                     } : null,
-                    child: const Text("Play Random Game", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: Text("Play Random Game", style: TextStyle(color: Colors.white, fontSize: fontSize),),
                   )
                 ),
                 // Positioned(
@@ -161,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: SkyJump(),)),
                       );
                     },
-                    child: const Text("Sky Jump", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: Text("Sky Jump", style: TextStyle(color: Colors.white, fontSize: fontSize),),
                   )
                 ),
                 
@@ -176,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: SpookyCave(),)),
                       );
                     },
-                    child: const Text("The Spooooky Cave", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: Text("The Spooooky Cave", style: TextStyle(color: Colors.white, fontSize: fontSize),),
                   )
                 ),
                 
@@ -191,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         MaterialPageRoute(builder: (context) => GameScreen(level: MonsterMadness(),)),
                       );
                     },
-                    child: const Text("Monster Madness", style: TextStyle(color: Colors.white, fontSize: 20),),
+                    child: Text("Monster Madness", style: TextStyle(color: Colors.white, fontSize: fontSize),),
                   )
                 ),
               ],

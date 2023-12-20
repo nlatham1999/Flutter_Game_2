@@ -33,7 +33,7 @@ class GameController  extends ChangeNotifier{
   late double cellHeight;
 
   late double offsetX;
-  double offsetY;
+  late double offsetY;
   Size screenSize;
 
   int playerStartX = -1;
@@ -54,73 +54,78 @@ class GameController  extends ChangeNotifier{
   Set<String> keyPressed = {};
 
   GameController({
-    required this.offsetY,
     required this.screenSize,
     required this.level,
   }){
 
     viewMapWidth = kNumCellsWidth;
-    int viewMapHeight = 16;
 
-    int divisor = viewMapWidth;
-    if(screenSize.height < screenSize.width){
-      divisor = 18;
+
+    //see if changing the 
+
+    double cellSize = 0;
+    if(screenSize.width < screenSize.height) {
+      cellSize = getCellSizePotrait();
+    }else{
+      cellSize = getCellSizeLandscape();
     }
 
-    double minDimension = screenSize.shortestSide;
-
-    //additional check to make sure there is room for buttons in potrait mode
-    //there are cases where it is in potrait mode but the height is barely bigger than the width
-    //so instead of comparing height and width, we compare width and height*(2/3)
-    //so at the bare minimum there will be a third of the space left at the bottom for buttons
-    // if (screenSize.height > screenSize.width) {
-    //   if (screenSize.height * 2 / 3 < screenSize.width){
-    //     minDimension = screenSize.height * 2 / 3;
-    //   }
     // }
+    cellHeight = cellSize;
+    cellWidth = cellSize;
+    
+    offsetX = (screenSize.width - (cellSize * (viewMapWidth))) / 2;
+    offsetY = screenSize.height - (cellSize * kNumCellsHeight);
+
+    reset();
+
+    // updateViewMap();
+  }
+
+  //get the cell size in pixels
+  double getCellSizeLandscape(){
+
+    int divisor = kNumCellsHeight;
+
+    double minDimension = screenSize.shortestSide;
 
     double size = (minDimension/divisor);
     double remainder = size % kCellSize;
     double roundDown = size - remainder;
 
-    //make sure the height doesn't push everything down if we are in potrait mode
-    //calculate the max size of each s
-    if(screenSize.width < screenSize.height){
-      double twoThirds = screenSize.height;
-      double sizeY = twoThirds / viewMapHeight;
-      double remainderY = sizeY % kCellSize;
-      double roundDownY = sizeY - remainderY;
-      if(roundDownY < roundDown){
-        roundDown = roundDownY;
-      }
+    return roundDown;    
+  }
+
+  //get the cell size in pixels for potrait mode
+  double getCellSizePotrait(){
+    int viewMapHeight = 16;
+
+    int divisor = viewMapWidth;
+
+    double minDimension = screenSize.shortestSide;
+
+    double size = (minDimension/divisor);
+    double remainder = size % kCellSize;
+    double roundDown = size - remainder;
+
+    //try with the view map width shortened
+    double size2 = (minDimension/(divisor-1));
+    double remainder2 = size2 % kCellSize;
+    double roundDown2 = size2 - remainder2;
+    if(roundDown2 > roundDown){
+      roundDown = roundDown2;
+      viewMapWidth -= 1;
+    }
+    
+    double twoThirds = screenSize.height;
+    double sizeY = twoThirds / viewMapHeight;
+    double remainderY = sizeY % kCellSize;
+    double roundDownY = sizeY - remainderY;
+    if(roundDownY < roundDown){
+      roundDown = roundDownY;
     }
 
-    //see if changing the 
-
-    double cellSize = roundDown;
-    // }
-    cellHeight = cellSize;
-    cellWidth = cellSize;
-
-    //code to fit the entire screen for landscape mode
-    //not using this because we want the buttons on the side
-    // if(screenSize.height < screenSize.width){
-    //   numCellsToDisplay = screenSize.width ~/ cellWidth;
-    //   numCellsToDisplay -= 4;
-    //   if(numCellsToDisplay > 100){
-    //     numCellsToDisplay = 100;
-    //   }
-    //   if(numCellsToDisplay > level.mapTemplate[0].length - 1){
-    //     numCellsToDisplay = level.mapTemplate[0].length - 1;
-    //   }
-    //   viewMapWidth = numCellsToDisplay;
-    // }
-    
-    offsetX = (screenSize.width - (cellSize * (viewMapWidth))) / 2;
-
-    reset();
-
-    // updateViewMap();
+    return roundDown;
   }
 
   void reset(){
