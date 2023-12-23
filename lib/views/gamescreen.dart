@@ -332,17 +332,17 @@ class _GameScreenState extends State<GameScreen> {
                 children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
               ),
             ),
-            Visibility(
-              visible: _isPanning,
-              child: 
-                CustomPaint(
-                  painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
-                  child: Container(
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                ),
-            ),
+            // Visibility(
+            //   visible: _isPanning,
+            //   child: 
+            //     CustomPaint(
+            //       painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
+            //       child: Container(
+            //         height: double.infinity,
+            //         width: double.infinity,
+            //       ),
+            //     ),
+            // ),
             
             infoButton(),
             topBar(),
