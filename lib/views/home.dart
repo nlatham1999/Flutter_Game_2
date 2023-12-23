@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:monster_maze/constants.dart';
@@ -70,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     int numSampleCells = size.width ~/ 32;
 
     HomeScreenButtonPositions buttonpos = HomeScreenButtonPositions(size);
-    double fontSize =  size.width / 20;
+    double fontSize =  min(size.width / 20, 20);
 
     return Scaffold(
       backgroundColor: Colors.blue,

@@ -57349,43 +57349,44 @@ p.l(0,a4,A.ct(0,i,m,h))
 p.l(0,a5,A.ct(0,i,l,h))
 p.l(0,a6,A.ct(0,i,k,h))
 p.l(0,a7,A.ct(0,i,j,h))}g=r/20
-f=a1.w
-f===$&&A.c()
-f=A.hp(B.ag,A.aeE(f.c,32,32,0,o-512,0,q*16,q),B.au)
+f=Math.min(g,20)
+e=a1.w
+e===$&&A.c()
+e=A.hp(B.ag,A.aeE(e.c,32,32,0,o-512,0,q*16,q),B.au)
 r=A.eh(a2,A.add(B.kU,B.aj,new A.a4C(a1)),a2,a2,a2,g*2,o/15,r/8)
 o=p.i(0,a3).b
-e=p.i(0,a3).a
+g=p.i(0,a3).a
 d=p.i(0,a3).c
 c=a1.c
 c.toString
 b=t.io
 A.a9X(c,!1,b)
-o=A.eh(a2,A.f7(A.em("Play Daily Challenge",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,g,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4D(a1,a8)),a2,a2,e,a2,o,d)
-e=p.i(0,a4).b
+o=A.eh(a2,A.f7(A.em("Play Daily Challenge",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4D(a1,a8)),a2,a2,g,a2,o,d)
+g=p.i(0,a4).b
 d=p.i(0,a4).a
 c=p.i(0,a4).c
 a=a1.c
 a.toString
 A.a9X(a,!1,b)
-e=A.eh(a2,A.f7(A.em("Play Random Game",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,g,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4E(a8)),a2,a2,d,a2,e,c)
+g=A.eh(a2,A.f7(A.em("Play Random Game",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4E(a8)),a2,a2,d,a2,g,c)
 d=p.i(0,a5).b
 c=p.i(0,a5).a
 b=p.i(0,a5).c
-b=A.eh(a2,A.f7(A.em("Sky Jump",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,g,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4F(a8)),a2,a2,c,a2,d,b)
+b=A.eh(a2,A.f7(A.em("Sky Jump",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4F(a8)),a2,a2,c,a2,d,b)
 d=p.i(0,a6).b
 c=p.i(0,a6).a
 a=p.i(0,a6).c
-a=A.eh(a2,A.f7(A.em("The Spooooky Cave",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,g,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4G(a8)),a2,a2,c,a2,d,a)
+a=A.eh(a2,A.f7(A.em("The Spooooky Cave",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4G(a8)),a2,a2,c,a2,d,a)
 d=p.i(0,a7).b
 c=p.i(0,a7).a
 p=p.i(0,a7).c
 a0=t.p
-p=A.hp(B.ag,A.a([r,o,e,b,a,A.eh(a2,A.f7(A.em("Monster Madness",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,g,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4H(a8)),a2,a2,c,a2,d,p)],a0),B.au)
+p=A.hp(B.ag,A.a([r,o,g,b,a,A.eh(a2,A.f7(A.em("Monster Madness",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4H(a8)),a2,a2,c,a2,d,p)],a0),B.au)
 r=a1.a.d&&a1.f
 r=A.lD(A.iW(A.oV(A.a([A.f7(B.tX,new A.a4I(a1))],a0),B.IO,B.tV),a2,a2),r)
 o=a1.d
-e=A.X0(a2,a2,B.aO,a2,a2,!0,a2,A.ags(),B.av,a2,a2,1,B.af)
-return A.aa1(B.b0,A.hp(B.ag,A.a([f,p,r,A.lD(A.iW(A.oV(A.a([A.f7(B.ji,new A.a4J(a1))],a0),e,B.tW),a2,a2),o)],a0),B.au))}}
+g=A.X0(a2,a2,B.aO,a2,a2,!0,a2,A.ags(),B.av,a2,a2,1,B.af)
+return A.aa1(B.b0,A.hp(B.ag,A.a([e,p,r,A.lD(A.iW(A.oV(A.a([A.f7(B.ji,new A.a4J(a1))],a0),g,B.tW),a2,a2),o)],a0),B.au))}}
 A.a4C.prototype={
 $0(){var s=this.a
 s.ac(new A.a4B(s))},
