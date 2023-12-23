@@ -410,6 +410,7 @@ class _GameScreenState extends State<GameScreen> {
         child: const Icon(Icons.info_outline, color: Colors.white), 
         onPressed: () { 
           setState(() {
+            _isPanning = false;
             _gameController.gameStarted = false;
             _showAboutGame = true;
           });
@@ -444,6 +445,7 @@ class _GameScreenState extends State<GameScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           ElevatedButton(onPressed: () {setState(() {
+            _isPanning = false;
             _gameController.gameStarted = false;
             _menuPressed = true;
           });}, child: const Icon(Icons.menu)),
