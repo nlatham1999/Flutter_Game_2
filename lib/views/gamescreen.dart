@@ -410,7 +410,8 @@ class _GameScreenState extends State<GameScreen> {
         child: const Icon(Icons.info_outline, color: Colors.white), 
         onPressed: () { 
           setState(() {
-          _showAboutGame = true;
+            _gameController.gameStarted = false;
+            _showAboutGame = true;
           });
         }, 
       )
@@ -844,6 +845,7 @@ class _GameScreenState extends State<GameScreen> {
                 () {
                   setState(() {
                     _showAboutGame = false;
+                    _gameController.gameStarted = true;
                   });
                 },
                 child: const Text("Ok"),

@@ -6,7 +6,7 @@ TextSpan getAboutInfo() {
   return TextSpan(
                     children: [
                       const TextSpan(
-                        text: "Swipe Left/Right/Up to move Left/Right/Jump\n\nKeyboard Commands:\n move left: left arrow\nmove right: right arrow\njump: space\nsprint left: shift+left arrow\nsprint right: shift+right arrow\nfire: alt",
+                        text: "Swipe Left/Right/Up to move Left/Right/Jump\n\nKeyboard Commands:\nmove left: left arrow\nmove right: right arrow\njump: space\nsprint left: shift+left arrow\nsprint right: shift+right arrow\nfire: alt\n\n",
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 16,

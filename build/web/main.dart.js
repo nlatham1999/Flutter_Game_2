@@ -57236,7 +57236,10 @@ $0(){var s=this.a
 s.ac(new A.a3h(s))},
 $S:0}
 A.a3h.prototype={
-$0(){this.a.x=!0},
+$0(){var s=this.a,r=s.y
+r===$&&A.c()
+r.f=!1
+s.x=!0},
 $S:0}
 A.a3r.prototype={
 $0(){var s=this.a
@@ -57313,7 +57316,11 @@ $0(){var s=this.a
 s.ac(new A.a35(s))},
 $S:0}
 A.a35.prototype={
-$0(){this.a.x=!1},
+$0(){var s=this.a
+s.x=!1
+s=s.y
+s===$&&A.c()
+s.f=!0},
 $S:0}
 A.ie.prototype={
 aC(){return new A.HX(A.alI(),B.m)}}
@@ -61607,7 +61614,7 @@ B.Fk=new A.uj(null,null,null)
 B.jh=new A.q(!0,B.l,null,null,null,null,16,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null)
 B.Fl=new A.jI("\n\nBuilt with flutter and hosted on netlify",null,null,B.bM,B.jh)
 B.Fm=new A.jI("Made by ",null,null,B.bM,B.jh)
-B.Fn=new A.jI("Swipe Left/Right/Up to move Left/Right/Jump\n\nKeyboard Commands:\n move left: left arrow\nmove right: right arrow\njump: space\nsprint left: shift+left arrow\nsprint right: shift+right arrow\nfire: alt",null,null,B.bM,B.jh)
+B.Fn=new A.jI("Swipe Left/Right/Up to move Left/Right/Jump\n\nKeyboard Commands:\nmove left: left arrow\nmove right: right arrow\njump: space\nsprint left: shift+left arrow\nsprint right: shift+right arrow\nfire: alt\n\n",null,null,B.bM,B.jh)
 B.wg=new A.R(3506372608)
 B.tP=new A.uf(1)
 B.wK=new A.R(4294967040)
