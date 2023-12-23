@@ -57056,8 +57056,8 @@ l=l.ay
 l===$&&A.c()
 l=s+p+l}l=A.hp(B.ag,A.a([A.em(l+"\n\nClick the share button at the top to share your results!",q,q,q)],n),B.au)
 return A.lD(A.iW(A.oV(A.a([A.a09(A.em("Restart",q,q,q),new A.a3f(r)),A.a09(A.em("Main Menu",q,q,q),new A.a3g(r))],n),l,m),q,q),o)},
-Xg(){var s=this,r=s.ay,q=t.p,p=A.ach(A.a([A.a09(B.IN,new A.a3m(s)),A.a09(B.IQ,new A.a3n(s))],q),B.kv,B.c9)
-return A.lD(A.iW(A.oV(A.a([A.f7(B.ji,new A.a3o(s))],q),new A.AR(p,null),B.IP),null,null),r)},
+Xg(){var s=this,r=s.ay,q=t.p,p=A.ach(A.a([A.a09(B.IN,new A.a3m(s)),A.a09(B.IP,new A.a3n(s))],q),B.kv,B.c9)
+return A.lD(A.iW(A.oV(A.a([A.f7(B.ji,new A.a3o(s))],q),new A.AR(p,null),B.IO),null,null),r)},
 Z0(){var s=null,r=this.w,q=this.d
 q===$&&A.c()
 q=A.em(q.gnX(),s,s,s)
@@ -57383,7 +57383,7 @@ p=p.i(0,a7).c
 a0=t.p
 p=A.hp(B.ag,A.a([r,o,g,b,a,A.eh(a2,A.f7(A.em("Monster Madness",A.eO(a2,a2,B.i,a2,a2,a2,a2,a2,a2,a2,a2,f,a2,a2,a2,a2,a2,!0,a2,a2,a2,a2,a2,a2,a2,a2),a2,a2),new A.a4H(a8)),a2,a2,c,a2,d,p)],a0),B.au)
 r=a1.a.d&&a1.f
-r=A.lD(A.iW(A.oV(A.a([A.f7(B.tX,new A.a4I(a1))],a0),B.IO,B.tV),a2,a2),r)
+r=A.lD(A.iW(A.oV(A.a([A.f7(B.tX,new A.a4I(a1))],a0),B.IR,B.tV),a2,a2),r)
 o=a1.d
 g=A.X0(a2,a2,B.aO,a2,a2,!0,a2,A.ags(),B.av,a2,a2,1,B.af)
 return A.aa1(B.b0,A.hp(B.ag,A.a([e,p,r,A.lD(A.iW(A.oV(A.a([A.f7(B.ji,new A.a4J(a1))],a0),g,B.tW),a2,a2),o)],a0),B.au))}}
@@ -61540,8 +61540,8 @@ B.Ez=new A.ho(3,"hide")
 B.Lj=new A.ho(4,"remove")
 B.tG=new A.ho(5,"timeout")
 B.EA=new A.nu(null,null,null,null,null,null,null,null,null,null)
-B.IR=new A.el("tap the middle of your screen to shoot the fireball",null,null,null,null,null)
-B.EB=new A.lr(B.IR,null,null,null,null,null,null,null,null,null,null,B.kF,null,null,B.eh,B.ai,null)
+B.IQ=new A.el("tap the middle of your screen to shoot the fireball",null,null,null,null,null)
+B.EB=new A.lr(B.IQ,null,null,null,null,null,null,null,null,null,null,B.kF,null,null,B.eh,B.ai,null)
 B.tH=new A.E_(0,"permissive")
 B.Lk=new A.E_(1,"normal")
 B.EC=new A.u2(0,"criticallyDamped")
@@ -61829,13 +61829,13 @@ B.HA=new A.q(!0,B.i,null,"Roboto",null,null,null,null,null,null,null,null,null,n
 B.IL=new A.d7(B.Hk,B.It,B.Ic,B.G3,B.I4,B.Hd,B.Ix,B.Gu,B.GX,B.I_,B.FZ,B.Ie,B.I2,B.HX,B.HA)
 B.IM=new A.Ez(1,"longestLine")
 B.IN=new A.el("Restart Game",null,null,null,null,null)
-B.IO=new A.el("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n\nDrag Left or Right to move.\nDrag Up up to Jump.\nThe farther you drag the faster you go  \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint \n\nYou will encounter different dangerous elements in your journey. Good Luck.",null,null,null,null,null)
 B.ji=new A.el("Ok",null,null,null,null,null)
-B.IP=new A.el("Menu",null,null,null,null,null)
+B.IO=new A.el("Menu",null,null,null,null,null)
 B.tV=new A.el("Welcome",null,null,null,null,null)
 B.tW=new A.el("About",null,null,null,null,null)
-B.IQ=new A.el("Return to main menu",null,null,null,null,null)
+B.IP=new A.el("Return to main menu",null,null,null,null,null)
 B.tX=new A.el("Lets Play!",null,null,null,null,null)
+B.IR=new A.el("Welcome to monster maze. In this game you are a small red cube and your goal is to make it to the end of the map.\n\nDrag Left or Right to move.\nDrag Up up to Jump.\nThe farther you drag the faster you go  \n\nOn a keyboard these are the left/right arrow keys, the space bar to jump, and holding down shift + arrow key to sprint",null,null,null,null,null)
 B.Ll=new A.a0I(0,"system")
 B.tY=new A.um(0)
 B.IS=new A.um(0.5)
