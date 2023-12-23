@@ -239,110 +239,111 @@ class _GameScreenState extends State<GameScreen> {
       return Scaffold(
         
         backgroundColor: Colors.blue,
-        body: GestureDetector(
-          onTapDown: (details) => {
-            if(details.globalPosition.dx < size.width * 1 / 3){
-              // walkingMode(),
-              // moveLeft(),
-            }else if(details.globalPosition.dx > size.width * 2 / 3){
-            //   walkingMode(),
-            //   moveRight(),
-            }else{
-              fire(),
-            }
-          },
-          onPanStart: (details) => {    
-            _isPanning = true,
-            _initialPosition = details.globalPosition,
-          },
-          onPanUpdate: (details) {
-            _distanceDragged = details.globalPosition - _initialPosition;
-            
-            _currentPosition = details.globalPosition;
-  
-            // Calculate the angle in radians
-            double angle = atan2(_distanceDragged.dy, _distanceDragged.dx);
-
-            // Convert angle to degrees for easier understanding
-            double angleDegrees = angle * 180 / pi;
-
-            bool isWithin72 = (angleDegrees >= -72 && angleDegrees <= 72) || (angleDegrees >= 108 || angleDegrees <= -108);
-            
-            bool isWithin72upward = (angleDegrees <= -36 && angleDegrees >= -144);
-
-            double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
-
-            double slowR = size.width / 12;
-            double firstR = size.width / 7.5;
-            double secondR = size.width / 4;
-            double thirdR = size.width / 2.5;
-
-            // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
-            if(isWithin72upward && polarDistance > firstR){
-              jump();
-            };
-
-            double distanceToUse = 0;
-            if (_distanceDragged.dx < 0){
-              distanceToUse = -1 * polarDistance ;
-            }else{
-              distanceToUse =  polarDistance;
-            }
-
-           if(isWithin72 && distanceToUse > thirdR) {
-              sprintMode();
-              moveRight();
-            }else if(isWithin72 && distanceToUse > secondR) {
-              fasterMode();
-              moveRight();
-            } else if(isWithin72 && distanceToUse > firstR) {
-              walkingMode();
-              moveRight();
-            } else if(isWithin72 && distanceToUse > slowR) {
-              slowMode();
-              moveRight();
-            } else if(isWithin72 && distanceToUse < thirdR * -1) {
-              sprintMode();
-              moveLeft();
-            } else if(isWithin72 && distanceToUse < secondR * -1) {
-              fasterMode();
-              moveLeft();
-            } else if(isWithin72 && distanceToUse < firstR * -1) {
-              walkingMode();
-              moveLeft();
-            } else if(isWithin72 && distanceToUse < slowR * -1) {
-              slowMode();
-              moveLeft();
-            } else {
-              releaseAll();
-            }
-            
-          },
-          onPanEnd: (details) => {
-            _initialPosition = Offset.zero,
-            releaseAll(),
-            _isPanning = false,
-          },
-        child: Stack(
+        body: Stack(
           children: [
             keyboardEvents(),
-            Scaffold(
-              backgroundColor: Colors.blue,
-              body:Stack(
-                children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
+            GestureDetector(
+              onTapDown: (details) => {
+                if(details.globalPosition.dx < size.width * 1 / 3){
+                  // walkingMode(),
+                  // moveLeft(),
+                }else if(details.globalPosition.dx > size.width * 2 / 3){
+                //   walkingMode(),
+                //   moveRight(),
+                }else{
+                  fire(),
+                }
+              },
+              onPanStart: (details) => {    
+                _isPanning = true,
+                _initialPosition = details.globalPosition,
+              },
+              onPanUpdate: (details) {
+                _distanceDragged = details.globalPosition - _initialPosition;
+                
+                _currentPosition = details.globalPosition;
+      
+                // Calculate the angle in radians
+                double angle = atan2(_distanceDragged.dy, _distanceDragged.dx);
+
+                // Convert angle to degrees for easier understanding
+                double angleDegrees = angle * 180 / pi;
+
+                bool isWithin72 = (angleDegrees >= -72 && angleDegrees <= 72) || (angleDegrees >= 108 || angleDegrees <= -108);
+                
+                bool isWithin72upward = (angleDegrees <= -36 && angleDegrees >= -144);
+
+                double polarDistance = sqrt(pow(_distanceDragged.dx, 2) + pow(_distanceDragged.dy, 2));
+
+                double slowR = size.width / 12;
+                double firstR = size.width / 7.5;
+                double secondR = size.width / 4;
+                double thirdR = size.width / 2.5;
+
+                // double distanceToUseY =  ? polarDistance : _distanceDragged.dy;
+                if(isWithin72upward && polarDistance > firstR){
+                  jump();
+                };
+
+                double distanceToUse = 0;
+                if (_distanceDragged.dx < 0){
+                  distanceToUse = -1 * polarDistance ;
+                }else{
+                  distanceToUse =  polarDistance;
+                }
+
+              if(isWithin72 && distanceToUse > thirdR) {
+                  sprintMode();
+                  moveRight();
+                }else if(isWithin72 && distanceToUse > secondR) {
+                  fasterMode();
+                  moveRight();
+                } else if(isWithin72 && distanceToUse > firstR) {
+                  walkingMode();
+                  moveRight();
+                } else if(isWithin72 && distanceToUse > slowR) {
+                  slowMode();
+                  moveRight();
+                } else if(isWithin72 && distanceToUse < thirdR * -1) {
+                  sprintMode();
+                  moveLeft();
+                } else if(isWithin72 && distanceToUse < secondR * -1) {
+                  fasterMode();
+                  moveLeft();
+                } else if(isWithin72 && distanceToUse < firstR * -1) {
+                  walkingMode();
+                  moveLeft();
+                } else if(isWithin72 && distanceToUse < slowR * -1) {
+                  slowMode();
+                  moveLeft();
+                } else {
+                  releaseAll();
+                }
+                
+              },
+              onPanEnd: (details) => {
+                _initialPosition = Offset.zero,
+                releaseAll(),
+                _isPanning = false,
+              },
+              child: Scaffold(
+                backgroundColor: Colors.blue,
+                body:Stack(
+                  children: ViewUtils.getMapScreen(_gameController.gameMap.map, _gameController.cellWidth, _gameController.cellHeight, _gameController.offsetX, _gameController.offsetY, _gameController.viewMapLeft, _gameController.viewMapRight, numCellsToDisplay: _gameController.viewMapWidth),
+                ),
               ),
             ),
-            // Visibility(
-            //   visible: _isPanning,
-            //   child: 
-            //     CustomPaint(
-            //       painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
-            //       child: Container(
-            //         height: double.infinity,
-            //         width: double.infinity,
-            //       ),
-            //     ),
-            // ),
+            Visibility(
+              visible: _isPanning,
+              child: 
+                CustomPaint(
+                  painter: CirclePainter(_initialPosition, _isPanning, _currentPosition, MediaQuery.of(context).size),
+                  child: Container(
+                    height: double.infinity,
+                    width: double.infinity,
+                  ),
+                ),
+            ),
             
             infoButton(),
             topBar(),
@@ -361,7 +362,6 @@ class _GameScreenState extends State<GameScreen> {
             aboutGameAlert(),
              
           ],
-        ),
         ),
       );
     },
